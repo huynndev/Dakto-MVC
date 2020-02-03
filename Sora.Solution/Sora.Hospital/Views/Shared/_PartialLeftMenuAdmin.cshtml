@@ -1,0 +1,114 @@
+﻿@using Sora.Hospital.Infrastructure.Security;
+@{
+
+}
+<div class="pcoded-inner-navbar main-menu">
+    <div class="pcoded-navigatio-lavel">Navigation</div>
+    <ul class="pcoded-item pcoded-left-item">
+        <li class="pcoded-item" id="dashboard">
+            <a href="@Url.Action("Index","Manager")">
+                <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                <span class="pcoded-mtext">Dashboard</span>
+            </a>
+        </li>
+        <li class=" pcoded-hasmenu">
+            <a href="javascript:void(0)">
+                <span class="pcoded-micon"><i class="feather icon-file-text"></i></span>
+                <span class="pcoded-mtext">Tin tức</span>
+            </a>
+            <ul class="pcoded-submenu">
+                <li class=" " id="news-cat">
+                    <a href="@Url.Action("NewsCategory","Articles")">
+                        <span class="pcoded-mtext">Danh mục tin tức</span>
+                    </a>
+                </li>
+                <li class=" " id="news-list">
+                    <a href="@Url.Action("ArticleListing","Articles")">
+                        <span class="pcoded-mtext">Danh sách bài viết</span>
+                    </a>
+                </li>
+                @*<li class=" " id="tags-index">
+                    <a href="@Url.Action("index","Tags")">
+                        <span class="pcoded-mtext">Quản lý Tags</span>
+                    </a>
+                </li>*@
+            </ul>
+        </li>
+        <li class=" pcoded-hasmenu">
+            <a href="javascript:void(0)">
+                <span class="pcoded-micon"><i class="feather icon-image"></i></span>
+                <span class="pcoded-mtext">Nôi dung mở rộng</span>
+            </a>
+            <ul class="pcoded-submenu">
+                <li class=" " id="media-img">
+                    <a href="@Url.Action("images","media")">
+                        <span class="pcoded-mtext">Hình ảnh</span>
+                    </a>
+                </li>
+                <li class=" " id="media-video">
+                    <a href="@Url.Action("videos","media")">
+                        <span class="pcoded-mtext">Videos</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        @*}
+            @if (currentUser != null && currentUser.Permissions.Exists(x => x == SimpleCMS.Data.Models.Constants.Role.CustomerInforManagement.ToString()
+            || x == SimpleCMS.Data.Models.Constants.Role.ContactManagement.ToString()
+            || x == SimpleCMS.Data.Models.Constants.Role.ConfigManagement.ToString()))
+            {*@
+        <li class=" pcoded-hasmenu">
+            <a href="javascript:void(0)">
+                <span class="pcoded-micon"><i class="feather icon-feather"></i></span>
+                <span class="pcoded-mtext">Thông tin liên hệ</span>
+            </a>
+            <ul class="pcoded-submenu">
+                <li class="" id="contact-index">
+                    <a href="@Url.Action("Index","Contact")">
+                        <span class="pcoded-mtext">Danh sách</span>
+                    </a>
+                </li>
+                <li class=" " id="contact-new">
+                    <a href="@Url.Action("NewContact","Contact")">
+                        <span class="pcoded-mtext">Chưa xử lý</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="pcoded-hasmenu mn-main" id="expert-index">
+            <a href="/Admin/Expert/Index">
+                <span class="pcoded-micon"><i class="feather icon-users"></i></span>
+                <span class="pcoded-mtext">Danh sách chuyên gia</span>
+            </a>
+        </li>
+        <li class=" pcoded-hasmenu mn-main" id="user-list">
+            <a href="@Url.Action("index", "User")">
+                <span class="pcoded-micon"><i class="feather icon-users"></i></span>
+                <span class="pcoded-mtext">Người dùng</span>
+            </a>
+        </li>
+
+        <li class="pcoded-hasmenu">
+            <a href="javascript:void(0)">
+                <span class="pcoded-micon"><i class="feather icon-sliders"></i></span>
+                <span class="pcoded-mtext">Administrator Setting</span>
+            </a>
+            <ul class="pcoded-submenu">
+                <li class=" " id="translate">
+                    <a href="@Url.Action("Index", "Translate" , new { lang="vn" } )">
+                        <span class="pcoded-mtext">Ngôn ngữ</span>
+                    </a>
+                </li>
+                <li class=" " id="config-common">
+                    <a href="@Url.Action("Index", "CompanyConfig")">
+                        <span class="pcoded-mtext">Cài đặt chung</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+@section scripts {
+
+}

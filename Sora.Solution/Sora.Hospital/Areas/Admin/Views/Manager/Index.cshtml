@@ -1,0 +1,146 @@
+﻿@model Sora.Services.ViewModels.DashboardViewModel
+@{
+    ViewBag.Title = "Simple Admin";
+    Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
+}
+@section css{
+    <style>
+        #list-advisory-same-date {
+            display: none;
+        }
+    </style>
+}
+
+
+<!-- task, page, download counter  start -->
+<div class="row">
+    <!-- task, page, download counter  start -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-c-yellow update-card">
+            <div class="card-block px-4 py-3">
+                <div class="row align-items-end">
+                    <div class="col-8">
+                        <h4 class="text-white">@Model.NumOfCustomer</h4>
+                        <h6 class="text-white m-b-0">Khách hàng</h6>
+                    </div>
+                    <div class="col-4 text-right">
+                        <iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+                        <canvas id="update-chart-1" height="50" style="display: block; width: 48px; height: 50px;" width="48"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : @DateTime.Now.ToShortTimeString()</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-c-green update-card">
+            <div class="card-block px-4 py-3">
+                <div class="row align-items-end">
+                    <div class="col-8">
+                        <h4 class="text-white">@Model.NumOfModel</h4>
+                        <h6 class="text-white m-b-0">Mô hình thành công</h6>
+                    </div>
+                    <div class="col-4 text-right">
+                        <iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+                        <canvas id="update-chart-2" height="50" width="48" style="display: block; width: 48px; height: 50px;"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : @DateTime.Now.ToShortTimeString()</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-c-pink update-card">
+            <div class="card-block px-4 py-3">
+                <div class="row align-items-end">
+                    <div class="col-8">
+                        <h4 class="text-white">@Model.NumOfContact</h4>
+                        <h6 class="text-white m-b-0">Thông tin liên hệ</h6>
+                    </div>
+                    <div class="col-4 text-right">
+                        <iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+                        <canvas id="update-chart-3" height="50" width="48" style="display: block; width: 48px; height: 50px;"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : @DateTime.Now.ToShortTimeString()</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-c-lite-green update-card">
+            <div class="card-block px-4 py-3">
+                <div class="row align-items-end">
+                    <div class="col-8">
+                        <h4 class="text-white">@Model.NumOfExpert</h4>
+                        <h6 class="text-white m-b-0">Chuyên gia</h6>
+                    </div>
+                    <div class="col-4 text-right">
+                        <iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+                        <canvas id="update-chart-4" height="50" width="48" style="display: block; width: 48px; height: 50px;"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : @DateTime.Now.ToShortTimeString()</p>
+            </div>
+        </div>
+    </div>
+    <!-- task, page, download counter  end -->
+    @*<div class="col-xl-3 col-md-12">
+            <div class="card user-card2">
+                <div class="card-block text-center">
+                    <h6 class="m-b-15">Tổng số yêu cầu tư vấn</h6>
+                    <div class="risk-rate">
+                        <span><b>@Model.NumOfRequest</b></span>
+                    </div>
+                    <h6 class="m-b-10 m-t-10">Chi tiết</h6>
+                    <a href="@Url.Action("CounselingList","OnlineCounseling", new {getAll="on", viewtype = (ViewBag.ActiveMenu == "adv-today" ? "today" : ViewBag.ActiveMenu)})" class="text-c-yellow b-b-warning">Mở danh sách tư vấn</a>
+                    <div class="row justify-content-center m-t-10 b-t-default m-l-0 m-r-0">
+                        <div class="col m-t-15 b-r-default">
+                            <h6 class="text-muted"> @Model.NumOfScheduleDone </h6>
+                            <h6>Thành công</h6>
+                        </div>
+                        <div class="col m-t-15">
+                            <h6 class="text-muted">@Model.NumOfScheduleFail</h6>
+                            <h6>Hẹn lại/Hủy</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="btn btn-warning btn-block p-t-15 p-b-15" href="@Url.Action("ConsultingSchedule","OnlineCounseling")">
+                    Xem lịch tư vấn
+                </a>
+            </div>
+        </div>*@
+</div>
+
+@section scripts{
+    <script>
+
+        var $btn_advisory_new = $('button#btn-show-list-advisory-new');
+        var $btn_advisory_same_date = $('button#btn-show-list-advisory-same-date');
+        var $btn_loadmore_advisory = $('#loadmore-advisory');
+        var $list_advisory_new = $('#list-advisory-new');
+        var $list_advisory_same_date = $('#list-advisory-same-date');
+
+
+        $btn_advisory_new.on('click', function () {
+            $(this).addClass('btn-advi-active');
+            $btn_advisory_same_date.removeClass('btn-advi-active');
+            $list_advisory_new.css('display', 'block');
+            $list_advisory_same_date.css('display', 'none');
+        });
+        $btn_advisory_same_date.on('click', function () {
+            $(this).addClass('btn-advi-active');
+            $btn_advisory_new.removeClass('btn-advi-active');
+            $list_advisory_same_date.css('display', 'block');
+            $list_advisory_new.css('display', 'none');
+        });
+    </script>
+}

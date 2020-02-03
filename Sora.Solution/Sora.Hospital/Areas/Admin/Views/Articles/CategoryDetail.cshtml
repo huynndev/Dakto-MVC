@@ -1,0 +1,185 @@
+﻿@using Sora.Hospital.Infrastructure.CommonObjects
+@model Sora.Services.ViewModels.ArticleCategoryViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
+    List<SelectListItem> catlist = new List<SelectListItem>();
+    catlist = (List<SelectListItem>)ViewBag.Categories;
+
+    bool isBlog = false;
+    if (ViewBag.IsBlog != null)
+    {
+        isBlog = (bool)ViewBag.IsBlog;
+
+    }
+}
+<!-- Page-header start -->
+<div class="page-header horizontal-layout-icon">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <div class="d-inline">
+                    <h4>Cập nhập danh mục</h4>
+                    <span>Thêm mới / Sửa thông tin danh mục</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item">
+                        <a href="~/Admin">
+                            <i class="icofont icofont-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        @if (isBlog)
+                        {
+                            <a href="@Url.Action("blogscategory","Articles")">Blogs</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("newscategory","Articles")">Tin tức</a>
+                        }
+
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#!">Cập nhập</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page-header end -->
+<div class="page-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Zero config.table start -->
+
+            @using (Html.BeginForm("SaveCategory", "Articles", new { categoryId = Model.ICArticleCategoryID, isBlog = isBlog }, FormMethod.Post, new { @id = "formData", @class = "form-validate form-page" }))
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs md-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#category1" role="tab">Tiếng Việt</a>
+                                <div class="slide"></div>
+                            </li>
+                        </ul>
+                        <div class="card-header-right">
+                            <ul class="list-unstyled card-option">
+                                <li><i class="feather icon-maximize full-card"></i></li>
+                                <li><i class="feather minimize-card icon-minus"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.ICArticleCategoryID)
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-lg-12 ">
+                                <!-- Tab panes -->
+                                <div class="tab-content card-block">
+                                    <div class="tab-pane active" id="category1" role="tabpanel">
+                                        <div class=" col-12">
+                                            <div class="form-group">
+                                                <label>Tên trang</label>
+                                            </div>
+                                        </div>
+                                        <div class=" col-12">
+                                            <div class="form-group">
+                                                <label>Mã danh mục</label>
+                                                @Html.TextBoxFor(model => model.ICArticleCategoryNo, new { @class = "form-control", placeholder = "mã danh mục", autocomplete = "off", maxlength = 50 })
+                                            </div>
+                                        </div>
+                                        <div class=" col-12">
+                                            <div class="form-group">
+                                                <label>Tên danh mục</label>
+                                                @Html.TextBoxFor(model => model.ICArticleCategoryName, new { @class = "form-control", placeholder = "tên danh mục", autocomplete = "off", maxlength = 50 })
+                                            </div>
+                                        </div>
+                                        <div class=" col-12">
+                                            <div class="form-group">
+                                                <label>Mô tả</label>
+                                                @Html.TextAreaFor(model => model.ICArticleCategoryDesc, new { @class = "form-control editor box-content", placeholder = "Mô tả", autocomplete = "off", rows = 3, maxlength = 1000 })
+                                            </div>
+                                        </div>
+                                        <div class=" col-12">
+                                            <div class="form-group">
+                                                <label>Danh mục</label>
+                                                @Html.DropDownListFor(model => model.ICArticleCategoryParentID, catlist, "--Chọn--", new { @class = "form-control", placeholder = "Tên danh mục" })
+                                            </div>
+                                        </div>
+                                        <div class=" col-12">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label style="display:block">Hiển thị</label>
+                                                        @Html.CheckBoxFor(model => model.ICArticleCategoryIsShowMenu, new { @class = "border-checkbox-label" })
+                                                        <label for="@Html.IdFor(model=> model.ICArticleCategoryIsShowMenu)">Cho phép hiển thị trên menu</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>Thứ tự hiên thị</label>
+                                                        @Html.TextBoxFor(model => model.ICArticleCategorySortOrder, new { @class = "form-control", @type = "number" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-12 align-center">
+                                <div class="form-group" style="margin: auto;padding: 13px;">
+                                    <span style="float:right">
+                                        <button type="submit" class="btn btn-space btn-primary ">Lưu</button>
+                                        @if ((bool)ViewBag.IsBlog)
+                                        {
+                                            @Html.ActionLink("Trở lại", "blogscategory", "articles", new { @class = "btn btn-space btn-default" })
+                                        }
+                                        else
+                                        {
+                                            @Html.ActionLink("Trở lại", "newscategory", "articles", new { @class = "btn btn-space btn-default" })
+                                        }
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- Zero config.table end -->
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/ckeditor/config.js"></script>
+    <script src="~/Content/ckeditor/adapters/jquery.js"></script>
+    <script type="text/javascript" src="~/Content/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var $form = $("#formData");
+            $(".editor")
+                .ckeditor();
+
+            //CKFinder.setupCKEditor(null, "/Uploads");
+        });
+    </script>
+}
+
+

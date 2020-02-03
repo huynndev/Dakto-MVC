@@ -1,0 +1,124 @@
+﻿.customer-name {
+    white-space: normal;
+    max-width: 200px;
+}
+
+.avatar {
+    border: 1px solid #c4c4c4;
+}
+
+.btn-lang {
+    background: #1d8588;
+    color: white;
+}
+
+.categories {
+    border-right: 1px solid #cdcdcd
+}
+
+    .categories ul, .solution-contents ul {
+        padding-left: 1rem;
+    }
+
+    .categories > ul, .solution-contents > ul {
+        padding-left: 0;
+    }
+
+    .categories a {
+        font-weight: 600;
+    }
+
+.solution-contents ul li {
+    margin-top: .5rem;
+}
+
+.solution-contents > ul > li > .title {
+    font-size: 20px;
+    font-weight: 600;
+}
+.solution-contents > ul > li > ul > li > .title {
+    font-size: 18px;
+    font-weight: 600;
+}
+.solution-contents > ul > li > ul > li > ul > li > .title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.solution-contents .ul-slcontent > li::before {
+    content: none;
+}
+
+.solution-contents .title {
+    margin-bottom: 1rem;
+}
+
+.solution-contents .image {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.solution-contents .image img {
+    max-width: 100%;
+}
+.cate .action {
+    display: none;
+    width: 100px;
+}
+
+.cate:hover .action {
+    display: flex;
+}
+
+.btn-action {
+    padding: 0;
+    line-height: 1;
+    border: none;
+    background: none;
+    color: #1d8588;
+    cursor: pointer;
+}
+
+    .btn-action:focus {
+        outline: 0;
+    }
+
+    .btn-action i {
+        font-weight: 900;
+    }
+
+.box-content ul {
+    margin-bottom: .75rem;
+}
+
+.box-content li {
+    position: relative;
+}
+
+    .box-content li::before {
+        color: #1d8588;
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+        position: absolute;
+        top: 10px;
+    }
+
+.box-content > ul > li::before {
+    content: "\00af";
+}
+
+.box-content > ul > li > ul > li::before {
+    content: "\2022";
+    top: 5px;
+}
+
+.box-content > ul > li > ul > li > ul > li::before {
+    content: "\00b0";
+}
+
+.box-content p {
+    margin-bottom: 0;
+    margin-top: 5px;
+}

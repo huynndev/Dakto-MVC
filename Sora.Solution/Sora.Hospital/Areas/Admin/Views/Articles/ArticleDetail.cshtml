@@ -1,0 +1,288 @@
+﻿@model Sora.Services.ViewModels.ArticleViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
+    List<SelectListItem> catlist = new List<SelectListItem>();
+    catlist = (List<SelectListItem>)ViewBag.Categories;
+    bool isBlog = false;
+    if (ViewBag.IsBlog != null)
+    {
+        isBlog = (bool)ViewBag.IsBlog;
+
+    }
+}
+@section css{
+    <link href="~/Content/assets/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: #01a9ac !important;
+            border: 1px solid #01a9ac !important;
+            padding: 5px 15px !important;
+        }
+    </style>
+}
+<!-- Page-header start -->
+<div class="page-header horizontal-layout-icon">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <div class="d-inline">
+                    <h4>Bài viết</h4>
+                    <span>Thêm mới / Sửa thông tin bài viết</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item">
+                        <a href="~/Admin">
+                            <i class="icofont icofont-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        @if (isBlog)
+                        {
+                            <a href="@Url.Action("blogscategory","Articles")">Blogs</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("newscategory","Articles")">Tin tức</a>
+                        }
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#!">Cập nhập</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page-header end -->
+<div class="page-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Zero config.table start -->
+
+            @using (Html.BeginForm("ArticleDetail", "Articles", new { articleId = Model.ICArticleID, isBlog = isBlog }, FormMethod.Post, new { enctype = "multipart/form-data", @id = "formData", @class = "form-validate form-page" }))
+            {
+                <div class="card" style="padding:10px">
+                    <div class="card-header">
+                        <!-- Nav tabs -->
+                        <h5>Chỉnh sửa thông tin bài viết</h5>
+                        <div class="card-header-right">
+                            <ul class="list-unstyled card-option">
+                                <li><i class="feather icon-maximize full-card"></i></li>
+                                <li><i class="feather minimize-card icon-minus"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.ICArticleID)
+
+                    <div class="card-block">
+                        <div class="row">
+                            <div class=" col-12">
+                                <div class="form-group">
+                                    <label>Danh mục</label>
+                                    @Html.DropDownListFor(model => model.FK_ICArticleCategoryID, catlist, "---Chọn---",new { @class = "form-control", placeholder = "Tên danh mục" })
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="form-group">
+                                    <label>Tiêu đề</label>
+                                    @Html.TextBoxFor(model => model.ICArticleTitle, new { @class = "form-control", placeholder = "Tiêu đề", maxlength = 250, autocomplete = "off", onchange = "updateAlias(this);", required = "required" })
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="form-group">
+                                    <label>URL</label><div onclick="selectText(this.id)" id="elementID">
+                                        @ViewBag.websiteURL/a/@Html.TextBoxFor(model => model.ICArticleFriendlyUrl, new { @class = "form-control friendlyUrl", placeholder = "đường dẫn", autocomplete = "off"})/@Model.ICArticleID.ToString().ToLower()
+                                        @*@if (Model.CreateDate != DateTime.MinValue && !ViewBag.IsCreate)
+                                        {<input type="button" class="btn-mini" value="Xem trên website" onclick="window.open('//@ViewBag.websiteURL/a/'+$('#FriendlyUrl').val()+'/@Model.ArticleId.ToString().ToLower()', '_blank');" />}*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="form-group">
+                                    <label>Tags</label>
+                                    @Html.TextBoxFor(model => model.ICArticleTags, new { @class = "form-control", placeholder = "Tag", autocomplete = "off", maxlength = 250 })
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-xs-12">
+                                        <div class="form-group">
+                                            <label>Mô tả ngắn</label>
+                                            @Html.TextAreaFor(model => model.ICArticleShortContent, new { @class = "form-control ", placeholder = "Mô tả ngắn", autocomplete = "off", rows = 3, maxlength = 1000, required = "required" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-xs-12">
+                                        <div class="form-group aligncenter">
+                                            <input type="hidden" name="picture" value="@Model.ICArticlePicture" />
+                                            <img class="" style="height:150px;  max-height:150px;max-width:250px; border:1px solid #808080; padding: 2px;" src="~/Content/Upload/Article/@(!string.IsNullOrWhiteSpace(Model.ICArticlePicture) ? Model.ICArticlePicture : "no-img-article.png")" alt="no image" name="picture" id="picture" />
+                                            <br />
+                                            <input type="file" name="image" onchange="SetImagePreview(this,'image')" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="form-group">
+                                    <label>Nội dung</label>
+                                    @Html.TextAreaFor(model => model.ICArticleContent, new { @class = "form-control editor box-content", placeholder = "Mô tả ngắn", autocomplete = "off", rows = 15, required = "required" })
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="form-group">
+                                    <label>MetaKeywords</label>
+                                    @Html.TextAreaFor(model => model.ICArticleMetaKeyword, new { @class = "form-control ", placeholder = "MetaKeywords", autocomplete = "off", rows = 3, maxlength = 1000 })
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="form-group">
+                                    <label>MetaDescriptions</label>
+                                    @Html.TextAreaFor(model => model.ICArticleMetaDesc, new { @class = "form-control ", placeholder = "MetaDescriptions", autocomplete = "off", rows = 3, maxlength = 1000 })
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label style="display:block">Hiển thị trên trang chủ</label>
+                                        @Html.CheckBoxFor(model => model.ICArticleIsShowHome, new { @class = "border-checkbox-label" })
+                                        <label for="@Html.IdFor(model => model.ICArticleIsShowHome)">Cho phép hiển thị</label>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label>Thời gian hiển thị từ</label>
+                                            @Html.TextBoxFor(model => model.ICArticleDate, "{0:yyyy-MM-dd}", new { @class = "form-control ", @type = "date" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="margin-bottom:50px;">
+                    <div class="card-block" style="padding-bottom:15px;">
+                        <div class="row">
+                            <div class="col-12 align-center">
+                                <div class="form-group" style="margin: auto;padding: 13px;">
+                                    <span style="float:right">
+                                        <button type="submit" class="btn btn-space btn-primary ">Lưu</button>
+                                        @Html.ActionLink("Trở lại", "ArticleListing", new { Controller = "articles", isBlog = isBlog }, new { @class = "btn btn-space btn-default" })
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- Zero config.table end -->
+        </div>
+    </div>
+</div>
+
+<!-- Confirm mail end-->
+@section scripts {
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/ckeditor/config.js"></script>
+    <script src="~/Content/ckeditor/adapters/jquery.js"></script>
+    <script type="text/javascript" src="~/Content/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/select2.full.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/select2-custom.js"></script>
+    <script type="text/javascript">
+        function SetImagePreview(input, picId) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#picture').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $(function () {
+            var $form = $("#formData");
+            $(".editor").ckeditor();
+            $("#confirm-mail").on('show.bs.modal', function () {
+                var content = $("#txtSentMail").html();
+                content = content.replace("{title}", $("#Title").val());
+                content = content.replace("{shortContent}", $("#ShortContent").val());
+                $("#txtSentMail").html(content);
+                $("#txtTitle").val("MIRACLE BEAUTE - " + $("#Title").val());
+            });
+        });
+
+        function updateAlias(input) {
+
+            var newAlias = alias($(input).val());
+            var oldAlias = $("#FriendlyUrl").val();
+            console.log(newAlias);
+            console.log(oldAlias);
+            if (newAlias.indexOf(oldAlias) >= 0) {
+                $("#FriendlyUrl").val(newAlias);
+            }
+        }
+        function alias(str) {
+            str = str.trim();
+            return str
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/đ/g, "d")
+                .replace(/\s+/g, '-')
+                .replace(/Đ/g, "D").toLowerCase();
+        }
+
+        function selectText(id) {
+            var sel, range;
+            var el = document.getElementById(id); //get element id
+            if (window.getSelection && document.createRange) { //Browser compatibility
+                sel = window.getSelection();
+                if (sel.toString() == '') { //no text selection
+                    window.setTimeout(function () {
+                        range = document.createRange(); //range object
+                        range.selectNodeContents(el); //sets Range
+                        sel.removeAllRanges(); //remove all ranges from selection
+                        sel.addRange(range);//add Range to a Selection.
+                    }, 1);
+                }
+            } else if (document.selection) { //older ie
+                sel = document.selection.createRange();
+                if (sel.text == '') { //no text selection
+                    range = document.body.createTextRange();//Creates TextRange object
+                    range.moveToElementText(el);//sets Range
+                    range.select(); //make selection.
+                }
+            }
+        }
+        $('form#formData input[name="Title"]').on('change valid invalid keyup', function () {
+            this.setCustomValidity('');
+            if (this.value.trim() === '') {
+                this.setCustomValidity('Trường này là bắt buộc');
+            }
+        });
+        $('form#formData input[name="ShortContent"]').on('change valid invalid keyup', function () {
+            this.setCustomValidity('');
+            if (this.value.trim() === '') {
+                this.setCustomValidity('Trường này là bắt buộc');
+            }
+        });
+        $('form#formData').submit(function (e) {
+            var fullContent = $('form#formData #FullContent').val();
+            if (fullContent == '') {
+                for (instance in CKEDITOR.instances) {
+                    var editor = CKEDITOR.instances[instance];
+                    if (editor) {
+                        editor.focus();
+                    }
+                }
+                e.preventDefault();
+            }
+        })
+    </script>
+    <script src="~/Content/Adminty/assets/js/send-mail-article.js"></script>
+}
+
+

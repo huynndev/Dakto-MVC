@@ -1,0 +1,22 @@
+﻿.carousel-indicators .active {
+    background-color: #0072ff;
+}
+.carousel-indicators li {
+    background-color: #b1a9a9;
+}
+.carousel-control-prev-icon {
+    background-color: black;
+}
+.carousel-control-next-icon {
+    background-color: black;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #01a9ac !important;
+    border: 1px solid #01a9ac !important;
+    padding: 5px 15px !important;
+}
+.carousel .carousel-inner .carousel-item img {
+    max-height: 60vh;
+    width: 100%;
+    object-fit: contain;
+}

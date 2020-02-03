@@ -1,0 +1,99 @@
+﻿.parsley-error{
+    border-color:#ff0000;
+}
+
+.form-validate .form-control-feedback {
+    width: 40px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.form-validate .has-feedback label ~ .form-control-feedback {
+    top: 25px;
+    font-size: 14px;
+}
+
+.icon-manager span{
+    padding:5px;
+    color: #a1a1a1;
+    font-size: 18px;
+    line-height: 18px;
+}
+.icon-manager .mdi-border-color:hover{
+    color:#017dd7;
+}
+.icon-manager .mdi-delete:hover{
+    color:#eb0505;
+}
+
+.avater-image{
+    position: relative;
+    width: 290px;
+    height: 248px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.avater-image img{
+    max-width: 100%;
+    max-height: 90%;
+}
+.avater-image a{
+    position: absolute;
+    bottom: 0px;
+}
+
+
+.dataTable .thumnail-small{
+width:28px;
+padding:0px !important;
+border-radius: 1px;
+-moz-transition:-moz-transform 0.1s ease-in;
+-webkit-transition:-webkit-transform 0.1s ease-in;
+-o-transition:-o-transform 0.1s ease-in;
+z-index: 9999;
+  display: block;
+
+}
+
+.dataTable .thumnail-small:hover{
+-moz-transform:scale(3);
+-webkit-transform:scale(3);
+-o-transform:scale(3);
+z-index: 9999 !important;
+        cursor: none;
+}
+
+
+.ug-thumb-wrapper.ug-tile a.ug-tile-icon.custom-delete {
+    right: 5px;
+    left: unset;
+    text-align: center;
+    font-size: 16px;
+    background-color: #d814147d;
+    border-radius: 50px;
+    width: 24px;
+    height: 24px;
+    color: #f5f5f5;
+    top: 5px;
+    line-height: 24px;
+    display: none;
+}
+
+.ug-thumb-wrapper.ug-tile:hover a.ug-tile-icon.custom-delete{
+    display: block;
+}
+
+.form-chart {
+    padding: 0 35px;
+}
+
+.sparkline .icon {
+    text-align: center;
+}
+
+.sparkline .icon span {
+    font-size: 40px;
+    color: #4285f4;
+}

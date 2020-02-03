@@ -1,0 +1,223 @@
+﻿@using Sora.Hospital.Infrastructure.Security;
+@{ 
+    var currentUser = (CustomPrincipal)User;
+}
+<nav class="navbar navbar-default navbar-fixed-top be-top-header header-admin">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a href="javaScript:;" class="navbar-brand"></a>
+        </div>
+        <div class="be-right-navbar">
+            <ul class="nav navbar-nav navbar-right be-user-nav">
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">
+
+                        @if ( currentUser.Avatar != null && !string.IsNullOrWhiteSpace(currentUser.Avatar))
+                        {
+                        <img src="@currentUser.Avatar?@DateTime.Now" alt="Avatar" class="logo-admin">
+                        }
+                        else
+                        {
+                        <img src="~/Content/assets/img/avatar.png" alt="Avatar" class="logo-admin">
+                        }
+
+
+                        <span class="user-name">@currentUser.FullName</span>
+                    </a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li>
+                            <div class="user-info">
+                                <div class="user-name">@currentUser.FullName</div>
+                                <div class="user-position online">Online</div>
+                            </div>
+                        </li>
+                        <li><a href="javaScript:;" class="changePass-admin"><span class="icon mdi mdi-key"></span> Đổi mật khẩu</a></li>
+                        <li><a href="javaScript:;" class="profile-admin"><span class="icon mdi mdi-face"></span> Thông tin cá nhân</a></li>
+                        <li><a href="javaScript:;" class="logout-admin"><span class="icon mdi mdi-power"></span> Đăng xuất</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right be-icons-nav">
+                <li class="dropdown"><a href="#" role="button" aria-expanded="false" class="be-toggle-right-sidebar"><span class="icon mdi mdi-settings"></span></a></li>
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon mdi mdi-notifications"></span><span class="indicator"></span></a>
+                    <ul class="dropdown-menu be-notifications">
+                        <li>
+                            <div class="title">Notifications<span class="badge">0</span></div>
+                            <div class="list">
+                                <div class="be-scroller">
+                                    <div class="content">
+                                        <ul>
+                                            @*<li class="notification notification-unread">
+                                                    <a href="#">
+                                                        <div class="image"><img src="/Content/assets/img/avatar2.png" alt="Avatar"></div>
+                                                        <div class="notification-info">
+                                                            <div class="text"><span class="user-name">Jessica Caruso</span> accepted your invitation to join the team.</div><span class="date">2 min ago</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="notification">
+                                                    <a href="#">
+                                                        <div class="image"><img src="/Content/assets/img/avatar3.png" alt="Avatar"></div>
+                                                        <div class="notification-info">
+                                                            <div class="text"><span class="user-name">Joel King</span> is now following you</div><span class="date">2 days ago</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="notification">
+                                                    <a href="#">
+                                                        <div class="image"><img src="/Content/assets/img/avatar4.png" alt="Avatar"></div>
+                                                        <div class="notification-info">
+                                                            <div class="text"><span class="user-name">John Doe</span> is watching your main repository</div><span class="date">2 days ago</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="notification">
+                                                    <a href="#">
+                                                        <div class="image"><img src="/Content/assets/img/avatar5.png" alt="Avatar"></div>
+                                                        <div class="notification-info"><span class="text"><span class="user-name">Emily Carter</span> is now following you</span><span class="date">5 days ago</span></div>
+                                                    </a>
+                                                </li>*@
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer"> <a href="#">View all notifications</a></div>
+                        </li>
+                    </ul>
+                </li>
+                @*<li class="dropdown">
+                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon mdi mdi-apps"></span></a>
+                        <ul class="dropdown-menu be-connections">
+                            <li>
+                                <div class="list">
+                                    <div class="content">
+                                        <div class="row">
+                                            <div class="col-xs-4"><a href="#" class="connection-item"><img src="/Content/assets/img/github.png" alt="Github"><span>GitHub</span></a></div>
+                                            <div class="col-xs-4"><a href="#" class="connection-item"><img src="/Content/assets/img/bitbucket.png" alt="Bitbucket"><span>Bitbucket</span></a></div>
+                                            <div class="col-xs-4"><a href="#" class="connection-item"><img src="/Content/assets/img/slack.png" alt="Slack"><span>Slack</span></a></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4"><a href="#" class="connection-item"><img src="/Content/assets/img/dribbble.png" alt="Dribbble"><span>Dribbble</span></a></div>
+                                            <div class="col-xs-4"><a href="#" class="connection-item"><img src="/Content/assets/img/mail_chimp.png" alt="Mail Chimp"><span>Mail Chimp</span></a></div>
+                                            <div class="col-xs-4"><a href="#" class="connection-item"><img src="/Content/assets/img/dropbox.png" alt="Dropbox"><span>Dropbox</span></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer"> <a href="#">More</a></div>
+                            </li>
+                        </ul>
+                    </li>*@
+            </ul>
+        </div>
+    </div>
+</nav>
+@if (currentUser != null && currentUser.UserId != "")
+{
+    <div class="user-id" data-id="@currentUser.UserId"></div>
+}
+<div class="modal fade modal-common-user" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+
+</div>
+@Scripts.Render("~/Content/ManagerJS/Check")
+<script src="~/Content/assets/js/Profile.js"></script>
+<script>
+    $(".header-admin").on("click", ".navbar-brand", function () {
+        location.href = window.location.protocol + "//" + window.location.host;
+    })
+        .on("click", ".logout-admin", function () {
+            $.ajax({
+                url: '/Account/Logout',
+                type: 'GET',
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                async: true,
+                success: function (result) {
+                    if (result) {
+                        location.reload();
+                    }
+                },
+                error: function (error) {
+                    console.log("ERROR:" + error);
+                }
+            });
+        })
+        .on("click", ".profile-admin", function () {
+            $(".modal-common-user").children().remove();
+            $(".modal-common-user").append(AddHtmlProfile());
+            GetDataProfile();
+            $('.modal-common-user').modal("show");
+            EventProfile();
+        })
+        .on("click", ".changePass-admin", function () {
+            $(".modal-common-user").children().remove();
+            $(".modal-common-user").append(AddHtmlChangePass());
+            $('.modal-common-user').modal("show");
+            EventProfile();
+        })
+
+    //get data add profile
+
+
+</script>
+<style>
+
+    @@media (min-width: 768px) {
+        .bs-modal-profile {
+            width: 600px;
+        }
+
+        .bs-modal-changePass {
+            width: 600px;
+        }
+    }
+
+    .bs-modal-profile .avater-image {
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
+        .bs-modal-profile .avater-image > img {
+            max-width: 150px;
+            max-height: 150px;
+        }
+
+    .bs-modal-profile .parent-image-profile {
+        display: flex;
+    }
+
+        .bs-modal-profile .parent-image-profile .context-profile {
+            width: calc(100% - 170px);
+        }
+
+    .bs-modal-profile .modal-header > .img, .bs-modal-profile .profile-submit {
+        text-align: center !important;
+    }
+
+        .bs-modal-profile .profile-submit > button {
+            width: 30%;
+            height: 35px;
+        }
+
+    .header-admin .logo-admin {
+        width: 32px;
+        height: 32px;
+        border-radius: 76%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .form-group .icon-required {
+        color: red;
+    }
+
+    .be-top-header .navbar-header .navbar-brand {
+        background-image: url(../../Content/image/logo.png) !important;
+        width: 180px !important;
+    }
+</style>
