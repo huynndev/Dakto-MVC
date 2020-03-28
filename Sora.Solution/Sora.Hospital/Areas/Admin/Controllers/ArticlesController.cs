@@ -50,7 +50,7 @@ namespace Sora.Hospital.Areas.Admin.Controllers
             if (!pageSize.HasValue) pageSize = 10;
             try
             {
-                var list = _articleService.GetArticleByCategoryID(categoryId.GetValueOrDefault(), page.GetValueOrDefault(), pageSize.GetValueOrDefault(), "", out totalRecords);
+                var list = _articleService.GetArticleByCategoryID(categoryId.GetValueOrDefault(), page.GetValueOrDefault(), pageSize.GetValueOrDefault(), "", out totalRecords, search);
 
                 articleListingModel.MainArticleList.List = list.ToList();
                 articleListingModel.MainArticleList.Lang = "vn";

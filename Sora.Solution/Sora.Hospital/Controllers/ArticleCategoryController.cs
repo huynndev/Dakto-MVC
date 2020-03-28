@@ -1,15 +1,12 @@
 ﻿using Sora.Hospital.Infrastructure.Core;
 using Sora.Services.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
 namespace Sora.Hospital.Controllers
 {
-    [RoutePrefix("Api/ArticleCategory")]
+    [RoutePrefix("api/article-category")]
     public class ArticleCategoryController : ApiControllerBase
     {
         private IArticleCategoryService _articleCategoryService;
@@ -20,19 +17,25 @@ namespace Sora.Hospital.Controllers
             this._articleCategoryService = categoryService;
         }
 
+        /// <summary>
+        /// Lấy chi tiết danh mục tin tức
+        /// </summary>
         [HttpGet]
-        [Route("GetCategoryByID")]
-        public HttpResponseMessage GetCategoryByID(int categoryID)
+        [Route("get/{categoryId}")]
+        public HttpResponseMessage GetCategoryByID(int categoryId)
         {
-            var category = _articleCategoryService.GetCategoryByID(categoryID);
+            var category = _articleCategoryService.GetCategoryByID(categoryId);
             if (category == null)
                 return Request.CreateResponse(HttpStatusCode.NotFound);
 
             return Request.CreateResponse(HttpStatusCode.OK, category);
         }
 
+        /// <summary>
+        /// Lấy tất cả danh mục tin tức
+        /// </summary>
         [HttpGet]
-        [Route("GetAllCategory")]
+        [Route("get-all")]
         public HttpResponseMessage GetAllCategory()
         {
             var categories = _articleCategoryService.GetAllCategory();

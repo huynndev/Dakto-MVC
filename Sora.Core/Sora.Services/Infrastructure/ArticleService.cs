@@ -3,11 +3,8 @@ using Sora.EFCore.Repositories;
 using Sora.Entites.IC;
 using Sora.Services.Abstractions;
 using Sora.Services.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sora.Services.Infrastructure
 {
@@ -23,12 +20,12 @@ namespace Sora.Services.Infrastructure
             this._unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<ArticleViewModel> GetArticleByCategoryID(int categoryID, int page, int pageSize, string sortOption, out int totalRow)
+        public IEnumerable<ArticleViewModel> GetArticleByCategoryID(int categoryID, int page, int pageSize, string sortOption, out int totalRow, string search = null)
         {
-            var articles = _articleRepository.GetMulti(o => o.FK_ICArticleCategoryID == categoryID).Skip(page - 1 * pageSize).Take(pageSize);
+            var articles = _articleRepository.GetMulti(o => o.FK_ICArticleCategoryID == categoryID).Where(x => string.IsNullOrWhiteSpace(search) || x.ICArticleTitle.ToLower().Contains(search.ToLower())).Skip(page - 1 * pageSize).Take(pageSize);
             if(categoryID == 0)
             {
-                articles = _articleRepository.GetMulti(o => o.AAStatus == "Alive").Skip(page - 1 * pageSize).Take(pageSize);
+                articles = _articleRepository.GetMulti(o => o.AAStatus == "Alive").Where(x => string.IsNullOrWhiteSpace(search) || x.ICArticleTitle.ToLower().Contains(search.ToLower())).Skip(page - 1 * pageSize).Take(pageSize);
             }
             switch (sortOption)
             {

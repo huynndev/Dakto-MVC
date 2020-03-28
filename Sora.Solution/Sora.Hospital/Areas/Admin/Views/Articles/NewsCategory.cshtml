@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
 
     ArticleCategoryViewModel tmp = null;
-
+    int counter = 1;
 }
 <!-- Page-header start -->
 <div class="page-header horizontal-layout-icon">
@@ -99,16 +99,16 @@
                                 @foreach (ArticleCategoryViewModel item in Model)
                                 {
                                     <tr>
-                                        <td>1 </td>
+                                        <td>@(counter++) </td>
                                         <td>
-                                            <strong>@item.ICArticleCategoryName</strong> <i></i> <br />/@item.ICArticleCategoryDesc
+                                            <strong>@item.ICArticleCategoryName</strong> <i>@Html.Raw(item.ICArticleCategoryDesc)</i>
                                         </td>
                                         <td>
-                                            Tiếng Việt 
-                                            | English 
+                                            @item.CountICArticle Bài viết &nbsp;
+                                            @Html.ActionLink("Xem", "ArticleListing", "Articles", new { categoryId = item.ICArticleCategoryID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
                                         </td>
                                         <td>
-                                            @DateTime.Now<br />ADMIN
+                                            @String.Format("{0:dd/MM/yyyy}", item.AAUpdatedDate.HasValue ? item.AAUpdatedDate : item.AACreatedDate)<br />ADMIN
                                             <br />
                                             @((item.ICArticleCategoryIsShowMenu == true) ? "Hiển thị" : "Ẩn")
                                         </td>

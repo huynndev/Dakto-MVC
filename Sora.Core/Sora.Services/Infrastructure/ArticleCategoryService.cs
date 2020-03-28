@@ -1,13 +1,12 @@
-﻿using Sora.EFCore.Infrastructure;
+﻿using Sora.Common;
+using Sora.EFCore.Infrastructure;
 using Sora.EFCore.Repositories;
 using Sora.Entites.IC;
 using Sora.Services.Abstractions;
 using Sora.Services.ViewModels;
-using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sora.Services.Infrastructure
 {
@@ -30,7 +29,7 @@ namespace Sora.Services.Infrastructure
 
         public IEnumerable<ArticleCategoryViewModel> GetAllCategory()
         {
-            var categories = _articleCategoryRepository.GetAll();
+            var categories = _articleCategoryRepository.GetAll().Include(x=>x.ICArticles).ToList();
             return categories.Select(o => ToArticleCategoryViewModel(o));
         }
 
@@ -76,7 +75,10 @@ namespace Sora.Services.Infrastructure
                 ICArticleCategoryDesc = category.ICArticleCategoryDesc,
                 ICArticleCategorySortOrder = category.ICArticleCategorySortOrder,
                 ICArticleCategoryIsShowMenu = category.ICArticleCategoryIsShowMenu ?? false,
-                ICArticleCategoryParentID = category.ICArticleCategoryParentID
+                ICArticleCategoryParentID = category.ICArticleCategoryParentID,
+                CountICArticle = category.ICArticles.Count(x => x.AAStatus == AudiableStatus.Alive),
+                AACreatedDate = category.AACreatedDate,
+                AAUpdatedDate = category.AAUpdatedDate
             };
         }
 

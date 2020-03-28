@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Sora.Services.ViewModels
@@ -24,5 +20,11 @@ namespace Sora.Services.ViewModels
         public bool ICArticleCategoryIsShowMenu { get; set; }
 
         public int? ICArticleCategoryParentID { get; set; }
+
+        public int CountICArticle { get; set; }
+
+        public DateTime? AACreatedDate { get; set; }
+
+        public DateTime? AAUpdatedDate { get; set; }
     }
 }

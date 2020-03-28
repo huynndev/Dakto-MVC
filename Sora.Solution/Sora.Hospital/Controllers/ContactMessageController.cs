@@ -2,15 +2,13 @@
 using Sora.Services.Abstractions;
 using Sora.Services.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
 namespace Sora.Hospital.Controllers
 {
-    [RoutePrefix("Api/ContactMessage")]
+    [RoutePrefix("api/contact-message")]
     public class ContactMessageController : ApiControllerBase
     {
         private IContactMessageService _contactMessageService;
@@ -20,8 +18,11 @@ namespace Sora.Hospital.Controllers
             this._contactMessageService = contactMessageService;
         }
 
+        /// <summary>
+        /// Tạo mới liên hệ
+        /// </summary>
         [HttpPost]
-        [Route("CreateContactMessage")]
+        [Route("create")]
         public HttpResponseMessage CreateContactMessage(ContactMessageViewModel contactMessage)
         {
             try

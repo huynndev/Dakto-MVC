@@ -10,7 +10,7 @@ using System.Web.Http;
 namespace Sora.Hospital.Controllers
 {
 
-    [RoutePrefix("Api/Company")]
+    [RoutePrefix("api/company")]
     public class CompanyController : ApiControllerBase
     {
         private ICompanyService _companyService;
@@ -20,8 +20,11 @@ namespace Sora.Hospital.Controllers
             this._companyService = companyService;
         }
 
+        /// <summary>
+        /// Lấy thông tin công ty
+        /// </summary>
         [HttpGet]
-        [Route("GetCompanyInfo")]
+        [Route("get-info")]
         public HttpResponseMessage GetCompanyInfo()
         {
             var comparnyInfo = _companyService.GetCompanyInfo();

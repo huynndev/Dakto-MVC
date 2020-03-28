@@ -31,7 +31,7 @@ namespace Sora.EFCore.Infrastructure
 
         T GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null);
 
-        IEnumerable<T> GetAll(string[] includes = null);
+        IQueryable<T> GetAll();
 
         IEnumerable<T> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null);
 

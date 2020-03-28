@@ -87,19 +87,14 @@
                                     <div class="tab-pane active" id="category1" role="tabpanel">
                                         <div class=" col-12">
                                             <div class="form-group">
-                                                <label>Tên trang</label>
+                                                <label>Tên danh mục</label>
+                                                @Html.TextBoxFor(model => model.ICArticleCategoryName, new { @class = "form-control", placeholder = "tên danh mục", autocomplete = "off", maxlength = 50 })
                                             </div>
                                         </div>
                                         <div class=" col-12">
                                             <div class="form-group">
                                                 <label>Mã danh mục</label>
                                                 @Html.TextBoxFor(model => model.ICArticleCategoryNo, new { @class = "form-control", placeholder = "mã danh mục", autocomplete = "off", maxlength = 50 })
-                                            </div>
-                                        </div>
-                                        <div class=" col-12">
-                                            <div class="form-group">
-                                                <label>Tên danh mục</label>
-                                                @Html.TextBoxFor(model => model.ICArticleCategoryName, new { @class = "form-control", placeholder = "tên danh mục", autocomplete = "off", maxlength = 50 })
                                             </div>
                                         </div>
                                         <div class=" col-12">

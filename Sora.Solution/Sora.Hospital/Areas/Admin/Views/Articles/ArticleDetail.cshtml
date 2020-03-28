@@ -98,7 +98,7 @@
                             <div class=" col-12">
                                 <div class="form-group">
                                     <label>URL</label><div onclick="selectText(this.id)" id="elementID">
-                                        @ViewBag.websiteURL/a/@Html.TextBoxFor(model => model.ICArticleFriendlyUrl, new { @class = "form-control friendlyUrl", placeholder = "đường dẫn", autocomplete = "off"})/@Model.ICArticleID.ToString().ToLower()
+                                        @ViewBag.websiteURL/a/@Html.TextBoxFor(model => model.ICArticleFriendlyUrl, new { @class = "form-control friendlyUrl", placeholder = "đường dẫn", autocomplete = "off"})
                                         @*@if (Model.CreateDate != DateTime.MinValue && !ViewBag.IsCreate)
                                         {<input type="button" class="btn-mini" value="Xem trên website" onclick="window.open('//@ViewBag.websiteURL/a/'+$('#FriendlyUrl').val()+'/@Model.ArticleId.ToString().ToLower()', '_blank');" />}*@
                                     </div>
@@ -218,11 +218,11 @@
         function updateAlias(input) {
 
             var newAlias = alias($(input).val());
-            var oldAlias = $("#FriendlyUrl").val();
+            var oldAlias = $("#ICArticleFriendlyUrl").val();
             console.log(newAlias);
             console.log(oldAlias);
             if (newAlias.indexOf(oldAlias) >= 0) {
-                $("#FriendlyUrl").val(newAlias);
+                $("#ICArticleFriendlyUrl").val(newAlias);
             }
         }
         function alias(str) {
@@ -232,6 +232,7 @@
                 .replace(/[\u0300-\u036f]/g, "")
                 .replace(/đ/g, "d")
                 .replace(/\s+/g, '-')
+                .replace('.', '-')
                 .replace(/Đ/g, "D").toLowerCase();
         }
 
