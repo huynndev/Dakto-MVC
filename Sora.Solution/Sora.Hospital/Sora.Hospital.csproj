@@ -39,6 +39,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Sora.Hospital.xml</DocumentationFile>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,6 +49,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Sora.Hospital.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -2651,21 +2653,6 @@
     <Content Include="Content\ckeditor\skins\office2013\images\refresh.png" />
     <Content Include="Content\ckeditor\styles.js" />
     <Content Include="Content\ckeditor\vendor\promise.js" />
-    <Content Include="Content\ckfinder\bin\Debug\CKFinder.dll" />
-    <Content Include="Content\ckfinder\bin\Debug\CKFinder.pdb" />
-    <Content Include="Content\ckfinder\bin\Debug\CKFinder_FileEditor.dll" />
-    <Content Include="Content\ckfinder\bin\Debug\CKFinder_FileEditor.pdb" />
-    <Content Include="Content\ckfinder\bin\Debug\CKFinder_ImageResize.dll" />
-    <Content Include="Content\ckfinder\bin\Debug\CKFinder_ImageResize.pdb" />
-    <Content Include="Content\ckfinder\bin\Debug\CKFinder_Watermark.dll" />
-    <Content Include="Content\ckfinder\bin\Debug\CKFinder_Watermark.pdb" />
-    <Content Include="Content\ckfinder\bin\Release\CKFinder.dll" />
-    <Content Include="Content\ckfinder\bin\Release\CKFinder_FileEditor.dll" />
-    <Content Include="Content\ckfinder\bin\Release\CKFinder_FileEditor.pdb" />
-    <Content Include="Content\ckfinder\bin\Release\CKFinder_ImageResize.dll" />
-    <Content Include="Content\ckfinder\bin\Release\CKFinder_ImageResize.pdb" />
-    <Content Include="Content\ckfinder\bin\Release\CKFinder_Watermark.dll" />
-    <Content Include="Content\ckfinder\bin\Release\CKFinder_Watermark.pdb" />
     <Content Include="Content\ckfinder\changelog.txt" />
     <Content Include="Content\ckfinder\ckfinder.html" />
     <Content Include="Content\ckfinder\ckfinder.js" />
@@ -3297,64 +3284,6 @@
     <Content Include="Content\ckfinder\skins\v1\uipanel.css" />
     <Content Include="Content\ckfinder\translations.txt" />
     <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\background-events.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\daygrid-views.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\default.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\external-dragging-2cals.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\external-dragging-builtin.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\full-height.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\google-calendar.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\json.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\js\theme-chooser.js" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\list-views.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\locales.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\php\get-events.php" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\php\get-time-zones.php" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\php\utils.php" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\rrule.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\selectable.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\themes.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\time-zones.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\timegrid-views.html" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\week-numbers.html" />
-    <Content Include="Content\fullcalendar-4.2.0\LICENSE.txt" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\bootstrap\main.css" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\bootstrap\main.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\bootstrap\main.min.css" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\bootstrap\main.min.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\core\locales-all.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\core\locales-all.min.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\core\main.css" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\core\main.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\core\main.min.css" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\core\main.min.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\core\popper.min.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\core\tooltip.min.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\daygrid\main.css" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\daygrid\main.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\daygrid\main.min.css" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\daygrid\main.min.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\google-calendar\main.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\google-calendar\main.min.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\interaction\main.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\interaction\main.min.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\list\main.css" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\list\main.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\list\main.min.css" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\list\main.min.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\luxon\main.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\luxon\main.min.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\moment-timezone\main.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\moment-timezone\main.min.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\moment\main.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\moment\main.min.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\rrule\main.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\rrule\main.min.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\timegrid\main.css" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\timegrid\main.js" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\timegrid\main.min.css" />
-    <Content Include="Content\fullcalendar-4.2.0\packages\timegrid\main.min.js" />
-    <Content Include="Content\fullcalendar-4.2.0\vendor\rrule.js" />
     <Content Include="Content\images\forgotpass.jpg" />
     <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\logomiracle.png" />
@@ -3648,8 +3577,6 @@
     <Content Include="Content\assets\lib\roboto\Roboto-ThinItalic.ttf" />
     <Content Include="Content\assets\lib\roboto\Roboto-ThinItalic.woff" />
     <Content Include="Content\assets\lib\roboto\Roboto-ThinItalic.woff2" />
-    <Content Include="Content\fullcalendar-4.2.0\CHANGELOG.md" />
-    <Content Include="Content\fullcalendar-4.2.0\demos\json\events.json" />
     <Content Include="Content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
@@ -3803,6 +3730,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Content\ckfinder\bin\Debug\" />
+    <Folder Include="Content\ckfinder\bin\Release\" />
     <Folder Include="Models\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
