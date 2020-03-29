@@ -1,0 +1,16 @@
+﻿@using Sora.Entites.AD
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
+    var models = (List<Log>)Model;
+}
+
+<div>
+    @foreach (var item in models)
+    {
+        <div class="mb-3">
+            <span>@item.AACreatedDate &nbsp;</span> - <span>&nbsp; @item.LogMessage</span>
+        </div>
+    }
+</div>
+

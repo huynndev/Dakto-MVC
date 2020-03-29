@@ -5,3 +5,5 @@
 2020-03-29 09:34:13,047 [5] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 3/29/2020
 2020-03-29 09:52:50,231 [7] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 3/29/2020
 2020-03-29 10:02:38,631 [5] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 3/29/2020
+2020-03-29 10:21:16,321 [10] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 3/29/2020
+2020-03-29 10:21:16,321 [9] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 3/29/2020

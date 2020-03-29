@@ -4,11 +4,11 @@ using System.Web.Mvc;
 
 namespace Sora.Hospital.Areas.Admin.Controllers
 {
-    public class LogController : Controller
+    public class SALogController : Controller
     {
         private readonly ILogService _logService;
 
-        public LogController(ILogService logService)
+        public SALogController(ILogService logService)
         {
             _logService = logService;
         }
