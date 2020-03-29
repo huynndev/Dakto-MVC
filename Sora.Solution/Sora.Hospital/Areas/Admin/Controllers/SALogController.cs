@@ -1,10 +1,12 @@
-﻿using Sora.Services.Abstractions;
+﻿using Sora.Hospital.Infrastructure.Security;
+using Sora.Services.Abstractions;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace Sora.Hospital.Areas.Admin.Controllers
 {
-    public class SALogController : Controller
+    [AuthorizeApp]
+    public class SALogController : BaseController
     {
         private readonly ILogService _logService;
 
