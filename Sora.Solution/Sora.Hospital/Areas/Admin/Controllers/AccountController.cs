@@ -78,7 +78,7 @@ namespace Sora.Hospital.Areas.Admin.Controllers
             //userPemissions = _userRepository.GetPermission(user.UserID);
             CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
             serializeModel.UserId = account.ADUserID;
-            serializeModel.FullName = account.ADUserDisplayName;
+            serializeModel.FullName = account.ADUserName;
             serializeModel.Email = account.ADUserContactEmail;
             serializeModel.roles = account.ADUserRole;
             serializeModel.Avatar = account.ADUserAvatar;

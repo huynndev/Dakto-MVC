@@ -3740,7 +3740,10 @@
     <Folder Include="Content\ckfinder\bin\Debug\" />
     <Folder Include="Content\ckfinder\bin\Release\" />
     <Folder Include="Models\" />
-    <Folder Include="Uploads\" />
+    <Folder Include="Uploads\files\" />
+    <Folder Include="Uploads\flash\" />
+    <Folder Include="Uploads\images\" />
+    <Folder Include="Uploads\_thumbs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

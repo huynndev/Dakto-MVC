@@ -1,6 +1,6 @@
 ﻿@using Sora.Hospital.Infrastructure.Security;
 @{
-    //var currentUser = (CustomPrincipal)User;
+    var currentUser = (CustomPrincipal)User;
 }
 <nav class="navbar header-navbar pcoded-header">
     <div class="navbar-wrapper">
@@ -40,7 +40,7 @@
                     <div class="dropdown-primary dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown">
 
-                            @*@if (currentUser.Avatar != null && !string.IsNullOrWhiteSpace(currentUser.Avatar))
+                            @if (currentUser.Avatar != null && !string.IsNullOrWhiteSpace(currentUser.Avatar))
                             {
                                 <img src="@currentUser.Avatar?@DateTime.Now" class="img-radius" alt="User-Profile-Image">
                                 
@@ -50,7 +50,7 @@
                                 <img src="~/Content/images/noavatar.gif" class="img-radius" alt="User-Profile-Image">
                             }
 
-                            <span>@currentUser.FullName</span>*@
+                            <span>@currentUser.FullName</span>
                             <i class="feather icon-chevron-down"></i>
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
