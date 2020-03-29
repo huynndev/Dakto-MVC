@@ -29,8 +29,15 @@ namespace Sora.Services.Infrastructure
 
         public IEnumerable<ArticleCategoryViewModel> GetAllCategory()
         {
-            var categories = _articleCategoryRepository.GetAll().Include(x=>x.ICArticles).ToList();
-            return categories.Select(o => ToArticleCategoryViewModel(o));
+            try
+            {
+                var categories = _articleCategoryRepository.GetAll().Include(x => x.ICArticles).ToList();
+                return categories.Select(o => ToArticleCategoryViewModel(o));
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void Add(ArticleCategoryViewModel category)

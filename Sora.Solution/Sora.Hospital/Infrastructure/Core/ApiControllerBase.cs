@@ -13,7 +13,8 @@ namespace Sora.Hospital.Infrastructure.Core
 {
     public class ApiControllerBase : ApiController
     {
-
+        public static readonly log4net.ILog log
+               = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public ApiControllerBase()
         {
         }
@@ -36,14 +37,17 @@ namespace Sora.Hospital.Infrastructure.Core
                     }
                 }
                 response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.InnerException.Message);
+                log.Error(ex);
             }
             catch (DbUpdateException dbEx)
             {
                 response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, dbEx.InnerException.Message);
+                log.Error(dbEx);
             }
             catch (Exception ex)
             {
                 response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+                log.Error(ex);
             }
             return response;
         }

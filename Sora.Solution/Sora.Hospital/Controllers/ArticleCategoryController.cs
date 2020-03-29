@@ -10,11 +10,13 @@ namespace Sora.Hospital.Controllers
     public class ArticleCategoryController : ApiControllerBase
     {
         private IArticleCategoryService _articleCategoryService;
+        private ILogService _logService;
 
-        public ArticleCategoryController(IArticleCategoryService categoryService)
+        public ArticleCategoryController(IArticleCategoryService categoryService, ILogService logService)
             : base()
         {
             this._articleCategoryService = categoryService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -38,8 +40,16 @@ namespace Sora.Hospital.Controllers
         [Route("get-all")]
         public HttpResponseMessage GetAllCategory()
         {
-            var categories = _articleCategoryService.GetAllCategory();
-            return Request.CreateResponse(HttpStatusCode.OK, categories);
+            try
+            {
+                var categories = _articleCategoryService.GetAllCategory();
+                return Request.CreateResponse(HttpStatusCode.OK, categories);
+            }
+            catch (System.Exception ex)
+            {
+                _logService.Create(ex);
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
         }
     }
 }

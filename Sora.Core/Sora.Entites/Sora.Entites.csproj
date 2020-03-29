@@ -55,6 +55,7 @@
     <Compile Include="AD\ADConfigValue.cs" />
     <Compile Include="AD\ADUser.cs" />
     <Compile Include="AD\ADUserPermission.cs" />
+    <Compile Include="AD\Log.cs" />
     <Compile Include="BR\BRBranch.cs" />
     <Compile Include="CS\CSCompany.cs" />
     <Compile Include="GE\Country.cs" />
