@@ -82,6 +82,7 @@
     <Compile Include="Abstractions\ICompanyService.cs" />
     <Compile Include="Abstractions\IContactMessageService.cs" />
     <Compile Include="Abstractions\ILoginService.cs" />
+    <Compile Include="Abstractions\ILogService.cs" />
     <Compile Include="Infrastructure\AccountService.cs" />
     <Compile Include="Infrastructure\ArticleCategoryService.cs" />
     <Compile Include="Infrastructure\ArticleService.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Infrastructure\CompanyService.cs" />
     <Compile Include="Infrastructure\ContactMessageService.cs" />
     <Compile Include="Infrastructure\LoginService.cs" />
+    <Compile Include="Infrastructure\LogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\ArticleCategoryViewModel.cs" />

@@ -19,18 +19,15 @@ namespace Sora.Hospital.Infrastructure.Security
             {
                 FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(access_token);
                 CustomPrincipalSerializeModel serializeModel = JsonConvert.DeserializeObject<CustomPrincipalSerializeModel>(authTicket.UserData);
-                if (!string.IsNullOrWhiteSpace(serializeModel.roles) && UserConstants.Role.Count(x => x.Value == serializeModel.roles && x.Value != Role.NoPermisson.ToString()) > 0)
-                {
-                    CustomPrincipal newUser = new CustomPrincipal(authTicket.Name);
-                    newUser.UserId = serializeModel.UserId;
-                    newUser.FullName = serializeModel.FullName;
-                    newUser.Email = serializeModel.Email;
-                    newUser.roles = serializeModel.roles;
-                    newUser.Avatar = serializeModel.Avatar != null ? serializeModel.Avatar : "";
-                    newUser.Permissions = serializeModel.Permissions;
-                    HttpContext.Current.User = newUser;
-                    return true;
-                }
+
+                CustomPrincipal newUser = new CustomPrincipal(authTicket.Name);
+                newUser.UserId = serializeModel.UserId;
+                newUser.FullName = serializeModel.FullName;
+                newUser.Email = serializeModel.Email;
+                newUser.roles = serializeModel.roles;
+                newUser.Avatar = serializeModel.Avatar != null ? serializeModel.Avatar : "";
+                newUser.Permissions = serializeModel.Permissions;
+                HttpContext.Current.User = newUser;
                 return true;
             }
             return false;

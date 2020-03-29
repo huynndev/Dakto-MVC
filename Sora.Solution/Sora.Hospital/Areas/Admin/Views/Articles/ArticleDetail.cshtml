@@ -120,7 +120,7 @@
                                     </div>
                                     <div class="col-md-4 col-xs-12">
                                         <div class="form-group aligncenter">
-                                            <input type="hidden" name="picture" value="@Model.ICArticlePicture" />
+                                            <input type="hidden" name="ICArticlePicture" value="@Model.ICArticlePicture" />
                                             <img class="" style="height:150px;  max-height:150px;max-width:250px; border:1px solid #808080; padding: 2px;" src="~/Content/Upload/Article/@(!string.IsNullOrWhiteSpace(Model.ICArticlePicture) ? Model.ICArticlePicture : "no-img-article.png")" alt="no image" name="picture" id="picture" />
                                             <br />
                                             <input type="file" name="image" onchange="SetImagePreview(this,'image')" />

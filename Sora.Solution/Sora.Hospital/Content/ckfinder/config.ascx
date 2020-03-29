@@ -31,11 +31,11 @@
         LicenseKey = "55KN2B799PT2JRUD2A6XFVDQYGHTEYEA";
 
         // The base URL used to reach files in CKFinder through the browser.
-        BaseUrl = "/Uploads/";
+        BaseUrl = "http://admin.trungtamytehuyendakto.vn/Uploads/";
 
         // The phisical directory in the server where the file will end up. If
         // blank, CKFinder attempts to resolve BaseUrl.
-        BaseDir = "";// HttpContext.Current.Server.MapPath("~/Uploads/");
+        BaseDir = HttpContext.Current.Server.MapPath("~/Uploads/");
 
         // Optional: enable extra plugins (remember to copy .dll files first).
         Plugins = new string[] {

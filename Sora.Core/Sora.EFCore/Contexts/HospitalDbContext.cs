@@ -32,6 +32,8 @@ namespace Sora.EFCore.Contexts
 
         public DbSet<ICContactMessage> ICContactMessages { get; set; }
 
+        public DbSet<Log> Logs { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -167,7 +167,7 @@
                                                         <tr>
                                                             <td>@String.Format("{0:dd/MM/yyyy}", item.ICArticleDate)</td>
                                                             <td class="w-40" style="white-space:normal"><b>@item.ICArticleTitle</b> <br /> <i> /@item.ICArticleFriendlyUrl</i> </td>
-                                                            <td><img src="~/Content/Upload/Article/@(item.ICArticlePicture != "" ? item.ICArticlePicture : "no-img-article.png")" class="avater-image" width="100" /></td>
+                                                            <td><img src="~/Content/Upload/Article/@(!string.IsNullOrWhiteSpace(item.ICArticlePicture) ? item.ICArticlePicture : "no-img-article.png")" class="avater-image" width="100" /></td>
                                                             <td>@(item.ICArticleIsShowHome == true ? "Công bố" : "Không công bố")</td>
                                                             <td>@(item.ICArticleIsShowHome == true ? "Cho phép hiển thị" : "Không hiển thị")</td>
                                                             <td>
