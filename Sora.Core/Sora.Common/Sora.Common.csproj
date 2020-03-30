@@ -42,7 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonObjects\DictionaryItemDto.cs" />
+    <Compile Include="CommonObjects\EmptyArray.cs" />
+    <Compile Include="CommonObjects\PagedResult.cs" />
+    <Compile Include="CommonObjects\SelectionData.cs" />
     <Compile Include="Constants\AudiableStatus.cs" />
+    <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Enums\SpecialistsType.cs" />
+    <Compile Include="Extensions\EnumrableExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtension.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

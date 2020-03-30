@@ -4,6 +4,7 @@ using Sora.Entites.AD;
 using Sora.Services.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sora.Services.Infrastructure
 {
@@ -31,7 +32,7 @@ namespace Sora.Services.Infrastructure
 
         public IEnumerable<Log> GetAll()
         {
-            return _logRepository.GetAll();
+            return _logRepository.GetAll().OrderByDescending(x => x.AACreatedDate);
         }
     }
 }

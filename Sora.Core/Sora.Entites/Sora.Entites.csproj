@@ -73,6 +73,9 @@
     <Compile Include="IC\ICContactMessage.cs" />
     <Compile Include="Interfaces\Auditable.cs" />
     <Compile Include="Interfaces\IAuditable.cs" />
+    <Compile Include="ME\MEDoctor.cs" />
+    <Compile Include="ME\MEDoctorSpecialist.cs" />
+    <Compile Include="ME\MESpecialist.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

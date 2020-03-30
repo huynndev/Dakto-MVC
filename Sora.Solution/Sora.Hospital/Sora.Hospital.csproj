@@ -227,13 +227,17 @@
     <Compile Include="Areas\Admin\Controllers\ArticlesController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CompanyConfigController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DoctorsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SALogController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManagerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SpecialistsController.cs" />
     <Compile Include="Controllers\ArticleCategoryController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ContactMessageController.cs" />
+    <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SpecialistController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1512,6 +1516,10 @@
     <Content Include="Content\Adminty\assets\sweetalert\sweetalert\js\sweetalert.js" />
     <Content Include="Content\Adminty\assets\timepicker\css\bootstrap-timepicker.min.css" />
     <Content Include="Content\Adminty\assets\timepicker\js\bootstrap-timepicker.min.js" />
+    <Content Include="Content\Adminty\assets\toastr\css\toastr.css" />
+    <Content Include="Content\Adminty\assets\toastr\css\toastr.min.css" />
+    <Content Include="Content\Adminty\assets\toastr\js\toastr.js" />
+    <Content Include="Content\Adminty\assets\toastr\js\toastr.min.js" />
     <Content Include="Content\Adminty\bower_components\animate.css\css\animate.css" />
     <Content Include="Content\Adminty\bower_components\autosize\js\autosize.min.js" />
     <Content Include="Content\Adminty\bower_components\bootstrap-datepicker\js\bootstrap-datepicker.min.js" />
@@ -3346,27 +3354,12 @@
     <Content Include="Content\Upload\Companies\ff87c84d-0fea-4167-b9b9-7ddd17179d8a.png" />
     <Content Include="Content\Upload\Companies\readme.txt" />
     <Content Include="Content\Upload\EmailFiles\readme.txt" />
-    <Content Include="Content\Upload\Experts\readme.txt" />
-    <Content Include="Content\Upload\Feedbacks\121569f7-fdee-4906-a09b-f6ab40600256.png" />
-    <Content Include="Content\Upload\Feedbacks\2739c146-bbed-4147-a2d8-1a53ce9492f3.png" />
-    <Content Include="Content\Upload\Feedbacks\2914c9e5-9538-4654-90f3-da52bb5b40e3.png" />
-    <Content Include="Content\Upload\Feedbacks\4adda90c-8df4-4538-9b68-db4cee171a4a.png" />
-    <Content Include="Content\Upload\Feedbacks\78916b1f-1770-4acc-ae79-aa2e801146be.png" />
-    <Content Include="Content\Upload\Feedbacks\90b4af26-444c-477f-9bb4-5dc4510e377a.png" />
-    <Content Include="Content\Upload\Feedbacks\a033c9ec-1bb0-4f7e-9193-bb6ae934a8d2.png" />
-    <Content Include="Content\Upload\Feedbacks\b86c8a26-3717-45e5-b6d7-33e9d804c132.png" />
-    <Content Include="Content\Upload\Feedbacks\ba0ecfd9-8155-4f78-89cf-3ad0937acb49.png" />
-    <Content Include="Content\Upload\Feedbacks\ca86224a-ec9f-4637-b8cc-25cabb8a8841.png" />
-    <Content Include="Content\Upload\Feedbacks\readme.txt" />
     <Content Include="Content\Upload\Medias\headquarters_031019_024612.png" />
     <Content Include="Content\Upload\Medias\headquarters_031019_025331.png" />
     <Content Include="Content\Upload\Medias\image_slide_home_1_260919_050648.png" />
     <Content Include="Content\Upload\Medias\image_slide_home_260919_051000.png" />
     <Content Include="Content\Upload\Medias\img_intro_bys_011019_033940.png" />
     <Content Include="Content\Upload\Medias\readme.txt" />
-    <Content Include="Content\Upload\Recruitments\readme.txt" />
-    <Content Include="Content\Upload\Solutions\2953217a-8791-4c34-a7ef-ccb03e9e2b43.png" />
-    <Content Include="Content\Upload\Solutions\readme.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Logs\ErrorLog.txt" />
@@ -3692,6 +3685,12 @@
     <Content Include="Content\ckfinder\userfiles\.htaccess" />
     <Content Include="Areas\Admin\Views\CompanyConfig\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SALog\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Specialists\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Specialists\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Doctors\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Doctors\Detail.cshtml" />
+    <Content Include="Content\Adminty\assets\toastr\css\toastr.less" />
+    <Content Include="Content\Adminty\assets\toastr\css\toastr.scss" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -3741,6 +3740,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Content\ckfinder\bin\Debug\" />
     <Folder Include="Content\ckfinder\bin\Release\" />
+    <Folder Include="Content\Upload\Doctors\" />
     <Folder Include="Models\" />
     <Folder Include="Uploads\files\" />
     <Folder Include="Uploads\flash\" />

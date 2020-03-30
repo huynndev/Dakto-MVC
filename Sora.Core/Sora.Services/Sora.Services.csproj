@@ -81,16 +81,22 @@
     <Compile Include="Abstractions\ICommonService.cs" />
     <Compile Include="Abstractions\ICompanyService.cs" />
     <Compile Include="Abstractions\IContactMessageService.cs" />
+    <Compile Include="Abstractions\IDoctorService.cs" />
     <Compile Include="Abstractions\ILoginService.cs" />
     <Compile Include="Abstractions\ILogService.cs" />
+    <Compile Include="Abstractions\ISpecialistService.cs" />
     <Compile Include="Infrastructure\AccountService.cs" />
     <Compile Include="Infrastructure\ArticleCategoryService.cs" />
     <Compile Include="Infrastructure\ArticleService.cs" />
     <Compile Include="Infrastructure\CommonService.cs" />
     <Compile Include="Infrastructure\CompanyService.cs" />
     <Compile Include="Infrastructure\ContactMessageService.cs" />
+    <Compile Include="Infrastructure\DoctorService.cs" />
+    <Compile Include="Infrastructure\Helpers\ConvertEntityToViewModelHelper.cs" />
+    <Compile Include="Infrastructure\Helpers\ConvertViewModelToEntityHelper.cs" />
     <Compile Include="Infrastructure\LoginService.cs" />
     <Compile Include="Infrastructure\LogService.cs" />
+    <Compile Include="Infrastructure\SpecialistService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\ArticleCategoryViewModel.cs" />
@@ -99,11 +105,14 @@
     <Compile Include="ViewModels\CompanyViewModel.cs" />
     <Compile Include="ViewModels\ContactMessageViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\DoctorViewModel.cs" />
     <Compile Include="ViewModels\FeedbackViewModel.cs" />
     <Compile Include="ViewModels\FooterViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PaginationSet.cs" />
+    <Compile Include="ViewModels\ShortDoctorDto.cs" />
     <Compile Include="ViewModels\SliderViewModel.cs" />
+    <Compile Include="ViewModels\SpecialistViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sora.Common\Sora.Common.csproj">
@@ -123,5 +132,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

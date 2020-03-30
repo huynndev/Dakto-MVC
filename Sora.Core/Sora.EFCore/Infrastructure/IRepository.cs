@@ -33,6 +33,8 @@ namespace Sora.EFCore.Infrastructure
 
         IQueryable<T> GetAll();
 
+        //IEnumerable<T> GetAll(string[] includes = null);
+
         IEnumerable<T> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null);
 
         IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> filter, out int total, int index = 0, int size = 50, string[] includes = null);

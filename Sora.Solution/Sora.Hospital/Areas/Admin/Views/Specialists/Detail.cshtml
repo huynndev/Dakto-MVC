@@ -1,0 +1,222 @@
+﻿@using Sora.Services.ViewModels
+@model Sora.Services.ViewModels.SpecialistViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
+    var doctos = (List<ShortDoctorDto>)ViewData["Doctors"];
+
+    var isSuccess = ViewBag.Success;
+    var Message = ViewBag.Message;
+}
+@section css{
+    <link href="~/Content/Adminty/assets/toastr/css/toastr.css" rel="stylesheet" />
+}
+
+<!-- Page-header start -->
+<div class="page-header horizontal-layout-icon">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <div class="d-inline">
+                    <h4>Cập nhập chuyên khoa</h4>
+                    <span>Thêm mới / Sửa thông tin</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item">
+                        <a href="~/Admin">
+                            <i class="icofont icofont-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index","Special")">Chuyên khoa</a>
+
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#!">Cập nhập</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page-header end -->
+<div class="page-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Zero config.table start -->
+
+            @using (Html.BeginForm("Save", "Specialists", FormMethod.Post, new { @id = "formData", @class = "form-validate form-page" }))
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs md-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#category1" role="tab">Tiếng Việt</a>
+                                <div class="slide"></div>
+                            </li>
+                        </ul>
+                        <div class="card-header-right">
+                            <ul class="list-unstyled card-option">
+                                <li><i class="feather icon-maximize full-card"></i></li>
+                                <li><i class="feather minimize-card icon-minus"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.MESpecialistID)
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-lg-12 ">
+                                <!-- Tab panes -->
+                                <div class="tab-content card-block">
+                                    <div class="tab-pane active" id="category1" role="tabpanel">
+                                        <div class=" col-12">
+                                            <div class="form-group">
+                                                <label>Tên chuyên khoa</label>
+                                                @Html.TextBoxFor(model => model.MESpecialistName, new { @class = "form-control", placeholder = "Tên chuyên khoa", autocomplete = "off", maxlength = 50, onchange = "updateAlias(this);" })
+                                            </div>
+                                        </div>
+                                        <div class=" col-12">
+                                            <div class="form-group">
+                                                <label>Mã chuyên khoa</label>
+                                                @Html.TextBoxFor(model => model.MESpecialistCode, new { @class = "form-control", placeholder = "Mã chuyên khoa", autocomplete = "off", maxlength = 50 })
+                                            </div>
+                                        </div>
+                                        <div class=" col-12">
+                                            <div class="form-group">
+                                                <label>Loại chuyên khoa</label>
+                                                @Html.DropDownListFor(model => model.MESpecialistType, new List<SelectListItem>
+                                                {
+                                                    new SelectListItem { Text = "Dịch vụ y tế", Value = "HealthServices"},
+                                                    new SelectListItem { Text = "Thai sản", Value = "Maternity"},
+                                                }, "Vui lòng loại chuyên khoa", new { @class = "form-control", required = "required" })
+                                            </div>
+                                        </div>
+                                        <div class=" col-12">
+                                            <div class="form-group">
+                                                <label>Trưởng khoa</label>
+                                                @Html.DropDownListFor(model => model.FK_MEDoctorID,
+                                               doctos.Select(x => new SelectListItem { Text = string.Format("{0} {1}", x.MEDoctorSalutation, x.MEDoctorName), Value = x.MEDoctorID.ToString() }),
+                                               "Chọn bác sĩ trưởng khoa",
+                                               new { @class = "form-control", required = "required" })
+                                            </div>
+                                        </div>
+                                        <div class=" col-12">
+                                            <div class="form-group">
+                                                <label>Mô tả</label>
+                                                @Html.TextAreaFor(model => model.MESpecialistDesc, new { @class = "form-control editor box-content", placeholder = "Mô tả", autocomplete = "off", rows = 3, maxlength = 1000 })
+                                            </div>
+                                        </div>
+                                        @*<div class=" col-12">
+                                                <div class="form-group">
+                                                    <label>Danh mục</label>
+                                                    @Html.DropDownListFor(model => model.ICArticleCategoryParentID, catlist, "--Chọn--", new { @class = "form-control", placeholder = "Tên danh mục" })
+                                                </div>
+                                            </div>
+                                            <div class=" col-12">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label style="display:block">Hiển thị</label>
+                                                            @Html.CheckBoxFor(model => model.ICArticleCategoryIsShowMenu, new { @class = "border-checkbox-label" })
+                                                            <label for="@Html.IdFor(model=> model.ICArticleCategoryIsShowMenu)">Cho phép hiển thị trên menu</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label>Thứ tự hiên thị</label>
+                                                            @Html.TextBoxFor(model => model.ICArticleCategorySortOrder, new { @class = "form-control", @type = "number" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-12 align-center">
+                                <div class="form-group" style="margin: auto;padding: 13px;">
+                                    <span style="float:right">
+                                        <button type="submit" class="btn btn-space btn-primary ">Lưu</button>
+                                        @Html.ActionLink("Trở lại", "Index", "Specialists", new { @class = "btn btn-space btn-default" })
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- Zero config.table end -->
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/ckeditor/config.js"></script>
+    <script src="~/Content/ckeditor/adapters/jquery.js"></script>
+    <script type="text/javascript" src="~/Content/ckfinder/ckfinder.js"></script>
+    <script src="~/Content/Adminty/assets/toastr/js/toastr.js"></script>
+
+    @if (isSuccess != null)
+    {
+        if (isSuccess)
+        {
+            <script>
+                toastr.success('@Message', 'Thành công');
+            </script>
+        }
+        else
+        {
+            <script>
+                toastr.error('@Message', 'Thất bại',{timeOut: 8000});
+            </script>
+        }
+    }
+    <script type="text/javascript">
+        $(function () {
+            var $form = $("#formData");
+            $(".editor")
+                .ckeditor();
+
+            //CKFinder.setupCKEditor(null, "/Uploads");
+        });
+
+
+        function updateAlias(input) {
+
+            var newAlias = alias($(input).val());
+            var oldAlias = $("#MESpecialistCode").val();
+            console.log(newAlias);
+            console.log(oldAlias);
+            if (newAlias.indexOf(oldAlias) >= 0) {
+                $("#MESpecialistCode").val(newAlias);
+            }
+        }
+        function alias(str) {
+            str = str.trim();
+            return str
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/đ/g, "d")
+                .replace(/\s+/g, '-')
+                .replace('.', '-')
+                .replace(/Đ/g, "D").toLowerCase();
+        }
+    </script>
+}
+

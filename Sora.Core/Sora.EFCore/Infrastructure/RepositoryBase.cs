@@ -99,18 +99,18 @@ namespace Sora.EFCore.Infrastructure
             return dbSet.Count(where);
         }
 
-        //public IEnumerable<T> GetAll(string[] includes = null)
-        //{
-        //    //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
-        //    if (includes != null && includes.Count() > 0)
-        //    {
-        //        var query = dataContext.Set<T>().Where(o => o.AAStatus == AudiableStatus.Alive).Include(includes.First());
-        //        foreach (var include in includes.Skip(1))
-        //            query = query.Include(include);
-        //        return query.AsQueryable();
-        //    }
-        //    return dataContext.Set<T>().Where(o => o.AAStatus == AudiableStatus.Alive).AsQueryable();
-        //}
+        public IEnumerable<T> GetAll(string[] includes = null)
+        {
+            //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
+            if (includes != null && includes.Count() > 0)
+            {
+                var query = dataContext.Set<T>().Where(o => o.AAStatus == AudiableStatus.Alive).Include(includes.First());
+                foreach (var include in includes.Skip(1))
+                    query = query.Include(include);
+                return query.AsQueryable();
+            }
+            return dataContext.Set<T>().Where(o => o.AAStatus == AudiableStatus.Alive).AsQueryable();
+        }
 
         public IQueryable<T> GetAll()
         {

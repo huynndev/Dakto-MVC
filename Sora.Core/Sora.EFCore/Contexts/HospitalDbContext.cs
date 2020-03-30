@@ -1,17 +1,8 @@
 ﻿using Sora.Entites.AD;
-using Sora.Entites.BR;
 using Sora.Entites.CS;
-using Sora.Entites.GE;
-using Sora.Entites.HR;
 using Sora.Entites.IC;
-using System;
-using System.Collections.Generic;
+using Sora.Entites.ME;
 using System.Data.Entity;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sora.EFCore.Contexts
 {
@@ -33,6 +24,12 @@ namespace Sora.EFCore.Contexts
         public DbSet<ICContactMessage> ICContactMessages { get; set; }
 
         public DbSet<Log> Logs { get; set; }
+
+        public DbSet<MEDoctor> MEDoctors { get; set; }
+
+        public DbSet<MEDoctorSpecialist> MEDoctorSpecialists { get; set; }
+
+        public DbSet<MESpecialist> MESpecialists { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -1,4 +1,5 @@
-﻿using Sora.Hospital.Infrastructure.Core;
+﻿using Sora.Common.CommonObjects;
+using Sora.Hospital.Infrastructure.Core;
 using Sora.Services.Abstractions;
 using Sora.Services.ViewModels;
 using System;
@@ -43,12 +44,13 @@ namespace Sora.Hospital.Controllers
         {
             int totalRow = 0;
             var articles = _articleService.GetArticleByCategoryID(categoryId, page, pageSize, sortOption, out totalRow).Where(x=>x.ICArticleDate <= DateTime.Now);
-            var paginationSet = new PaginationSet<ArticleViewModel>()
+            var paginationSet = new PagedResult<ArticleViewModel>()
             {
-                Items = articles,
+                Items = articles.ToArray(),
                 PageIndex = page,
-                TotalRow = articles.Count(),
-                PageSize = pageSize
+                TotalCount = articles.Count(),
+                PageSize = pageSize,
+                TotalPages = articles.Count() % pageSize == 0 ? articles.Count() / pageSize : (articles.Count() / pageSize) + 1
             };
             return Request.CreateResponse(HttpStatusCode.OK, paginationSet);
         }
