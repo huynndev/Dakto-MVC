@@ -9,5 +9,7 @@ namespace Sora.EFCore.Infrastructure
     public interface IUnitOfWork
     {
         void Commit();
+
+        int ExecuteSqlCommand(string sql, params object[] parameters);
     }
 }

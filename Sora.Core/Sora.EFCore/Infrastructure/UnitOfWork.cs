@@ -1,9 +1,4 @@
 ﻿using Sora.EFCore.Contexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sora.EFCore.Infrastructure
 {
@@ -27,5 +22,7 @@ namespace Sora.EFCore.Infrastructure
         {
             DbContext.SaveChanges();
         }
+
+        public int ExecuteSqlCommand(string sql, params object[] parameters) => DbContext.Database.ExecuteSqlCommand(sql, parameters);
     }
 }
