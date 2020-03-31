@@ -105,7 +105,7 @@
                                                 @Html.DropDownListFor(model => model.FK_MEDoctorID,
                                                doctos.Select(x => new SelectListItem { Text = string.Format("{0} {1}", x.MEDoctorSalutation, x.MEDoctorName), Value = x.MEDoctorID.ToString() }),
                                                "Chọn bác sĩ trưởng khoa",
-                                               new { @class = "form-control", required = "required" })
+                                               new { @class = "form-control"})
                                             </div>
                                         </div>
                                         <div class=" col-12">

@@ -86,6 +86,24 @@ namespace Sora.Hospital.Areas.Admin.Controllers
             }
         }
 
+        [HttpDelete]
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                _specialistService.Delete(id);
+                TempData["Success"] = true;
+                TempData["Message"] = "Xóa chuyên khoa thành công.";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["Success"] = true;
+                TempData["Message"] = "Xóa chuyên khoa thất bại. Vui lòng thử lại";
+                return RedirectToAction("Index");
+            }
+        }
+
         #endregion
     }
 }

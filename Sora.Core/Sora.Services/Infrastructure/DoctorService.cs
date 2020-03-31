@@ -58,6 +58,7 @@ namespace Sora.Services.Infrastructure
         {
             try
             {
+                _doctorSpecialistRepository.DeleteMulti(x => x.FK_MEDoctorID == id);
                 _doctorRepository.Delete(id);
                 _unitOfWork.Commit();
             }

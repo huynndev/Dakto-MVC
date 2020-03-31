@@ -261,6 +261,14 @@
     <Content Include="Content\Adminty\assets\css\solution-content.css" />
     <Content Include="Content\Adminty\assets\css\style-my-account.css" />
     <Content Include="Content\Adminty\assets\css\style.css" />
+    <Content Include="Content\Adminty\assets\error\404-01.png" />
+    <Content Include="Content\Adminty\assets\error\monster-01.png" />
+    <Content Include="Content\Adminty\assets\error\monster-eyes-01.png" />
+    <Content Include="Content\Adminty\assets\error\parallax-error.js" />
+    <Content Include="Content\Adminty\assets\error\rocket-loader.min.js" />
+    <Content Include="Content\Adminty\assets\error\shadows-01.png" />
+    <Content Include="Content\Adminty\assets\error\style-error.css" />
+    <Content Include="Content\Adminty\assets\error\text-01.png" />
     <Content Include="Content\Adminty\assets\facybox\css\fancybox.css" />
     <Content Include="Content\Adminty\assets\facybox\js\fancybox.min.js" />
     <Content Include="Content\Adminty\assets\fontawesome\all.css" />
@@ -3360,6 +3368,7 @@
     <Content Include="Content\Upload\Medias\image_slide_home_260919_051000.png" />
     <Content Include="Content\Upload\Medias\img_intro_bys_011019_033940.png" />
     <Content Include="Content\Upload\Medias\readme.txt" />
+    <Content Include="Error.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Logs\ErrorLog.txt" />

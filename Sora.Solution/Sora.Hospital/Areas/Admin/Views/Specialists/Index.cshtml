@@ -91,7 +91,7 @@
                                             }
                                         </td>
                                         <td>
-                                            @string.Format("{0} {1}", item.ChiefDoctor.MEDoctorSalutation, item.ChiefDoctor.MEDoctorName)
+                                            @(item.FK_MEDoctorID.HasValue ? string.Format("{0} {1}", item.ChiefDoctor.MEDoctorSalutation, item.ChiefDoctor.MEDoctorName) : "Chưa có")
                                         </td>
                                         <td>
                                             @item.TotalDoctor Bác sĩ &nbsp;
