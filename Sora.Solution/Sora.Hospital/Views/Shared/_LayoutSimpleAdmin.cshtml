@@ -33,6 +33,7 @@
     @Styles.Render("~/Content/SimpleAdminCSS")
     <link href="~/Content/assets/lib/multiselect/css/multi-select.css" rel="stylesheet" />
     <link href="~/Content/Adminty/assets/css/component.css" rel="stylesheet" />
+    <link href="~/Content/Adminty/assets/toastr/css/toastr.css" rel="stylesheet" />
     @RenderSection("css", required: false)
 </head>
 <!-- Menu-Bottom layout start -->
@@ -158,6 +159,7 @@
     @Scripts.Render("~/Content/SimpleAdminDatatableScript")
     <script src="~/Content/assets/lib/multiselect/js/jquery.multi-select.js"></script>
     <script src="~/Content/assets/lib/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
+    <script src="~/Content/Adminty/assets/toastr/js/toastr.js"></script>
     @RenderSection("scripts", required: false)
     <script>
         $("#@activeMenu").addClass("active");

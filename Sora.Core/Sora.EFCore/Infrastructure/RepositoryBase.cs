@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Sora.EFCore.Infrastructure
 {
-    public abstract class RepositoryBase<T> : IRepository<T> where T : Auditable
+    public class RepositoryBase<T> : IRepository<T> where T : Auditable
     {
         #region Properties
 
@@ -31,7 +31,7 @@ namespace Sora.EFCore.Infrastructure
 
         #endregion Properties
 
-        protected RepositoryBase(IDbFactory dbFactory)
+        public RepositoryBase(IDbFactory dbFactory)
         {
             DbFactory = dbFactory;
             dbSet = DbContext.Set<T>();

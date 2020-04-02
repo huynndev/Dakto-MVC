@@ -71,6 +71,9 @@
     <Compile Include="IC\ICArticle.cs" />
     <Compile Include="IC\ICArticleCategory.cs" />
     <Compile Include="IC\ICContactMessage.cs" />
+    <Compile Include="IC\ICProduct.cs" />
+    <Compile Include="IC\ICProductDetail.cs" />
+    <Compile Include="IC\ICProductGroup.cs" />
     <Compile Include="Interfaces\Auditable.cs" />
     <Compile Include="Interfaces\IAuditable.cs" />
     <Compile Include="ME\MEDoctor.cs" />

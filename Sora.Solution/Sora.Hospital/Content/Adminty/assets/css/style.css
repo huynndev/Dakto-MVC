@@ -25996,3 +25996,7 @@ body.dark {
         .mn-main.active a:hover i {
             color: #f17769 !important;
         }
+
+.pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item .pcoded-hasmenu .pcoded-submenu li.active > a {
+    color: #FE8A7D !important;
+}

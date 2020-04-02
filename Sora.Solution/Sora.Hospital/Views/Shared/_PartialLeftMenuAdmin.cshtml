@@ -59,6 +59,29 @@
         </li>
         <li class=" pcoded-hasmenu">
             <a href="javascript:void(0)">
+                <span class="pcoded-micon"><i class="feather icon-briefcase"></i></span>
+                <span class="pcoded-mtext">Sản phẩm</span>
+            </a>
+            <ul class="pcoded-submenu">
+                <li class=" " id="product-group-index">
+                    <a href="@Url.Action("Index","ProductGroups")">
+                        <span class="pcoded-mtext">Quản lý nhóm sản phẩm</span>
+                    </a>
+                </li>
+                <li class=" " id="product-index">
+                    <a href="@Url.Action("Index","Products")">
+                        <span class="pcoded-mtext">Quản lý sản phẩm</span>
+                    </a>
+                </li>
+                @*<li class=" " id="tags-index">
+                    <a href="@Url.Action("index","Tags")">
+                        <span class="pcoded-mtext">Quản lý Tags</span>
+                    </a>
+                </li>*@
+            </ul>
+        </li>
+        <li class=" pcoded-hasmenu">
+            <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="feather icon-image"></i></span>
                 <span class="pcoded-mtext">Nôi dung mở rộng</span>
             </a>

@@ -1,0 +1,421 @@
+﻿@using Sora.Common.CommonObjects
+@using Sora.Common.Constants
+@using Sora.Common.Extensions
+@using Sora.Common.Enums
+@using Sora.Services.ViewModels
+@model Sora.Services.ViewModels.ProductViewModel
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
+    var isSuccess = ViewBag.Success;
+    var Message = ViewBag.Message;
+    var groups = (List<ProductGroupViewModel>)ViewData["Groups"];
+    var specialists = (List<SpecialistViewModel>)ViewData["Specialists"];
+    var products = (List<ShortProductDto>)ViewData["Products"];
+}
+@section css{
+    <link href="~/Content/assets/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: #01a9ac !important;
+            border: 1px solid #01a9ac !important;
+            padding: 5px 15px !important;
+        }
+
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #01a9ac !important;
+        }
+
+        .box-img-avatar {
+            position: relative;
+            overflow: hidden;
+            width: 420px;
+            height: 300px;
+            max-width: 100%;
+            max-height: 100%;
+            margin-bottom: -15px;
+            border: 1px solid #bfbfbf;
+        }
+
+        .img-avatar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .lable-input {
+            position: absolute;
+            background: #0000004f;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            margin-bottom: 0;
+            height: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ffe1;
+            cursor: pointer;
+        }
+
+        .modal img {
+            width: 75px;
+            height: 75px;
+        }
+
+        .bor-right {
+            border-right: 1px solid #e8e8e8;
+        }
+
+        .quantity {
+            width: 40px;
+            padding: 5px 0px 5px 5px;
+            text-align: right;
+        }
+    </style>
+}
+<!-- Page-header start -->
+<div class="page-header horizontal-layout-icon">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <div class="d-inline">
+                    <h4>Cập nhập sản phẩm</h4>
+                    <span>Thêm mới / Sửa thông tin</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item">
+                        <a href="~/Admin">
+                            <i class="icofont icofont-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index","Products")">Sản phẩm</a>
+
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#!">Cập nhập</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page-header end -->
+<div class="page-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Zero config.table start -->
+            @using (Html.BeginForm("Save", "Products", FormMethod.Post, new { @id = "formData", @class = "form-validate form-page", enctype = "multipart/form-data" }))
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs md-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#category1" role="tab">Tiếng Việt</a>
+                                <div class="slide"></div>
+                            </li>
+                        </ul>
+                        <div class="card-header-right">
+                            <ul class="list-unstyled card-option">
+                                <li><i class="feather icon-maximize full-card"></i></li>
+                                <li><i class="feather minimize-card icon-minus"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.ICProductID)
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-lg-12 ">
+                                <!-- Tab panes -->
+                                <div class="tab-content card-block">
+                                    <div class="tab-pane active" id="category1" role="tabpanel">
+                                        <div class="row w-100">
+                                            <div class="col-6">
+                                                <div class=" col-12">
+                                                    <div class="form-group">
+                                                        <label>Tên sản phẩm</label>
+                                                        @Html.TextBoxFor(model => model.ICProductName, new { @class = "form-control", placeholder = "Tên sản phẩm", autocomplete = "off", maxlength = 50 })
+                                                    </div>
+                                                </div>
+                                                <div class=" col-12">
+                                                    <div class="form-group">
+                                                        <label>Tiêu đề</label>
+                                                        @Html.TextBoxFor(model => model.ICProductTitle, new { @class = "form-control", placeholder = "Tiêu đề", autocomplete = "off", maxlength = 50 })
+                                                    </div>
+                                                </div>
+                                                <div class=" col-12">
+                                                    <div class="form-group">
+                                                        <label>Loại sản phẩm</label>
+                                                        @Html.DropDownListFor(model => model.ICProductType, new List<SelectListItem>
+                                                        {
+                                                            new SelectListItem { Text = "Dịch vụ", Value = "Service"},
+                                                            new SelectListItem { Text = "Gói dịch vụ", Value = "ServicePackage"},
+                                                            new SelectListItem { Text = "Khám bệnh", Value = "MedicalExamination"},
+                                                        }, "Vui lòng loại sản phẩm", new { @class = "form-control", required = "required" })
+                                                    </div>
+                                                </div>
+                                                <div class=" col-12">
+                                                    <div class="form-group">
+                                                        <label>Thuộc nhóm sản phẩm</label>
+                                                        @Html.DropDownListFor(model => model.FK_ICProductGroupID,
+                                                       groups.Select(x => new SelectListItem { Text = x.ICProductGroupName, Value = x.ICProductGroupID.ToString() }),
+                                                       "Chọn nhóm sản phẩm",
+                                                       new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                                <div class=" col-12">
+                                                    <div class="form-group">
+                                                        <label>Thuộc chuyên khoa</label>
+                                                        @Html.DropDownListFor(model => model.FK_MESpecialistID,
+                                                       specialists.Select(x => new SelectListItem { Text = x.MESpecialistName, Value = x.MESpecialistID.ToString() }),
+                                                       "Chọn nhóm sản phẩm",
+                                                       new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                                <div class="row w-100 m-0">
+                                                    <div class="col-5">
+                                                        <div class="form-group">
+                                                            <label style="display:block">Hiển thị</label>
+                                                            @Html.CheckBoxFor(model => model.ICProductIsShowWeb, new { @class = "border-checkbox-label" })
+                                                            <label for="@Html.IdFor(model=> model.ICProductIsShowWeb)">Cho phép hiển thị trên web</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-7">
+                                                        <div class="form-group">
+                                                            <label>Giá sản phẩm</label>
+                                                            @Html.TextBoxFor(model => model.ICProductPrice, new { @class = "form-control", @type = "number" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group aligncenter box-img-avatar mx-auto mt-5 mb-2">
+                                                    @Html.HiddenFor(model => model.ICProductPicture)
+                                                    @{
+                                                        var imgCompany = !Model.ICProductPicture.IsNullOrWhiteSpace() ? string.Format("{0}{1}", Constants.PATH_IMAGE_PRODUCT, Model.ICProductPicture) : "/Content/images/noavatar.gif";
+                                                    }
+                                                    <img class="img-avatar" style="" src="@imgCompany" alt="no image" name="avatar1" id="avatar1" />
+                                                    <br />
+                                                    <input type="file" class="d-none" id="avatar" name="avatar" onchange="SetImagePreview(this,'image')" />
+                                                    <label class="lable-input" for="avatar">Cập nhật hình ảnh</label>
+                                                </div>
+                                                <div class="w-100 d-flex justify-content-center">
+                                                    <a href="javascript:;" id="btn-child-product" class="btn btn-space btn-primary mt-5">Sản phẩm con</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-12">
+                                            <div class="form-group">
+                                                <label>Mô tả</label>
+                                                @Html.TextAreaFor(model => model.ICProductContent, new { @class = "form-control editor box-content", autocomplete = "off", rows = 3, maxlength = 1000 })
+                                            </div>
+                                        </div>
+                                        @*<div class=" col-12">
+                                                <div class="form-group">
+                                                    <label>Danh mục</label>
+                                                    @Html.DropDownListFor(model => model.ICArticleCategoryParentID, catlist, "--Chọn--", new { @class = "form-control", placeholder = "Tên danh mục" })
+                                                </div>
+                                            </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-12 align-center">
+                                <div class="form-group" style="margin: auto;padding: 13px;">
+                                    <span style="float:right">
+                                        <button type="submit" class="btn btn-space btn-primary ">Lưu</button>
+                                        @Html.ActionLink("Trở lại", "Index", "Products", new { @class = "btn btn-space btn-default" })
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- Zero config.table end -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade pr-0 bg-fade-modal" id="modal-child-product" tabindex="-1" role="dialog" aria-labelledby="editUserPermissionModalTitle" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered h-100 m-auto d-flex" role="document">
+        <div class="modal-content p-3 m-auto box-list-email">
+            <div class="modal-header pb-0 pt-0 d-flex justify-content-between">
+                <b>Danh sách sản phẩm con</b>
+                <button class="btn btn-space btn-primary" id="btn-show-products" style="padding: 2px 3px; margin-bottom: 5px;"><i class="feather icon-plus mr-0"></i></button>
+            </div>
+            <div class="modal-body mt-3" style="padding: 0; width: 850px;">
+                <div class="row w-100 m-0 mb-2">
+                    <div class="col-5 d-flex row m-0">
+                        <strong>Sản phẩm</strong>
+                    </div>
+                    <div class="col-2 d-flex align-items-center justify-content-end">
+                        <strong>Đơn giá</strong>
+                    </div>
+                    <div class="col-2 d-flex align-items-center justify-content-end">
+                        <strong>Số lượng</strong>
+                    </div>
+                    <div class="col-3 d-flex align-items-center justify-content-end">
+                        <strong>Tổng tiền</strong>
+                    </div>
+                </div>
+                @foreach (var item in products)
+                {
+                    <div class="row w-100 m-0">
+                        <div class="col-5 d-flex row m-0 bor-right">
+                            <img src="@(!item.ICProductPicture.IsNullOrWhiteSpace() ? string.Format("{0}{1}", Constants.PATH_IMAGE_PRODUCT, Model.ICProductPicture) : "/Content/images/noavatar.gif")" alt="Alternate Text" />
+                            <div class="ml-3">
+                                <strong>@item.ICProductName</strong> <br />
+                                @if (item.ICProductType == ProductType.Service.ToString())
+                                {
+                                    <span>Dịch vụ</span>
+                                }
+                                else if (item.ICProductType == ProductType.ServicePackage.ToString())
+                                {
+                                    <span>Gói dịch vụ</span>
+                                }
+                                else if (item.ICProductType == ProductType.MedicalExamination.ToString())
+                                {
+                                    <span>Khám bệnh</span>
+                                } <br />
+                                @*@(item.ICProductIsShowWeb == true ? "Cho phép hiển thị" : "Không hiển thị") <br />*@
+                                <a href="javascript:;" class="text-danger" title="Xóa khỏi sản phẩm con"><i class="feather icon-trash-2"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-2 bor-right d-flex align-items-center justify-content-end">
+                            @string.Format("{0:#,0} VNĐ", item.ICProductPrice)
+                        </div>
+                        <div class="col-2 bor-right d-flex align-items-center justify-content-end">
+                            <input class="quantity form-control" type="number" min="1" max="100" value="1" name="quantity" onkeydown="return event.keyCode !== 69">
+                        </div>
+                        <div class="col-3 d-flex align-items-center justify-content-end">
+                            @string.Format("{0:#,0} VNĐ", item.ICProductPrice)
+                        </div>
+                    </div>
+                    <hr />
+                }
+            </div>
+            <div class="pd-b20 d-flex justify-content-end mt-3" style="margin-top:10px">
+                <button type="submit" class="btn btn-space btn-primary mr-2">Lưu</button>
+                <button class="btn btn-default px-4" data-dismiss="modal" aria-label="Close" style="margin-right: 15px" aria-hidden="true" type="button" id="btn-cancel">Đóng</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade pr-0 bg-fade-modal" id="modal-products" tabindex="-1" role="dialog" aria-labelledby="editUserPermissionModalTitle" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered h-100 m-auto d-flex" role="document">
+        <div class="modal-content p-3 m-auto box-list-email">
+            <div class="modal-header pb-0 pt-0 d-flex justify-content-between">
+                <b>Danh sách sản phẩm</b>
+            </div>
+            <div class="modal-body mt-3" style="padding: 0; width: 500px;">
+                <div class="row w-100 m-0 mb-2">
+                    <div class="col-8 d-flex row m-0">
+                        <strong>Sản phẩm</strong>
+                    </div>
+                    <div class="col-3 d-flex align-items-center justify-content-end">
+                        <strong>Đơn giá</strong>
+                    </div>
+                </div>
+                @foreach (var item in products)
+                {
+                    <div class="row w-100 m-0">
+                        <div class="col-8 d-flex row m-0 bor-right">
+                            <img src="@(!item.ICProductPicture.IsNullOrWhiteSpace() ? string.Format("{0}{1}", Constants.PATH_IMAGE_PRODUCT, Model.ICProductPicture) : "/Content/images/noavatar.gif")" alt="Alternate Text" />
+                            <div class="ml-3">
+                                <strong>@item.ICProductName</strong> <br />
+                                @if (item.ICProductType == ProductType.Service.ToString())
+                                {
+                                    <span>Dịch vụ</span>
+                                }
+                                else if (item.ICProductType == ProductType.ServicePackage.ToString())
+                                {
+                                    <span>Gói dịch vụ</span>
+                                }
+                                else if (item.ICProductType == ProductType.MedicalExamination.ToString())
+                                {
+                                    <span>Khám bệnh</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-3 bor-right d-flex align-items-center justify-content-end">
+                            @string.Format("{0:#,0} VNĐ", item.ICProductPrice)
+                        </div>
+                        <div class="col-1 d-flex align-items-center justify-content-end">
+                            <a href="javascript:;" class="text-success" title="thêm vào sản phẩm con"><i class="feather icon-plus-circle"></i></a>
+                        </div>
+                    </div>
+                    <hr />
+                }
+            </div>
+            <div class="pd-b20 d-flex justify-content-end mt-3" style="margin-top:10px">
+                <button class="btn btn-default px-4" data-dismiss="modal" aria-label="Close" style="margin-right: 15px" aria-hidden="true" type="button" id="btn-cancel-modal-products">Đóng</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section scripts {
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/ckeditor/config.js"></script>
+    <script src="~/Content/ckeditor/adapters/jquery.js"></script>
+    <script type="text/javascript" src="~/Content/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/select2.full.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/select2-custom.js"></script>
+    <script src="~/Content/Adminty/assets/js/product.js"></script>
+    @if (isSuccess != null)
+    {
+        if (isSuccess)
+        {
+            <script>
+                toastr.success('@Message', 'Thành công');
+            </script>
+        }
+        else
+        {
+            <script>
+                toastr.error('@Message', 'Thất bại',{timeOut: 8000});
+            </script>
+        }
+    }
+    <script type="text/javascript">
+        $(function () {
+            var $form = $("#formData");
+            $(".editor")
+                .ckeditor();
+
+            //CKFinder.setupCKEditor(null, "/Uploads");
+        });
+
+        function SetImagePreview(input, picId) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#avatar1').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}
+

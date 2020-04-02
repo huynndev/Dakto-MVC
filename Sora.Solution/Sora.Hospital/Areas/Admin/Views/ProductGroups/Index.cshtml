@@ -3,11 +3,10 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
-    var models = (List<SpecialistViewModel>)Model;
-    var counter = 1;
-
+    var models = (List<ProductGroupViewModel>)Model;
     var isSuccess = ViewBag.Success;
     var Message = ViewBag.Message;
+    var counter = 1;
 }
 <!-- Page-header start -->
 <div class="page-header horizontal-layout-icon">
@@ -15,8 +14,8 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Quản lý chuyên khoa</h4>
-                    <span>Danh sách chuyên khoa. Bạn có thể sửa, thêm mới và xóa</span>
+                    <h4>Quản lý nhóm sản phẩm</h4>
+                    <span>Danh sách nhóm sản phẩm. Bạn có thể sửa, thêm mới và xóa</span>
                 </div>
             </div>
         </div>
@@ -29,7 +28,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="@Url.Action("Index","Specialists")">Chuyên khoa</a>
+                        <a href="@Url.Action("Index","ProductGroups")">Nhóm sản phẩm</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="#!">Danh sách</a>
@@ -39,6 +38,7 @@
         </div>
     </div>
 </div>
+
 <!-- Page-header end -->
 <div class="page-body">
     <div class="row">
@@ -47,7 +47,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5>Danh sách </h5>
-                    <a href="@Url.Action("Create", "Specialists")" class="btn btn-mid btn-success">Thêm mới chuyên khoa</a>
+                    <a href="@Url.Action("Create", "ProductGroups")" class="btn btn-mid btn-success">Thêm mới nhóm sản phẩm</a>
                     <div class="card-header-right">
                         <ul class="list-unstyled card-option">
                             <li><i class="feather icon-maximize full-card"></i></li>
@@ -61,50 +61,49 @@
                             <thead>
                                 <tr>
                                     <th>Thứ tự</th>
-                                    <th>Chuyên khoa</th>
-                                    <th>Loại chuyên khoa</th>
-                                    <th>Trưởng khoa</th>
-                                    <th>Số lượng bác sĩ</th>
+                                    <th>Nhóm sản phẩm</th>
+                                    <th>Loại</th>
+                                    <th>Thuộc nhóm sản phẩm</th>
+                                    <th>Số lượng sản phẩm</th>
                                     <th>Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (SpecialistViewModel item in models)
+                                @foreach (ProductGroupViewModel item in models)
                                 {
                                     <tr>
                                         <td>@(counter++) </td>
                                         <td>
-                                            <strong>@item.MESpecialistName</strong><br />
-                                            <i>/@item.MESpecialistCode</i>
+                                            <strong>@item.ICProductGroupName</strong><br />
                                         </td>
                                         <td>
-                                            @if (item.MESpecialistType.Equals(SpecialistsType.HealthServices.ToString()))
+                                            @if (item.ICProductGroupType.Equals(SpecialistsType.HealthServices.ToString()))
                                             {
                                                 <span>Dịch vụ y tế</span>
                                             }
-                                            else if (item.MESpecialistType.Equals(SpecialistsType.Maternity.ToString()))
+                                            else if (item.ICProductGroupType.Equals(SpecialistsType.Maternity.ToString()))
                                             {
                                                 <span>Thai sản</span>
                                             }
                                         </td>
                                         <td>
-                                            @(item.FK_MEDoctorID.HasValue ? string.Format("{0} {1}", item.ChiefDoctor.MEDoctorSalutation, item.ChiefDoctor.MEDoctorName) : "Chưa có")
+                                            @(item.Parent != null ? item.Parent.ICProductGroupName : "//")
                                         </td>
                                         <td>
-                                            @item.TotalDoctor Bác sĩ &nbsp;
-                                            @Html.ActionLink("Xem", "Index", "Doctors", new { specialistIds = item.MESpecialistID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
+                                            @item.TotalProduct Sản phẩm &nbsp;
+                                            @Html.ActionLink("Xem", "Index", "Products", new { groupId = item.ICProductGroupID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
                                         </td>
                                         <td align="center">
                                             <div class="btn-group  " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title=".btn-xlg">
 
                                                 @using (Html.BeginForm("Delete", "Specialists",
-                                                    new { id = item.MESpecialistID },
+                                                    new { id = item.ICProductGroupID },
                                                     FormMethod.Post,
-                                                    new { id = item.MESpecialistID })
+                                                    new { id = item.ICProductGroupID })
                                                 )
                                                 {
                                                     @Html.HttpMethodOverride(HttpVerbs.Delete){
-                                                        @Html.ActionLink("Sửa", "Detail", "Specialists", new { id = item.MESpecialistID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
+                                                        @Html.ActionLink("Sửa", "Detail", "ProductGroups", new { id = item.ICProductGroupID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
                                                         <input class="btn btn-primary btn-sm waves-effect waves-light" type="submit" value="Xóa" onclick="return confirm('Bạn chắc chắn có muốn xóa!');" />
                                                     }
                                                 }

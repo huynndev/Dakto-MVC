@@ -6,6 +6,8 @@ namespace Sora.Common.Constants
     {
         public static string PATH_IMAGE_DOCTOR = "/Content/Upload/Doctors/";
 
+        public static string PATH_IMAGE_PRODUCT = "/Content/Upload/Products/";
+
         public static string PATH_IMAGE = "/Content/images/";
 
         public static List<string> ACCEPT_FILE_IMAGE = new List<string>() { ".png", ".jpg", ".gif", ".jpeg", ".pdf" };

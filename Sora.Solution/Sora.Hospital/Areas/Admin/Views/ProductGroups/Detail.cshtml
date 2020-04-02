@@ -1,10 +1,9 @@
 ﻿@using Sora.Services.ViewModels
-@model Sora.Services.ViewModels.SpecialistViewModel
+@model Sora.Services.ViewModels.ProductGroupViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
-    var doctos = (List<ShortDoctorDto>)ViewData["Doctors"];
-
+    var groups = (List<ProductGroupViewModel>)ViewData["Groups"];
     var isSuccess = ViewBag.Success;
     var Message = ViewBag.Message;
 }
@@ -14,7 +13,7 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Cập nhập chuyên khoa</h4>
+                    <h4>Cập nhập nhóm sản phẩm</h4>
                     <span>Thêm mới / Sửa thông tin</span>
                 </div>
             </div>
@@ -28,7 +27,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="@Url.Action("Index","Special")">Chuyên khoa</a>
+                        <a href="@Url.Action("Index","ProductGroups")">Nhóm sản phẩm</a>
 
                     </li>
                     <li class="breadcrumb-item">
@@ -44,8 +43,7 @@
     <div class="row">
         <div class="col-sm-12">
             <!-- Zero config.table start -->
-
-            @using (Html.BeginForm("Save", "Specialists", FormMethod.Post, new { @id = "formData", @class = "form-validate form-page" }))
+            @using (Html.BeginForm("Save", "ProductGroups", FormMethod.Post, new { @id = "formData", @class = "form-validate form-page" }))
             {
                 <div class="card">
                     <div class="card-header">
@@ -66,7 +64,7 @@
 
                     @Html.AntiForgeryToken()
 
-                    @Html.HiddenFor(model => model.MESpecialistID)
+                    @Html.HiddenFor(model => model.ICProductGroupID)
                     <div class="card-block">
                         <div class="row">
                             <div class="col-lg-12 ">
@@ -75,20 +73,14 @@
                                     <div class="tab-pane active" id="category1" role="tabpanel">
                                         <div class=" col-12">
                                             <div class="form-group">
-                                                <label>Tên chuyên khoa</label>
-                                                @Html.TextBoxFor(model => model.MESpecialistName, new { @class = "form-control", placeholder = "Tên chuyên khoa", autocomplete = "off", maxlength = 50, onchange = "updateAlias(this);" })
-                                            </div>
-                                        </div>
-                                        <div class=" col-12">
-                                            <div class="form-group">
-                                                <label>Mã chuyên khoa</label>
-                                                @Html.TextBoxFor(model => model.MESpecialistCode, new { @class = "form-control", placeholder = "Mã chuyên khoa", autocomplete = "off", maxlength = 50 })
+                                                <label>Tên nhóm sản phẩm</label>
+                                                @Html.TextBoxFor(model => model.ICProductGroupName, new { @class = "form-control", placeholder = "Tên nhóm sản phẩm", autocomplete = "off", maxlength = 50, onchange = "updateAlias(this);" })
                                             </div>
                                         </div>
                                         <div class=" col-12">
                                             <div class="form-group">
                                                 <label>Loại chuyên khoa</label>
-                                                @Html.DropDownListFor(model => model.MESpecialistType, new List<SelectListItem>
+                                                @Html.DropDownListFor(model => model.ICProductGroupType, new List<SelectListItem>
                                                 {
                                                     new SelectListItem { Text = "Dịch vụ y tế", Value = "HealthServices"},
                                                     new SelectListItem { Text = "Thai sản", Value = "Maternity"},
@@ -97,42 +89,18 @@
                                         </div>
                                         <div class=" col-12">
                                             <div class="form-group">
-                                                <label>Trưởng khoa</label>
-                                                @Html.DropDownListFor(model => model.FK_MEDoctorID,
-                                               doctos.Select(x => new SelectListItem { Text = string.Format("{0} {1}", x.MEDoctorSalutation, x.MEDoctorName), Value = x.MEDoctorID.ToString() }),
-                                               "Chọn bác sĩ trưởng khoa",
-                                               new { @class = "form-control"})
+                                                <label>Thuộc nhóm sản phẩm</label>
+                                                @Html.DropDownListFor(model => model.ICProductGroupParentID,
+                                               groups.Select(x => new SelectListItem { Text = x.ICProductGroupName, Value = x.ICProductGroupID.ToString() }),
+                                               new { @class = "form-control" })
                                             </div>
                                         </div>
                                         <div class=" col-12">
                                             <div class="form-group">
                                                 <label>Mô tả</label>
-                                                @Html.TextAreaFor(model => model.MESpecialistDesc, new { @class = "form-control editor box-content", placeholder = "Mô tả", autocomplete = "off", rows = 3, maxlength = 1000 })
+                                                @Html.TextAreaFor(model => model.ICProductGroupDesc, new { @class = "form-control editor box-content", placeholder = "Mô tả", autocomplete = "off", rows = 3, maxlength = 1000 })
                                             </div>
                                         </div>
-                                        @*<div class=" col-12">
-                                                <div class="form-group">
-                                                    <label>Danh mục</label>
-                                                    @Html.DropDownListFor(model => model.ICArticleCategoryParentID, catlist, "--Chọn--", new { @class = "form-control", placeholder = "Tên danh mục" })
-                                                </div>
-                                            </div>
-                                            <div class=" col-12">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label style="display:block">Hiển thị</label>
-                                                            @Html.CheckBoxFor(model => model.ICArticleCategoryIsShowMenu, new { @class = "border-checkbox-label" })
-                                                            <label for="@Html.IdFor(model=> model.ICArticleCategoryIsShowMenu)">Cho phép hiển thị trên menu</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label>Thứ tự hiên thị</label>
-                                                            @Html.TextBoxFor(model => model.ICArticleCategorySortOrder, new { @class = "form-control", @type = "number" })
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +115,7 @@
                                 <div class="form-group" style="margin: auto;padding: 13px;">
                                     <span style="float:right">
                                         <button type="submit" class="btn btn-space btn-primary ">Lưu</button>
-                                        @Html.ActionLink("Trở lại", "Index", "Specialists", new { @class = "btn btn-space btn-default" })
+                                        @Html.ActionLink("Trở lại", "Index", "ProductGroups", new { @class = "btn btn-space btn-default" })
                                     </span>
 
                                 </div>
@@ -214,4 +182,3 @@
         }
     </script>
 }
-

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Sora.Entites.Interfaces;
 
 namespace Sora.EFCore.Infrastructure
 {
     public interface IUnitOfWork
     {
+        IRepository<TEntity> GetRepository<TEntity>() where TEntity : Auditable;
+
         void Commit();
 
         int ExecuteSqlCommand(string sql, params object[] parameters);

@@ -60,6 +60,7 @@ namespace Sora.Hospital.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Save(SpecialistViewModel dto)
         {
+            ViewBag.ActiveMenu = "specialist-index";
             var isCreate = true;
             try
             {

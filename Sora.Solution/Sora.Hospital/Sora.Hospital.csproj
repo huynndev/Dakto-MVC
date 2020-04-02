@@ -228,6 +228,8 @@
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CompanyConfigController.cs" />
     <Compile Include="Areas\Admin\Controllers\DoctorsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductGroupsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SALogController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManagerController.cs" />
     <Compile Include="Areas\Admin\Controllers\SpecialistsController.cs" />
@@ -763,6 +765,7 @@
     <Content Include="Content\Adminty\assets\js\owl-custom.js" />
     <Content Include="Content\Adminty\assets\js\pcoded.min.js" />
     <Content Include="Content\Adminty\assets\js\permissionmanagement.js" />
+    <Content Include="Content\Adminty\assets\js\product.js" />
     <Content Include="Content\Adminty\assets\js\rating.js" />
     <Content Include="Content\Adminty\assets\js\script.js" />
     <Content Include="Content\Adminty\assets\js\script.min.js" />
@@ -3701,6 +3704,10 @@
     <Content Include="Areas\Admin\Views\Doctors\Detail.cshtml" />
     <Content Include="Content\Adminty\assets\toastr\css\toastr.less" />
     <Content Include="Content\Adminty\assets\toastr\css\toastr.scss" />
+    <Content Include="Areas\Admin\Views\ProductGroups\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductGroups\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Detail.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />

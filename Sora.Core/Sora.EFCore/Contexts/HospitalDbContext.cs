@@ -31,6 +31,12 @@ namespace Sora.EFCore.Contexts
 
         public DbSet<MESpecialist> MESpecialists { get; set; }
 
+        public DbSet<ICProductGroup> ICProductGroups { get; set; }
+
+        public DbSet<ICProduct> ICProducts { get; set; }
+
+        public DbSet<ICProductDetail> ICProductDetails { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -1,4 +1,5 @@
 ﻿using Sora.Common.Extensions;
+using Sora.Entites.IC;
 using Sora.Entites.ME;
 using Sora.Services.ViewModels;
 
@@ -20,5 +21,18 @@ namespace Sora.Services.Infrastructure.Helpers
             return entity;
         }
 
+        public static ICProductGroup ToICProductGroup(this ProductGroupViewModel dto)
+        {
+            ICProductGroup entity = new ICProductGroup();
+            entity.CopyPropertiesFrom(dto);
+            return entity;
+        }
+
+        public static ICProduct ToICProduct(this ProductViewModel dto)
+        {
+            ICProduct entity = new ICProduct();
+            entity.CopyPropertiesFrom(dto);
+            return entity;
+        }
     }
 }

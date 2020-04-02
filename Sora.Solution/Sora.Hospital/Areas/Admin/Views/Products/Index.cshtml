@@ -1,108 +1,25 @@
 ﻿@using Sora.Services.ViewModels
 @using Sora.Common.CommonObjects
 @using Sora.Common.Extensions
+@using Sora.Common.Enums
 @using Sora.Common.Constants
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
-    var result = (PagedResult<DoctorViewModel>)Model;
-    int counter = 1;
-    var SpecialistsChoosed = (int[])ViewData["SpecialistsChoosed"];
-    var specialists = (List<SelectionData>)ViewData["Specialists"];
     var isSuccess = ViewBag.Success;
     var Message = ViewBag.Message;
+    var result = (PagedResult<ProductViewModel>)Model;
+    int counter = 1;
 }
-@section css{
-    <link href="~/Content/assets/css/select2.min.css" rel="stylesheet" />
-    <style>
-        .box-img-avatar {
-            position: relative;
-            overflow: hidden;
-            width: 230px;
-            height: 270px;
-            max-width: 100%;
-            max-height: 100%;
-            margin-bottom: -15px;
-            border: 1px solid #bfbfbf;
-        }
 
-        .img-avatar {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-        }
-
-        .lable-input {
-            position: absolute;
-            background: #0000004f;
-            width: 100%;
-            left: 0;
-            bottom: 0;
-            margin-bottom: 0;
-            height: 30%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #00ffe1;
-            cursor: pointer;
-        }
-
-        .input-search {
-            width: 320px;
-        }
-
-        .select-specialist {
-            width: 400px;
-        }
-
-        .select2-container {
-            width: 420px !important;
-        }
-
-        .select2-container--default .select2-selection--multiple,
-        .select2-container--default.select2-container--focus .select2-selection--multiple {
-            color: #01a9ac;
-            padding: 0;
-        }
-
-        .select2-container .select2-search--inline .select2-search__field {
-            margin-top: 0;
-            height: 35px;
-        }
-
-        .select2-container .select2-selection--multiple .select2-selection__rendered {
-            display: block;
-        }
-
-        .select2-container--default .select2-selection--multiple .select2-selection__choice {
-            border-color: #01a9ac;
-            background-color: #01a9ac;
-            color: white;
-            margin-top: 5px;
-            padding: 2px 5px !important
-        }
-
-        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-            margin-top: 0;
-        }
-        
-        .select2-container--default .select2-results__option--highlighted[aria-selected]{
-            background-color: #01a9ac !important;
-        }
-
-    </style>
-}
 <!-- Page-header start -->
 <div class="page-header horizontal-layout-icon">
     <div class="row align-items-end">
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Quản lý hồ sơ bác sĩ</h4>
-                    <span>Danh sách hồ sơ bác sĩ. Bạn có thể sửa, thêm mới và xóa</span>
+                    <h4>Quản lý sản phẩm</h4>
+                    <span>Danh sách sản phẩm. Bạn có thể sửa, thêm mới và xóa</span>
                 </div>
             </div>
         </div>
@@ -115,7 +32,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="@Url.Action("Index","Doctors")">Bác sĩ</a>
+                        <a href="@Url.Action("Index","Doctors")">Sản phẩm</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="#!">Danh sách</a>
@@ -125,6 +42,7 @@
         </div>
     </div>
 </div>
+
 <!-- Page-header end -->
 <!-- Page-header end -->
 <div class="page-body">
@@ -134,8 +52,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header contact-header">
-                        <h5 class="mt-2">Danh sách hồ sơ bác sĩ</h5>
-                        <a href="@Url.Action("Create", "Doctors")" class="btn btn-mid btn-success">Thêm mới hồ sơ bác sĩ</a>
+                        <h5 class="mt-2">Danh sách sản phẩm</h5>
+                        <a href="@Url.Action("Create", "Products")" class="btn btn-mid btn-success">Thêm mới sản phẩm</a>
                         <div class="card-header-right">
                             <ul class="list-unstyled card-option">
                                 <li>
@@ -146,14 +64,14 @@
                                 </li>
                             </ul>
                         </div>
-                        @using (Html.BeginForm("Index", "Doctors", FormMethod.Get, new
+                        @using (Html.BeginForm("Index", "Products", FormMethod.Get, new
                         {
                             @class = "w-100"
                         }))
                         {
                             <div class="row mt-3">
                                 <div class="input-search d-flex align-items-center mx-3">
-                                    <label class="mb-0" style="width: 110px">Tên bác sĩ</label>
+                                    <label class="mb-0" style="width: 110px">Tên sản phẩm</label>
                                     @Html.TextBox("search", null, new
                                     {
                                         @class = "form-control",
@@ -161,25 +79,25 @@
                                         id = "search"
                                     })
                                 </div>
-                                <div class="select-specialist d-flex align-items-center ml-2">
-                                    <label class="mb-0" style="width: 150px">Chuyên khoa</label>
-                                    <select class="js-example-tags" name="specialistIds" multiple="multiple" id="select-specialist">
-                                        @foreach (var item in specialists)
-                                        {
-                                            if (SpecialistsChoosed != null && SpecialistsChoosed.Any(x => x.ToString().Equals(item.Value)))
+                                @*<div class="select-specialist d-flex align-items-center ml-2">
+                                        <label class="mb-0" style="width: 150px">Chuyên khoa</label>
+                                        <select class="js-example-tags" name="specialistIds" multiple="multiple" id="select-specialist">
+                                            @foreach (var item in specialists)
                                             {
-                                                <option value="@item.Value" selected>@item.Text</option>
+                                                if (SpecialistsChoosed != null && SpecialistsChoosed.Any(x => x.ToString().Equals(item.Value)))
+                                                {
+                                                    <option value="@item.Value" selected>@item.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Value">@item.Text</option>
+                                                }
                                             }
-                                            else
-                                            {
-                                                <option value="@item.Value">@item.Text</option>
-                                            }
-                                        }
-                                    </select>
-                                </div>
+                                        </select>
+                                    </div>*@
                                 <div class="d-flex align-items-center pt-1">
                                     <button class="btn btn-primary mx-4" style="height: 38px; padding: 7px 20px;" type="submit">Lọc</button>
-                                    <a href="@Url.Action("Index", "Doctors")" class="btn btn-primary" style="height: 38px; padding: 7px 20px;">Xóa lọc</a>
+                                    <a href="@Url.Action("Index", "Products")" class="btn btn-primary" style="height: 38px; padding: 7px 20px;">Xóa lọc</a>
                                 </div>
                             </div>
                         }
@@ -191,41 +109,58 @@
                             <thead>
                                 <tr>
                                     <th>Thứ tự</th>
-                                    <th>Họ và tên</th>
-                                    <th>Danh xưng</th>
-                                    <th>Chuyên khoa</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Tiêu đề</th>
+                                    <th>Nhóm sản phẩm</th>
+                                    <th>Thông tin</th>
                                     <th>Ảnh đại diện</th>
                                     <th>Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (DoctorViewModel item in result.Items)
+                                @foreach (ProductViewModel item in result.Items)
                                 {
                                     <tr>
                                         <td width="60" class="text-center">@(counter++) </td>
                                         <td>
-                                            <strong>@item.MEDoctorName</strong>
+                                            <strong>@item.ICProductName</strong>
                                         </td>
                                         <td>
-                                            @item.MEDoctorSalutation
+                                            @item.ICProductTitle
                                         </td>
                                         <td style="max-width: 350px; white-space: normal;">
-                                            @string.Join(", ", item.Specialists.Select(x => x.MESpecialistName))
+                                            @(item.ProductGroup == null ? "//" : item.ProductGroup.ICProductGroupName)
+                                        </td>
+                                        <td style="max-width: 350px; white-space: normal;">
+                                            @if (item.ICProductType == ProductType.Service.ToString())
+                                            {
+                                                <span>Dịch vụ</span>
+                                            }
+                                            else if (item.ICProductType == ProductType.ServicePackage.ToString())
+                                            {
+                                                <span>Gói dịch vụ</span>
+                                            }
+                                            else if (item.ICProductType == ProductType.MedicalExamination.ToString())
+                                            {
+                                                <span>Khám bệnh</span>
+                                            }
+                                            <br />Giá: @item.ICProductPrice VNĐ <br />
+                                            @(item.ICProductIsShowWeb == true ? "Cho phép hiển thị" : "Không hiển thị")
                                         </td>
                                         <td>
-                                            <img src="@(!item.MEDoctorPicture.IsNullOrWhiteSpace() ? string.Format("{0}{1}", Constants.PATH_IMAGE_DOCTOR, item.MEDoctorPicture) : "/Content/images/noavatar.gif")" class="avater-image" height="60" />
+                                            <img src="@(!item.ICProductPicture.IsNullOrWhiteSpace() ? string.Format("{0}{1}", Constants.PATH_IMAGE_PRODUCT, item.ICProductPicture) : "/Content/images/noavatar.gif")" class="avater-image" height="60" />
                                         </td>
                                         <td align="center">
                                             <div class="btn-group  " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title=".btn-xlg">
 
                                                 @using (Html.BeginForm("Delete", "Doctors",
-                                                    new { id = item.MEDoctorID },
+                                                    new { id = item.ICProductID },
                                                     FormMethod.Post,
-                                                    new { id = item.MEDoctorID })
+                                                    new { id = item.ICProductID })
                                                 )
                                                 {
                                                     @Html.HttpMethodOverride(HttpVerbs.Delete){
-                                                        @Html.ActionLink("Sửa", "Detail", "Doctors", new { id = item.MEDoctorID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
+                                                        @Html.ActionLink("Sửa", "Detail", "Products", new { id = item.ICProductID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
                                                         <input class="btn btn-primary btn-sm waves-effect waves-light" type="submit" value="Xóa" onclick="return confirm('Bạn chắc chắn có muốn xóa!');" />
                                                     }
                                                 }
