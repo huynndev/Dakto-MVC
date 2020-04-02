@@ -11,12 +11,14 @@ namespace Sora.Hospital.Controllers
     {
         #region Properties
         private readonly ISpecialistService _specialistService;
+        private readonly ISpecialistTypeService _specialistTypeService;
         #endregion
 
         #region Constructor
-        public SpecialistController(ISpecialistService specialistService)
+        public SpecialistController(ISpecialistService specialistService, ISpecialistTypeService specialistTypeService)
         {
             _specialistService = specialistService;
+            _specialistTypeService = specialistTypeService;
         }
         #endregion
 
@@ -28,7 +30,7 @@ namespace Sora.Hospital.Controllers
         [Route("get-all")]
         public HttpResponseMessage GetAll()
         {
-            var result = _specialistService.GetAll();
+            var result = _specialistTypeService.GetAllDetail();
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
@@ -40,6 +42,17 @@ namespace Sora.Hospital.Controllers
         public HttpResponseMessage Get(int id)
         {
             var result = _specialistService.Get(id);
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+
+        /// <summary>
+        /// Lấy danh sách loại chuyên khoa
+        /// </summary>
+        [HttpGet]
+        [Route("types")]
+        public HttpResponseMessage GetTypes(int id)
+        {
+            var result = _specialistTypeService.Get(id);
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
         #endregion

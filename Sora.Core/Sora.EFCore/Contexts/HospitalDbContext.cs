@@ -31,6 +31,8 @@ namespace Sora.EFCore.Contexts
 
         public DbSet<MESpecialist> MESpecialists { get; set; }
 
+        public DbSet<MESpecialistType> MESpecialistTypes { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -14,14 +14,16 @@ namespace Sora.Hospital.Areas.Admin.Controllers
     {
         #region Properties
         private readonly ISpecialistService _specialistService;
+        private readonly ISpecialistTypeService _specialistTypeService;
         private readonly IDoctorService _doctorService;
         #endregion
 
         #region Constructor
-        public SpecialistsController(ISpecialistService specialistService, IDoctorService doctorService)
+        public SpecialistsController(ISpecialistService specialistService, IDoctorService doctorService, ISpecialistTypeService specialistTypeService)
         {
             _specialistService = specialistService;
             _doctorService = doctorService;
+            _specialistTypeService = specialistTypeService;
         }
         #endregion
 
@@ -45,6 +47,7 @@ namespace Sora.Hospital.Areas.Admin.Controllers
             ViewBag.ActiveMenu = "specialist-index";
             var result = _specialistService.Get(id);
             ViewData["Doctors"] = _doctorService.GetAll().ToList();
+            ViewData["Types"] = _specialistTypeService.GetAll().ToList();
             return View(result);
         }
 
@@ -53,6 +56,7 @@ namespace Sora.Hospital.Areas.Admin.Controllers
             ViewBag.ActiveMenu = "specialist-index";
             SpecialistViewModel specialist = new SpecialistViewModel();
             ViewData["Doctors"] = _doctorService.GetAll().ToList();
+            ViewData["Types"] = _specialistTypeService.GetAll().ToList();
             return View("Detail", specialist);
         }
 
@@ -82,6 +86,7 @@ namespace Sora.Hospital.Areas.Admin.Controllers
                 ViewBag.Success = false;
                 ViewBag.Message = isCreate ? "Tạo mới chuyên khoa thất bại, vui lòng thử lại." : "Cập nhật chuyên khoa thất bại, vui lòng thử lại.";
                 ViewData["Doctors"] = _doctorService.GetAll().ToList();
+                ViewData["Types"] = _specialistTypeService.GetAll().ToList();
                 return View("Detail", dto);
             }
         }

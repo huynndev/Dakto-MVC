@@ -13,7 +13,7 @@ namespace Sora.Entites.ME
 
         public int? FK_MEDoctorID { get; set; }
 
-        public string MESpecialistType { get; set; }
+        public int? FK_MESpecialistTypeID { get; set; }
 
         public string MESpecialistName { get; set; }
 
@@ -25,5 +25,8 @@ namespace Sora.Entites.ME
 
         [ForeignKey("FK_MEDoctorID")]
         public virtual MEDoctor MEDoctor { get; set; }
+
+        [ForeignKey("FK_MESpecialistTypeID")]
+        public virtual MESpecialistType MESpecialistType { get; set; }
     }
 }

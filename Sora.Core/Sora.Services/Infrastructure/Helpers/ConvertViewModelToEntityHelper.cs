@@ -20,5 +20,12 @@ namespace Sora.Services.Infrastructure.Helpers
             return entity;
         }
 
+        public static MESpecialistType ToMESpecialistType(this SpecialistTypeViewModel dto)
+        {
+            MESpecialistType entity = new MESpecialistType();
+            entity.CopyPropertiesFrom(dto);
+            return entity;
+        }
+
     }
 }

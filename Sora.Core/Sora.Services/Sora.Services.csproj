@@ -84,6 +84,7 @@
     <Compile Include="Abstractions\IDoctorService.cs" />
     <Compile Include="Abstractions\ILoginService.cs" />
     <Compile Include="Abstractions\ILogService.cs" />
+    <Compile Include="Abstractions\ISpecialistTypeService.cs" />
     <Compile Include="Abstractions\ISpecialistService.cs" />
     <Compile Include="Infrastructure\AccountService.cs" />
     <Compile Include="Infrastructure\ArticleCategoryService.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Infrastructure\Helpers\ConvertViewModelToEntityHelper.cs" />
     <Compile Include="Infrastructure\LoginService.cs" />
     <Compile Include="Infrastructure\LogService.cs" />
+    <Compile Include="Infrastructure\SpecialistTypeService .cs" />
     <Compile Include="Infrastructure\SpecialistService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
@@ -112,6 +114,8 @@
     <Compile Include="ViewModels\PaginationSet.cs" />
     <Compile Include="ViewModels\ShortDoctorDto.cs" />
     <Compile Include="ViewModels\SliderViewModel.cs" />
+    <Compile Include="ViewModels\SpecialistTypeDetailDto.cs" />
+    <Compile Include="ViewModels\SpecialistTypeViewModel.cs" />
     <Compile Include="ViewModels\SpecialistViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

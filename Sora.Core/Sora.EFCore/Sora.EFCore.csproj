@@ -74,6 +74,7 @@
     <Compile Include="Repositories\ArticleCategoryRepository.cs" />
     <Compile Include="Repositories\ArticleRepository.cs" />
     <Compile Include="Repositories\ContactMessageRepository.cs" />
+    <Compile Include="Repositories\SpecialistTypeRepository.cs" />
     <Compile Include="Repositories\DoctorRepository.cs" />
     <Compile Include="Repositories\DoctorSpecialistRepository.cs" />
     <Compile Include="Repositories\LogRepository.cs" />

@@ -13,29 +13,26 @@ using System.Threading.Tasks;
 
 namespace Sora.Services.Infrastructure
 {
-    public class SpecialistService : ISpecialistService
+    public class SpecialistTypeService : ISpecialistTypeService
     {
-        private readonly ISpecialistRepository _specialistRepository;
+        private readonly ISpecialistTypeRepository _specialistTypeRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogService _logService;
-        private readonly IDoctorSpecialistRepository _doctorSpecialistRepository;
 
-        public SpecialistService(ISpecialistRepository specialistRepository,
+        public SpecialistTypeService(ISpecialistTypeRepository specialistTypeRepository,
             IUnitOfWork unitOfWork,
-            ILogService logService,
-            IDoctorSpecialistRepository doctorSpecialistRepository)
+            ILogService logService)
         {
-            _specialistRepository = specialistRepository;
+            _specialistTypeRepository = specialistTypeRepository;
             _unitOfWork = unitOfWork;
             _logService = logService;
-            _doctorSpecialistRepository = doctorSpecialistRepository;
         }
 
-        public void Create(SpecialistViewModel dto)
+        public void Create(SpecialistTypeViewModel dto)
         {
             try
             {
-                _specialistRepository.Add(dto.ToMESpecialist());
+                _specialistTypeRepository.Add(dto.ToMESpecialistType());
                 _unitOfWork.Commit();
             }
             catch (Exception ex)
@@ -46,16 +43,16 @@ namespace Sora.Services.Infrastructure
 
         }
 
-        public SpecialistViewModel Get(int id)
+        public SpecialistTypeViewModel Get(int id)
         {
             try
             {
-                var result = _specialistRepository.GetAll().Include(x => x.MEDoctor).Include(x => x.MEDoctorSpecialists.Select(y => y.MEDoctor)).FirstOrDefault(x => x.MESpecialistID == id);
+                var result = _specialistTypeRepository.GetAll().FirstOrDefault(x => x.MESpecialistTypeID == id);
                 if (result == null)
                 {
                     throw new Exception("Object not found!");
                 }
-                return result.ToSpecialistViewModel();
+                return result.ToSpecialistTypeViewModel();
             }
             catch (Exception ex)
             {
@@ -64,21 +61,21 @@ namespace Sora.Services.Infrastructure
             }
         }
 
-        public SpecialistViewModel Update(SpecialistViewModel dto)
+        public SpecialistTypeViewModel Update(SpecialistTypeViewModel dto)
         {
             try
             {
-                var entity = _specialistRepository.GetSingleById(dto.MESpecialistID.GetValueOrDefault());
+                var entity = _specialistTypeRepository.GetSingleById(dto.MESpecialistTypeID.GetValueOrDefault());
                 if (entity == null)
                 {
                     throw new Exception("Object not found!");
                 }
                 entity.CopyPropertiesFrom(dto);
 
-                _specialistRepository.Update(entity);
+                _specialistTypeRepository.Update(entity);
                 _unitOfWork.Commit();
 
-                return Get(dto.MESpecialistID.GetValueOrDefault());
+                return Get(dto.MESpecialistTypeID.GetValueOrDefault());
             }
             catch (Exception ex)
             {
@@ -87,29 +84,12 @@ namespace Sora.Services.Infrastructure
             }
         }
 
-        public List<SpecialistViewModel> GetAll()
+        public List<SpecialistTypeViewModel> GetAll()
         {
             try
             {
-                var result = _specialistRepository.GetAll().Include(x => x.MEDoctorSpecialists).Include(x => x.MEDoctor).Include(x => x.MESpecialistType).OrderBy(x => x.MESpecialistName).ToList();
-                return result.Select(x => x.ToSpecialistViewModel()).ToList();
-            }
-            catch (Exception ex)
-            {
-                _logService.Create(ex);
-                throw ex;
-            }
-        }
-
-        public List<SpecialistViewModel> GetSpecialistsByDoctor(int doctorId)
-        {
-            try
-            {
-                var result = _doctorSpecialistRepository.GetAll()
-                            .Include(x => x.MESpecialist)
-                            .Where(x => x.FK_MEDoctorID == doctorId)
-                            .ToList();
-                return result.Select(x => x.ToSpecialistViewModel()).ToList();
+                var result = _specialistTypeRepository.GetAll().ToList();
+                return result.Select(x => x.ToSpecialistTypeViewModel()).ToList();
             }
             catch (Exception ex)
             {
@@ -122,9 +102,22 @@ namespace Sora.Services.Infrastructure
         {
             try
             {
-                _doctorSpecialistRepository.DeleteMulti(x => x.FK_MESpecialistID == id);
-                _specialistRepository.Delete(id);
+                _specialistTypeRepository.Delete(id);
                 _unitOfWork.Commit();
+            }
+            catch (Exception ex)
+            {
+                _logService.Create(ex);
+                throw ex;
+            }
+        }
+
+        public List<SpecialistTypeDetailDto> GetAllDetail()
+        {
+            try
+            {
+                var result = _specialistTypeRepository.GetAll().Include(x => x.MESpecialists).ToList();
+                return result.Select(x => x.ToSpecialistTypeDetailDto()).ToList();
             }
             catch (Exception ex)
             {
