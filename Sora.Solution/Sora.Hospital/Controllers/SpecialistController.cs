@@ -50,9 +50,9 @@ namespace Sora.Hospital.Controllers
         /// </summary>
         [HttpGet]
         [Route("types")]
-        public HttpResponseMessage GetTypes(int id)
+        public HttpResponseMessage GetTypes()
         {
-            var result = _specialistTypeService.Get(id);
+            var result = _specialistTypeService.GetAll();
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
         #endregion
