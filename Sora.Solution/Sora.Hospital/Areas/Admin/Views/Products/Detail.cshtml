@@ -362,7 +362,7 @@
                             @string.Format("{0:#,0} VNĐ", item.ICProductPrice)
                         </div>
                         <div class="col-1 d-flex align-items-center justify-content-end">
-                            <a href="javascript:;" class="text-success" title="thêm vào sản phẩm con"><i class="feather icon-plus-circle"></i></a>
+                            <a href="javascript:;" data-id="@item.ICProductID" class="text-success" title="thêm vào sản phẩm con"><i class="feather icon-plus-circle"></i></a>
                         </div>
                     </div>
                     <hr />
@@ -382,7 +382,6 @@
     <script type="text/javascript" src="~/Content/ckfinder/ckfinder.js"></script>
     <script type="text/javascript" src="~/Content/assets/js/select2.full.min.js"></script>
     <script type="text/javascript" src="~/Content/assets/js/select2-custom.js"></script>
-    <script src="~/Content/Adminty/assets/js/product.js"></script>
     @if (isSuccess != null)
     {
         if (isSuccess)
@@ -416,6 +415,8 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+        var products = @products;
     </script>
+    <script src="~/Content/Adminty/assets/js/product.js"></script>
 }
 

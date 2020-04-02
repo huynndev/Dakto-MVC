@@ -141,3 +141,10 @@
 2020-04-02 09:14:24,338 [9] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/2/2020
 2020-04-02 09:36:15,058 [34] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/2/2020
 2020-04-02 09:59:25,931 [20] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/2/2020
+2020-04-02 12:00:18,151 [5] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/2/2020
+2020-04-02 13:04:08,956 [9] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/2/2020
+2020-04-02 13:04:08,956 [5] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/2/2020
+2020-04-02 13:08:32,452 [9] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/2/2020
+2020-04-02 13:12:46,531 [10] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/2/2020
+2020-04-02 13:14:56,451 [6] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/2/2020
+2020-04-02 13:43:54,374 [6] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/2/2020

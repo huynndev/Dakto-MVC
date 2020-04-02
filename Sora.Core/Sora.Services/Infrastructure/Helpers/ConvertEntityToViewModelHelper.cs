@@ -160,6 +160,8 @@ namespace Sora.Services.Infrastructure.Helpers
 
         public static DoctorViewModel FullUrlImageDoctor(this DoctorViewModel dto)
         {
+            if (dto == null)
+                return null;
             dto.MEDoctorPicture = dto.MEDoctorPicture.IsNullOrWhiteSpace()
                 ? Constants.PATH_IMAGE.GenerateFullUrl("noavatar.gif")
                 : Constants.PATH_IMAGE_DOCTOR.GenerateFullUrl(dto.MEDoctorPicture);
