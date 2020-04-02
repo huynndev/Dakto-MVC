@@ -3,11 +3,14 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
-    var models = (List<SpecialistViewModel>)Model;
+    var models = (List<SpecialistTypeViewModel>)Model;
     var counter = 1;
 
     var isSuccess = ViewBag.Success;
     var Message = ViewBag.Message;
+}
+@section css{
+    <link href="~/Content/Adminty/assets/toastr/css/toastr.css" rel="stylesheet" />
 }
 <!-- Page-header start -->
 <div class="page-header horizontal-layout-icon">
@@ -15,7 +18,7 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Quản lý chuyên khoa</h4>
+                    <h4>Quản lý loại chuyên khoa</h4>
                     <span>Danh sách chuyên khoa. Bạn có thể sửa, thêm mới và xóa</span>
                 </div>
             </div>
@@ -29,7 +32,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="@Url.Action("Index","Specialists")">Chuyên khoa</a>
+                        <a href="@Url.Action("Index","SpecialistTypes")">Loại chuyên khoa</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="#!">Danh sách</a>
@@ -47,7 +50,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5>Danh sách </h5>
-                    <a href="@Url.Action("Create", "Specialists")" class="btn btn-mid btn-success">Thêm mới chuyên khoa</a>
+                    <a href="@Url.Action("Create", "SpecialistTypes")" class="btn btn-mid btn-success">Thêm mới loại chuyên khoa</a>
                     <div class="card-header-right">
                         <ul class="list-unstyled card-option">
                             <li><i class="feather icon-maximize full-card"></i></li>
@@ -61,43 +64,37 @@
                             <thead>
                                 <tr>
                                     <th>Thứ tự</th>
-                                    <th>Chuyên khoa</th>
                                     <th>Loại chuyên khoa</th>
-                                    <th>Trưởng khoa</th>
-                                    <th>Số lượng bác sĩ</th>
+                                    <th>Mã chuyên khoa</th>
+                                    <th>Mô tả</th>
                                     <th>Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (SpecialistViewModel item in models)
+                                @foreach (SpecialistTypeViewModel item in models)
                                 {
                                     <tr>
                                         <td>@(counter++) </td>
                                         <td>
-                                            <strong>@item.MESpecialistName</strong><br />
-                                            <i>/@item.MESpecialistCode</i>
+                                            <strong>@item.MESpecialistTypeName</strong>
                                         </td>
                                         <td>
-                                            @(item.Type == null ? "//" : item.Type.MESpecialistTypeName)
+                                            @item.MESpecialistTypeCode
                                         </td>
                                         <td>
-                                            @(item.FK_MEDoctorID.HasValue ? string.Format("{0} {1}", item.ChiefDoctor.MEDoctorSalutation, item.ChiefDoctor.MEDoctorName) : "Chưa có")
-                                        </td>
-                                        <td>
-                                            @item.TotalDoctor Bác sĩ &nbsp;
-                                            @Html.ActionLink("Xem", "Index", "Doctors", new { specialistIds = item.MESpecialistID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
+                                            @Html.Raw(item.MESpecialistTypeDesc)
                                         </td>
                                         <td align="center">
                                             <div class="btn-group  " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title=".btn-xlg">
 
-                                                @using (Html.BeginForm("Delete", "Specialists",
-                                                    new { id = item.MESpecialistID },
+                                                @using (Html.BeginForm("Delete", "SpecialistTypes",
+                                                    new { id = item.MESpecialistTypeID },
                                                     FormMethod.Post,
-                                                    new { id = item.MESpecialistID })
+                                                    new { id = item.MESpecialistTypeID })
                                                 )
                                                 {
                                                     @Html.HttpMethodOverride(HttpVerbs.Delete){
-                                                        @Html.ActionLink("Sửa", "Detail", "Specialists", new { id = item.MESpecialistID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
+                                                        @Html.ActionLink("Sửa", "Detail", "SpecialistTypes", new { id = item.MESpecialistTypeID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
                                                         <input class="btn btn-primary btn-sm waves-effect waves-light" type="submit" value="Xóa" onclick="return confirm('Bạn chắc chắn có muốn xóa!');" />
                                                     }
                                                 }
@@ -117,6 +114,8 @@
 </div>
 <!-- Page-body end -->
 @section scripts {
+    <script src="~/Content/Adminty/assets/toastr/js/toastr.js"></script>
+
     @if (isSuccess != null)
     {
         if (isSuccess)

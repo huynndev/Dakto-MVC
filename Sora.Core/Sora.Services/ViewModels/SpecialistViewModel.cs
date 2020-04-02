@@ -8,7 +8,7 @@ namespace Sora.Services.ViewModels
 
         public int? FK_MEDoctorID { get; set; }
 
-        public string MESpecialistType { get; set; }
+        public int? FK_MESpecialistTypeID { get; set; }
 
         public string MESpecialistName { get; set; }
 
@@ -19,6 +19,10 @@ namespace Sora.Services.ViewModels
 
         public int TotalDoctor { get; set; }
 
-        public ShortDoctorDto ChiefDoctor { get; set; }
+        public DoctorViewModel ChiefDoctor { get; set; }
+
+        public SpecialistTypeViewModel Type { get; set; }
+
+        public DoctorViewModel[] Doctors { get; set; }
     }
 }

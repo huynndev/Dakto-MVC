@@ -31,6 +31,8 @@ namespace Sora.EFCore.Contexts
 
         public DbSet<MESpecialist> MESpecialists { get; set; }
 
+        public DbSet<MESpecialistType> MESpecialistTypes { get; set; }
+
         public DbSet<ICProductGroup> ICProductGroups { get; set; }
 
         public DbSet<ICProduct> ICProducts { get; set; }

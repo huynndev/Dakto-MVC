@@ -79,6 +79,7 @@
     <Compile Include="ME\MEDoctor.cs" />
     <Compile Include="ME\MEDoctorSpecialist.cs" />
     <Compile Include="ME\MESpecialist.cs" />
+    <Compile Include="ME\MESpecialistType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

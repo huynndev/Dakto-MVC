@@ -84,6 +84,7 @@
     <Compile Include="Abstractions\IDoctorService.cs" />
     <Compile Include="Abstractions\ILoginService.cs" />
     <Compile Include="Abstractions\ILogService.cs" />
+    <Compile Include="Abstractions\ISpecialistTypeService.cs" />
     <Compile Include="Abstractions\IProductGroupService.cs" />
     <Compile Include="Abstractions\IProductService.cs" />
     <Compile Include="Abstractions\ISpecialistService.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Infrastructure\Helpers\ConvertViewModelToEntityHelper.cs" />
     <Compile Include="Infrastructure\LoginService.cs" />
     <Compile Include="Infrastructure\LogService.cs" />
+    <Compile Include="Infrastructure\SpecialistTypeService .cs" />
     <Compile Include="Infrastructure\ProductGroupService.cs" />
     <Compile Include="Infrastructure\ProductService.cs" />
     <Compile Include="Infrastructure\ScriptService.cs" />
@@ -124,6 +126,8 @@
     <Compile Include="ViewModels\ShortProductGroupDto.cs" />
     <Compile Include="ViewModels\ShortSpecialistDto.cs" />
     <Compile Include="ViewModels\SliderViewModel.cs" />
+    <Compile Include="ViewModels\SpecialistTypeDetailDto.cs" />
+    <Compile Include="ViewModels\SpecialistTypeViewModel.cs" />
     <Compile Include="ViewModels\SpecialistViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

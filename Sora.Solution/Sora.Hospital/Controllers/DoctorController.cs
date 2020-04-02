@@ -3,6 +3,7 @@ using Sora.Common.Constants;
 using Sora.Common.Extensions;
 using Sora.Hospital.Infrastructure.Core;
 using Sora.Services.Abstractions;
+using Sora.Services.Infrastructure.Helpers;
 using Sora.Services.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace Sora.Hospital.Controllers
             var doctors = _doctorService.Filter(page, pageSize, out total, new int[1] { specialistId });
             var result = new PagedResult<DoctorViewModel>
             {
-                Items = doctors.Select(x => SetUrlImageDoctor(x)).ToArray(),
+                Items = doctors.Select(x => x.FullUrlImageDoctor()).ToArray(),
                 PageIndex = page,
                 TotalCount = total,
                 PageSize = pageSize,
@@ -55,20 +56,10 @@ namespace Sora.Hospital.Controllers
         [Route("{id}")]
         public HttpResponseMessage Get(int id)
         {
-            var result = SetUrlImageDoctor(_doctorService.Get(id));
+            var result =_doctorService.Get(id).FullUrlImageDoctor();
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
-        #endregion
-
-        #region Private method
-        private DoctorViewModel SetUrlImageDoctor(DoctorViewModel dto)
-        {
-            dto.MEDoctorPicture = dto.MEDoctorPicture.IsNullOrWhiteSpace()
-                ? Constants.PATH_IMAGE.GenerateFullUrl("noavatar.gif")
-                : Constants.PATH_IMAGE_DOCTOR.GenerateFullUrl(dto.MEDoctorPicture);
-            return dto;
-        }
         #endregion
     }
 }

@@ -1,21 +1,23 @@
 ﻿@using Sora.Services.ViewModels
-@model Sora.Services.ViewModels.SpecialistViewModel
+@model Sora.Services.ViewModels.SpecialistTypeViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
-    var doctos = (List<ShortDoctorDto>)ViewData["Doctors"];
-    var types = (List<SpecialistTypeViewModel>)ViewData["Types"];
 
     var isSuccess = ViewBag.Success;
     var Message = ViewBag.Message;
 }
+@section css{
+    <link href="~/Content/Adminty/assets/toastr/css/toastr.css" rel="stylesheet" />
+}
+
 <!-- Page-header start -->
 <div class="page-header horizontal-layout-icon">
     <div class="row align-items-end">
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Cập nhập chuyên khoa</h4>
+                    <h4>Cập nhập loại chuyên khoa</h4>
                     <span>Thêm mới / Sửa thông tin</span>
                 </div>
             </div>
@@ -29,7 +31,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="@Url.Action("Index","Specialists")">Chuyên khoa</a>
+                        <a href="@Url.Action("Index","SpecialistTypes")">Loại chuyên khoa</a>
 
                     </li>
                     <li class="breadcrumb-item">
@@ -46,7 +48,7 @@
         <div class="col-sm-12">
             <!-- Zero config.table start -->
 
-            @using (Html.BeginForm("Save", "Specialists", FormMethod.Post, new { @id = "formData", @class = "form-validate form-page" }))
+            @using (Html.BeginForm("Save", "SpecialistTypes", FormMethod.Post, new { @id = "formData", @class = "form-validate form-page" }))
             {
                 <div class="card">
                     <div class="card-header">
@@ -67,7 +69,7 @@
 
                     @Html.AntiForgeryToken()
 
-                    @Html.HiddenFor(model => model.MESpecialistID)
+                    @Html.HiddenFor(model => model.MESpecialistTypeID)
                     <div class="card-block">
                         <div class="row">
                             <div class="col-lg-12 ">
@@ -77,61 +79,21 @@
                                         <div class=" col-12">
                                             <div class="form-group">
                                                 <label>Tên chuyên khoa</label>
-                                                @Html.TextBoxFor(model => model.MESpecialistName, new { @class = "form-control", placeholder = "Tên chuyên khoa", autocomplete = "off", maxlength = 50, onchange = "updateAlias(this);" })
+                                                @Html.TextBoxFor(model => model.MESpecialistTypeName, new { @class = "form-control", placeholder = "Tên chuyên khoa", autocomplete = "off", maxlength = 50, onchange = "updateAlias(this);" })
                                             </div>
                                         </div>
                                         <div class=" col-12">
                                             <div class="form-group">
                                                 <label>Mã chuyên khoa</label>
-                                                @Html.TextBoxFor(model => model.MESpecialistCode, new { @class = "form-control", placeholder = "Mã chuyên khoa", autocomplete = "off", maxlength = 50 })
-                                            </div>
-                                        </div>
-                                        <div class=" col-12">
-                                            <div class="form-group">
-                                                <label>Loại chuyên khoa</label>
-                                                @Html.DropDownListFor(model => model.FK_MESpecialistTypeID, 
-                                               types.Select(x => new SelectListItem { Text = x.MESpecialistTypeName, Value = x.MESpecialistTypeID.ToString() })
-                                               , "Vui lòng loại chuyên khoa", new { @class = "form-control", required = "required" })
-                                            </div>
-                                        </div>
-                                        <div class=" col-12">
-                                            <div class="form-group">
-                                                <label>Trưởng khoa</label>
-                                                @Html.DropDownListFor(model => model.FK_MEDoctorID,
-                                               doctos.Select(x => new SelectListItem { Text = string.Format("{0} {1}", x.MEDoctorSalutation, x.MEDoctorName), Value = x.MEDoctorID.ToString() }),
-                                               "Chọn bác sĩ trưởng khoa",
-                                               new { @class = "form-control"})
+                                                @Html.TextBoxFor(model => model.MESpecialistTypeCode, new { @class = "form-control", placeholder = "Mã chuyên khoa", autocomplete = "off", maxlength = 50 })
                                             </div>
                                         </div>
                                         <div class=" col-12">
                                             <div class="form-group">
                                                 <label>Mô tả</label>
-                                                @Html.TextAreaFor(model => model.MESpecialistDesc, new { @class = "form-control editor box-content", placeholder = "Mô tả", autocomplete = "off", rows = 3, maxlength = 1000 })
+                                                @Html.TextAreaFor(model => model.MESpecialistTypeDesc, new { @class = "form-control editor box-content", placeholder = "Mô tả", autocomplete = "off", rows = 3, maxlength = 1000 })
                                             </div>
                                         </div>
-                                        @*<div class=" col-12">
-                                                <div class="form-group">
-                                                    <label>Danh mục</label>
-                                                    @Html.DropDownListFor(model => model.ICArticleCategoryParentID, catlist, "--Chọn--", new { @class = "form-control", placeholder = "Tên danh mục" })
-                                                </div>
-                                            </div>
-                                            <div class=" col-12">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label style="display:block">Hiển thị</label>
-                                                            @Html.CheckBoxFor(model => model.ICArticleCategoryIsShowMenu, new { @class = "border-checkbox-label" })
-                                                            <label for="@Html.IdFor(model=> model.ICArticleCategoryIsShowMenu)">Cho phép hiển thị trên menu</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label>Thứ tự hiên thị</label>
-                                                            @Html.TextBoxFor(model => model.ICArticleCategorySortOrder, new { @class = "form-control", @type = "number" })
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +108,7 @@
                                 <div class="form-group" style="margin: auto;padding: 13px;">
                                     <span style="float:right">
                                         <button type="submit" class="btn btn-space btn-primary ">Lưu</button>
-                                        @Html.ActionLink("Trở lại", "Index", "Specialists", new { @class = "btn btn-space btn-default" })
+                                        @Html.ActionLink("Trở lại", "Index", "SpecialistTypes", new { @class = "btn btn-space btn-default" })
                                     </span>
 
                                 </div>
@@ -165,6 +127,7 @@
     <script src="~/Content/ckeditor/config.js"></script>
     <script src="~/Content/ckeditor/adapters/jquery.js"></script>
     <script type="text/javascript" src="~/Content/ckfinder/ckfinder.js"></script>
+    <script src="~/Content/Adminty/assets/toastr/js/toastr.js"></script>
 
     @if (isSuccess != null)
     {
@@ -194,11 +157,11 @@
         function updateAlias(input) {
 
             var newAlias = alias($(input).val());
-            var oldAlias = $("#MESpecialistCode").val();
+            var oldAlias = $("#MESpecialistTypeCode").val();
             console.log(newAlias);
             console.log(oldAlias);
             if (newAlias.indexOf(oldAlias) >= 0) {
-                $("#MESpecialistCode").val(newAlias);
+                $("#MESpecialistTypeCode").val(newAlias);
             }
         }
         function alias(str) {
