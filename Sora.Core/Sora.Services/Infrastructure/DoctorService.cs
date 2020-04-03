@@ -49,7 +49,6 @@ namespace Sora.Services.Infrastructure
             }
             catch (Exception ex)
             {
-                _logService.Create(ex);
                 throw ex;
             }
         }
@@ -64,7 +63,6 @@ namespace Sora.Services.Infrastructure
             }
             catch (Exception ex)
             {
-                _logService.Create(ex);
                 throw ex;
             }
         }
@@ -161,7 +159,6 @@ namespace Sora.Services.Infrastructure
             }
             catch (Exception ex)
             {
-                _logService.Create(ex);
                 throw ex;
             }
         }
@@ -170,32 +167,22 @@ namespace Sora.Services.Infrastructure
         #region Private method
         private void UpdateDoctorIntoSpecialist(int doctorId, int[] specialistIds)
         {
-            try
+            var specialListsFromDb = _doctorSpecialistRepository.GetAll().Where(x => x.FK_MEDoctorID == doctorId).ToList();
+
+            var recordToDelete = specialListsFromDb.Where(x => !specialistIds.Any(y => y == x.FK_MESpecialistID));
+            if (!recordToDelete.IsNullOrEmpty())
             {
-                var specialListsFromDb = _doctorSpecialistRepository.GetAll().Where(x => x.FK_MEDoctorID == doctorId).ToList();
-
-                var recordToDelete = specialListsFromDb.Where(x => !specialistIds.Any(y => y == x.FK_MESpecialistID));
-                if (!recordToDelete.IsNullOrEmpty())
-                {
-                    _doctorSpecialistRepository.DeleteMulti(x => recordToDelete.Any(y => y.FK_MESpecialistID == x.FK_MESpecialistID));
-                }
-
-                var recordToInsert = specialistIds.Where(x => !specialListsFromDb.Any(y => y.FK_MESpecialistID == x));
-
-                if (!recordToInsert.IsNullOrEmpty())
-                {
-                    foreach (var item in recordToInsert)
-                    {
-                        _doctorSpecialistRepository.Add(new MEDoctorSpecialist { FK_MEDoctorID = doctorId, FK_MESpecialistID = item });
-                    }
-                }
-
-                _unitOfWork.Commit();
+                _doctorSpecialistRepository.DeleteMulti(x => recordToDelete.Any(y => y.FK_MESpecialistID == x.FK_MESpecialistID));
             }
-            catch (Exception ex)
+
+            var recordToInsert = specialistIds.Where(x => !specialListsFromDb.Any(y => y.FK_MESpecialistID == x));
+
+            if (!recordToInsert.IsNullOrEmpty())
             {
-                _logService.Create(ex);
-                throw ex;
+                foreach (var item in recordToInsert)
+                {
+                    _doctorSpecialistRepository.Add(new MEDoctorSpecialist { FK_MEDoctorID = doctorId, FK_MESpecialistID = item });
+                }
             }
         }
         #endregion

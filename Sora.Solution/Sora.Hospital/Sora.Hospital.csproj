@@ -240,6 +240,7 @@
     <Compile Include="Controllers\ContactMessageController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ScriptController.cs" />
     <Compile Include="Controllers\SpecialistController.cs" />
     <Compile Include="Global.asax.cs">
@@ -3761,6 +3762,7 @@
     <Folder Include="Content\ckfinder\bin\Debug\" />
     <Folder Include="Content\ckfinder\bin\Release\" />
     <Folder Include="Content\Upload\Doctors\" />
+    <Folder Include="Content\Upload\Products\" />
     <Folder Include="Models\" />
     <Folder Include="Uploads\files\" />
     <Folder Include="Uploads\flash\" />

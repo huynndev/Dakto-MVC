@@ -14,8 +14,8 @@ namespace Sora.Services.Abstractions
 
         void Delete(int id);
 
-        PagedResult<ProductViewModel> Filter(int page, int pageSize, int? groupId, bool? isShowWeb, string search = null);
+        PagedResult<ProductViewModel> Filter(int page, int pageSize, int? groupId, bool? isShowWeb, string productType, string search = null);
 
-        List<ShortProductDto> GetAll(bool isDetail);
+        List<ShortProductDto> GetAll(bool? isDetail = null);
     }
 }

@@ -27,5 +27,9 @@
         public ProductGroupViewModel ProductGroup { get; set; }
 
         public ShortSpecialistDto Specialist { get; set; }
+
+        public string ChildProductString { get; set; } = "[]";
+
+        public ProductDetailDto[] ProductDetails { get; set; }
     }
 }

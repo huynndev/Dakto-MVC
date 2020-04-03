@@ -10,6 +10,7 @@
     var Message = ViewBag.Message;
     var result = (PagedResult<ProductViewModel>)Model;
     int counter = 1;
+    var search = (string)ViewBag.Search;
 }
 
 <!-- Page-header start -->
@@ -71,31 +72,24 @@
                         {
                             <div class="row mt-3">
                                 <div class="input-search d-flex align-items-center mx-3">
-                                    <label class="mb-0" style="width: 110px">Tên sản phẩm</label>
-                                    @Html.TextBox("search", null, new
+                                    <label class="mb-0" style="width: 170px">Tên sản phẩm</label>
+                                    @Html.TextBox("search", search, new
                                     {
                                         @class = "form-control",
                                         placeholder = "Tìm kiếm",
                                         id = "search"
                                     })
                                 </div>
-                                @*<div class="select-specialist d-flex align-items-center ml-2">
-                                        <label class="mb-0" style="width: 150px">Chuyên khoa</label>
-                                        <select class="js-example-tags" name="specialistIds" multiple="multiple" id="select-specialist">
-                                            @foreach (var item in specialists)
-                                            {
-                                                if (SpecialistsChoosed != null && SpecialistsChoosed.Any(x => x.ToString().Equals(item.Value)))
-                                                {
-                                                    <option value="@item.Value" selected>@item.Text</option>
-                                                }
-                                                else
-                                                {
-                                                    <option value="@item.Value">@item.Text</option>
-                                                }
-                                            }
+                                <div class="select-specialist d-flex align-items-center ml-2">
+                                        <label class="mb-0" style="width: 170px">Loại sản phẩm</label>
+                                        <select class="form-control" name="productType" id="product-type">
+                                            <option>Chọn loại sản phẩm</option>
+                                            <option value="Service" @(ViewBag.ProductType == "Service" ? "selected" : "")>Dịch vụ</option>
+                                            <option value="ServicePackage" @(ViewBag.ProductType == "ServicePackage" ? "selected" : "")>Gói Dịch vụ</option>
+                                            <option value="MedicalExamination" @(ViewBag.ProductType == "MedicalExamination" ? "selected" : "")>Khám bệnh</option>
                                         </select>
-                                    </div>*@
-                                <div class="d-flex align-items-center pt-1">
+                                    </div>
+                                <div class="d-flex align-items-center">
                                     <button class="btn btn-primary mx-4" style="height: 38px; padding: 7px 20px;" type="submit">Lọc</button>
                                     <a href="@Url.Action("Index", "Products")" class="btn btn-primary" style="height: 38px; padding: 7px 20px;">Xóa lọc</a>
                                 </div>
@@ -144,7 +138,7 @@
                                             {
                                                 <span>Khám bệnh</span>
                                             }
-                                            <br />Giá: @item.ICProductPrice VNĐ <br />
+                                            <br />Giá: @string.Format("{0:#,0} VNĐ", item.ICProductPrice) <br />
                                             @(item.ICProductIsShowWeb == true ? "Cho phép hiển thị" : "Không hiển thị")
                                         </td>
                                         <td>
@@ -153,7 +147,7 @@
                                         <td align="center">
                                             <div class="btn-group  " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title=".btn-xlg">
 
-                                                @using (Html.BeginForm("Delete", "Doctors",
+                                                @using (Html.BeginForm("Delete", "Products",
                                                     new { id = item.ICProductID },
                                                     FormMethod.Post,
                                                     new { id = item.ICProductID })

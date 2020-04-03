@@ -40,7 +40,6 @@ namespace Sora.Services.Infrastructure
             }
             catch (Exception ex)
             {
-                _logService.Create(ex);
                 throw ex;
             }
 
@@ -82,7 +81,6 @@ namespace Sora.Services.Infrastructure
             }
             catch (Exception ex)
             {
-                _logService.Create(ex);
                 throw ex;
             }
         }
@@ -128,7 +126,6 @@ namespace Sora.Services.Infrastructure
             }
             catch (Exception ex)
             {
-                _logService.Create(ex);
                 throw ex;
             }
         }

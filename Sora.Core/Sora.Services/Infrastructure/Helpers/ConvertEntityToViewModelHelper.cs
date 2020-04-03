@@ -1,4 +1,5 @@
-﻿using Sora.Common.Constants;
+﻿using Newtonsoft.Json;
+using Sora.Common.Constants;
 using Sora.Common.Extensions;
 using Sora.Entites.IC;
 using Sora.Entites.ME;
@@ -11,7 +12,7 @@ namespace Sora.Services.Infrastructure.Helpers
     {
         public static SpecialistViewModel ToSpecialistViewModel(this MESpecialist entity)
         {
-            if(entity == null)
+            if (entity == null)
             {
                 return null;
             }
@@ -27,7 +28,7 @@ namespace Sora.Services.Infrastructure.Helpers
 
         public static SpecialistTypeViewModel ToSpecialistTypeViewModel(this MESpecialistType entity)
         {
-            if(entity == null)
+            if (entity == null)
             {
                 return null;
             }
@@ -39,7 +40,7 @@ namespace Sora.Services.Infrastructure.Helpers
 
         public static SpecialistTypeDetailDto ToSpecialistTypeDetailDto(this MESpecialistType entity)
         {
-            if(entity == null)
+            if (entity == null)
             {
                 return null;
             }
@@ -51,7 +52,7 @@ namespace Sora.Services.Infrastructure.Helpers
 
         public static SpecialistViewModel ToSpecialistViewModel(this MEDoctorSpecialist entity)
         {
-            if(entity.MESpecialist == null)
+            if (entity.MESpecialist == null)
             {
                 return null;
             }
@@ -63,7 +64,7 @@ namespace Sora.Services.Infrastructure.Helpers
 
         public static ShortSpecialistDto ToShortSpecialistDto(this MESpecialist entity)
         {
-            if(entity == null)
+            if (entity == null)
             {
                 return null;
             }
@@ -146,6 +147,16 @@ namespace Sora.Services.Infrastructure.Helpers
             dto.ICProductID = entity.ICProductID;
             dto.ProductGroup = entity.ICProductGroup.ToProductGroupViewModel();
             dto.Specialist = entity.MESpecialist.ToShortSpecialistDto();
+            return dto;
+        }
+
+        public static ProductDetailDto ToProductDetailDto(this ICProductDetail entity)
+        {
+            if (entity == null)
+                return null;
+            ProductDetailDto dto = new ProductDetailDto();
+            dto.CopyPropertiesFrom(entity);
+            dto.Product = entity.ICProduct.ToShortProductDto();
             return dto;
         }
 

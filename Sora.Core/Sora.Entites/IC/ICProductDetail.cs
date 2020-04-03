@@ -1,6 +1,7 @@
 ﻿using Sora.Entites.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 
 namespace Sora.Entites.IC
 {
@@ -11,6 +12,8 @@ namespace Sora.Entites.IC
         public int ICProductDetailID { get; set; }
 
         public int? FK_ICProductID { get; set; }
+
+        public int? FK_ICProductParentID { get; set; }
 
         public decimal ICProductDetailQty { get; set; }
 

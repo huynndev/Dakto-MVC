@@ -2,6 +2,7 @@
 using Sora.Entites.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Sora.EFCore.Infrastructure
 {
@@ -10,6 +11,8 @@ namespace Sora.EFCore.Infrastructure
         private readonly IDbFactory dbFactory;
 
         private HospitalDbContext dbContext;
+
+        private DbContextTransaction transaction;
 
         private Dictionary<Type, object> repositories;
 
@@ -38,6 +41,23 @@ namespace Sora.EFCore.Infrastructure
         public HospitalDbContext DbContext
         {
             get { return dbContext ?? (dbContext = dbFactory.Init()); }
+        }
+
+        public void CreateTransaction()
+        {
+            transaction = DbContext.Database.BeginTransaction();
+        }
+
+        public void Save()
+        {
+            DbContext.SaveChanges();
+            transaction.Commit();
+        }
+
+        public void Rollback()
+        {
+            transaction.Rollback();
+            transaction.Dispose();
         }
 
         public void Commit()

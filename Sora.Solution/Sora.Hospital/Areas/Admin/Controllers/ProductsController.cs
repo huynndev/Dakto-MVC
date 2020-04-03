@@ -1,9 +1,12 @@
 ﻿using Sora.Common.Constants;
+using Sora.Common.Enums;
+using Sora.Common.Extensions;
 using Sora.Hospital.Infrastructure.Security;
 using Sora.Services.Abstractions;
 using Sora.Services.ViewModels;
 using System;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -29,18 +32,21 @@ namespace Sora.Hospital.Areas.Admin.Controllers
 
         #region Public methods
         // GET: Admin/Products
-        public ActionResult Index(int? page, int? pageSize, int? groupId, string search)
+        public ActionResult Index(int? page, int? pageSize, int? groupId, string search, string productType)
         {
             ViewBag.ActiveMenu = "product-index";
             if (!page.HasValue) page = 1;
             if (!pageSize.HasValue) pageSize = 10;
-            var result = _productService.Filter(page.GetValueOrDefault() - 1, pageSize.GetValueOrDefault(), groupId, null, search);
+            var result = _productService.Filter(page.GetValueOrDefault() - 1, pageSize.GetValueOrDefault(), groupId, null, productType, search);
             ViewData["Groups"] = _productGroupService.GetAll();
 
             if (TempData["Success"] != null)
                 ViewBag.Success = TempData["Success"];
             if (TempData["Message"] != null)
                 ViewBag.Message = TempData["Message"];
+            ViewBag.ProductType = productType;
+            ViewBag.Search = search;
+
             return View(result);
         }
 
@@ -49,7 +55,7 @@ namespace Sora.Hospital.Areas.Admin.Controllers
             ViewBag.ActiveMenu = "product-index";
             ViewData["Groups"] = _productGroupService.GetAll();
             ViewData["Specialists"] = _specialistService.GetAll();
-            ViewData["Products"] = _productService.GetAll(false);
+            ViewData["Products"] = _productService.GetAll();
             var product = _productService.Get(id);
             return View(product);
         }
@@ -59,7 +65,7 @@ namespace Sora.Hospital.Areas.Admin.Controllers
             ViewBag.ActiveMenu = "product-index";
             ViewData["Groups"] = _productGroupService.GetAll();
             ViewData["Specialists"] = _specialistService.GetAll();
-            ViewData["Products"] = _productService.GetAll(false);
+            ViewData["Products"] = _productService.GetAll();
             ProductViewModel product = new ProductViewModel();
             return View("Detail", product);
         }
@@ -104,9 +110,60 @@ namespace Sora.Hospital.Areas.Admin.Controllers
                 ViewBag.Message = isCreate ? "Tạo mới sản phẩm thất bại, vui lòng thử lại." : "Cập nhật sản phẩm thất bại, vui lòng thử lại."; ;
                 ViewData["Groups"] = _productGroupService.GetAll();
                 ViewData["Specialists"] = _specialistService.GetAll();
-                ViewData["Products"] = _productService.GetAll(false);
+                ViewData["Products"] = _productService.GetAll();
                 return View("Detail", dto);
             }
+        }
+
+        [HttpDelete]
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                _productService.Delete(id);
+                TempData["Success"] = true;
+                TempData["Message"] = "Xóa sản phẩm thành công.";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["Success"] = true;
+                TempData["Message"] = "Xóa sản phẩm thất bại. Vui lòng thử lại";
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpGet]
+        public JavaScriptResult GetProducts()
+        {
+            var products = _productService.GetAll();
+            string jsContent = "var products=[";
+            var counter = 0;
+            foreach (var item in products)
+            {
+                var type = string.Empty;
+                if (item.ICProductType == ProductType.Service.ToString())
+                {
+                    type = "Dịch vụ";
+                }
+                else if (item.ICProductType == ProductType.ServicePackage.ToString())
+                {
+                    type = "Gói dịch vụ";
+                }
+                else if (item.ICProductType == ProductType.MedicalExamination.ToString())
+                {
+                    type = "Khám bệnh";
+                }
+                var image = !item.ICProductPicture.IsNullOrWhiteSpace() ? string.Format("{0}{1}", Constants.PATH_IMAGE_PRODUCT, item.ICProductPicture) : "/Content/images/noavatar.gif";
+                jsContent += "{id:\"" + item.ICProductID + "\",name:\"" + item.ICProductName + "\", type:\"" + type + "\", price:\"" + Math.Round(item.ICProductPrice, 0) + "\", image:\"" + image + "\"}";
+                if (counter++ < products.Count() - 1)
+                {
+                    jsContent += ",";
+                }
+            }
+            jsContent += "];";
+
+            return JavaScript(jsContent);
         }
         #endregion
     }

@@ -9,5 +9,11 @@ namespace Sora.EFCore.Infrastructure
         void Commit();
 
         int ExecuteSqlCommand(string sql, params object[] parameters);
+
+        void CreateTransaction();
+
+        void Save();
+
+        void Rollback();
     }
 }

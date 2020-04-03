@@ -12,6 +12,7 @@
     var groups = (List<ProductGroupViewModel>)ViewData["Groups"];
     var specialists = (List<SpecialistViewModel>)ViewData["Specialists"];
     var products = (List<ShortProductDto>)ViewData["Products"];
+    products = products.Where(x => x.ICProductID != Model.ICProductID).ToList();
 }
 @section css{
     <link href="~/Content/assets/css/select2.min.css" rel="stylesheet" />
@@ -64,6 +65,7 @@
         .modal img {
             width: 75px;
             height: 75px;
+            object-fit: cover;
         }
 
         .bor-right {
@@ -74,6 +76,15 @@
             width: 40px;
             padding: 5px 0px 5px 5px;
             text-align: right;
+        }
+
+        #board-list-products {
+            max-height: 300px;
+            overflow: auto;
+        }
+
+        .remove-child-product {
+            cursor: pointer;
         }
     </style>
 }
@@ -194,8 +205,9 @@
                                                     </div>
                                                     <div class="col-7">
                                                         <div class="form-group">
-                                                            <label>Giá sản phẩm</label>
-                                                            @Html.TextBoxFor(model => model.ICProductPrice, new { @class = "form-control", @type = "number" })
+                                                            <label>Giá sản phẩm (VNĐ)</label>
+                                                            @Html.HiddenFor(model => model.ICProductPrice)
+                                                            <input type="text" class="form-control" name="product-price" id="product-price" value="@Model.ICProductPrice" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -215,6 +227,7 @@
                                                     <a href="javascript:;" id="btn-child-product" class="btn btn-space btn-primary mt-5">Sản phẩm con</a>
                                                 </div>
                                             </div>
+                                            @Html.HiddenFor(model => model.ChildProductString)
                                         </div>
                                         <div class=" col-12">
                                             <div class="form-group">
@@ -278,44 +291,52 @@
                         <strong>Tổng tiền</strong>
                     </div>
                 </div>
-                @foreach (var item in products)
-                {
-                    <div class="row w-100 m-0">
-                        <div class="col-5 d-flex row m-0 bor-right">
-                            <img src="@(!item.ICProductPicture.IsNullOrWhiteSpace() ? string.Format("{0}{1}", Constants.PATH_IMAGE_PRODUCT, Model.ICProductPicture) : "/Content/images/noavatar.gif")" alt="Alternate Text" />
-                            <div class="ml-3">
-                                <strong>@item.ICProductName</strong> <br />
-                                @if (item.ICProductType == ProductType.Service.ToString())
-                                {
-                                    <span>Dịch vụ</span>
-                                }
-                                else if (item.ICProductType == ProductType.ServicePackage.ToString())
-                                {
-                                    <span>Gói dịch vụ</span>
-                                }
-                                else if (item.ICProductType == ProductType.MedicalExamination.ToString())
-                                {
-                                    <span>Khám bệnh</span>
-                                } <br />
-                                @*@(item.ICProductIsShowWeb == true ? "Cho phép hiển thị" : "Không hiển thị") <br />*@
-                                <a href="javascript:;" class="text-danger" title="Xóa khỏi sản phẩm con"><i class="feather icon-trash-2"></i></a>
+                <div id="board">
+                    @if (!Model.ProductDetails.IsNullOrEmpty())
+                    {
+                        foreach (var item in Model.ProductDetails)
+                        {
+                            <div class="w-100 record-childs">
+                                <div class="row w-100 m-0">
+                                    <div class="col-5 d-flex row m-0 bor-right">
+                                        <a href="/Admin/Products/Detail/@item.Product.ICProductID" class="d-flex">
+                                            <img src="@(!item.Product.ICProductPicture.IsNullOrWhiteSpace() ? string.Format("{0}{1}", Constants.PATH_IMAGE_PRODUCT, item.Product.ICProductPicture) : "/Content/images/noavatar.gif")" alt="Alternate Text" />
+                                            <div class="ml-3">
+                                                <strong>@item.Product.ICProductName</strong> <br />
+                                                @if (item.Product.ICProductType == ProductType.Service.ToString())
+                                                {
+                                                    <span>Dịch vụ</span>
+                                                }
+                                                else if (item.Product.ICProductType == ProductType.ServicePackage.ToString())
+                                                {
+                                                    <span>Gói dịch vụ</span>
+                                                }
+                                                else if (item.Product.ICProductType == ProductType.MedicalExamination.ToString())
+                                                {
+                                                    <span>Khám bệnh</span>
+                                                } <br />
+                                                <label href="javascript:;" data-id="@item.Product.ICProductID" class="text-danger remove-child-product" title="Xóa khỏi sản phẩm con"><i class="feather icon-trash-2"></i></label>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-2 bor-right d-flex align-items-center justify-content-end">
+                                        @string.Format("{0:#,0} VNĐ", item.ICProductDetailPrice)
+                                    </div>
+                                    <div class="col-2 bor-right d-flex align-items-center justify-content-end">
+                                        <input class="quantity form-control" data-id="@item.Product.ICProductID" type="number" min="1" max="100" value="@((int)item.ICProductDetailQty)" name="quantity" onkeydown="return event.keyCode !== 69">
+                                    </div>
+                                    <div class="col-3 d-flex align-items-center justify-content-end total-price">
+                                        @string.Format("{0:#,0} VNĐ", item.ICProductDetailTotalAmout)
+                                    </div>
+                                </div>
+                                <hr />
                             </div>
-                        </div>
-                        <div class="col-2 bor-right d-flex align-items-center justify-content-end">
-                            @string.Format("{0:#,0} VNĐ", item.ICProductPrice)
-                        </div>
-                        <div class="col-2 bor-right d-flex align-items-center justify-content-end">
-                            <input class="quantity form-control" type="number" min="1" max="100" value="1" name="quantity" onkeydown="return event.keyCode !== 69">
-                        </div>
-                        <div class="col-3 d-flex align-items-center justify-content-end">
-                            @string.Format("{0:#,0} VNĐ", item.ICProductPrice)
-                        </div>
-                    </div>
-                    <hr />
-                }
+                        }
+                    }
+
+                </div>
             </div>
             <div class="pd-b20 d-flex justify-content-end mt-3" style="margin-top:10px">
-                <button type="submit" class="btn btn-space btn-primary mr-2">Lưu</button>
                 <button class="btn btn-default px-4" data-dismiss="modal" aria-label="Close" style="margin-right: 15px" aria-hidden="true" type="button" id="btn-cancel">Đóng</button>
             </div>
         </div>
@@ -329,7 +350,7 @@
                 <b>Danh sách sản phẩm</b>
             </div>
             <div class="modal-body mt-3" style="padding: 0; width: 500px;">
-                <div class="row w-100 m-0 mb-2">
+                <div class="row w-100 m-0 mb-3">
                     <div class="col-8 d-flex row m-0">
                         <strong>Sản phẩm</strong>
                     </div>
@@ -337,36 +358,50 @@
                         <strong>Đơn giá</strong>
                     </div>
                 </div>
-                @foreach (var item in products)
-                {
-                    <div class="row w-100 m-0">
-                        <div class="col-8 d-flex row m-0 bor-right">
-                            <img src="@(!item.ICProductPicture.IsNullOrWhiteSpace() ? string.Format("{0}{1}", Constants.PATH_IMAGE_PRODUCT, Model.ICProductPicture) : "/Content/images/noavatar.gif")" alt="Alternate Text" />
-                            <div class="ml-3">
-                                <strong>@item.ICProductName</strong> <br />
-                                @if (item.ICProductType == ProductType.Service.ToString())
-                                {
-                                    <span>Dịch vụ</span>
-                                }
-                                else if (item.ICProductType == ProductType.ServicePackage.ToString())
-                                {
-                                    <span>Gói dịch vụ</span>
-                                }
-                                else if (item.ICProductType == ProductType.MedicalExamination.ToString())
-                                {
-                                    <span>Khám bệnh</span>
-                                }
+                <div id="board-list-products">
+                    @if (!products.IsNullOrEmpty())
+                    {
+                        foreach (var item in products)
+                        {
+                            <div class="w-100" id="@string.Format("product_{0}", item.ICProductID)">
+                                <div class="row w-100 m-0 item-product @(!Model.ProductDetails.IsNullOrEmpty() && Model.ProductDetails.Any(x=>x.Product.ICProductID == item.ICProductID) ? "d-none" : "")">
+                                    <div class="col-8 d-flex row m-0 bor-right">
+                                        <a href="/Admin/Products/Detail/@item.ICProductID" class="d-flex">
+                                            <img src="@(!item.ICProductPicture.IsNullOrWhiteSpace() ? string.Format("{0}{1}", Constants.PATH_IMAGE_PRODUCT, item.ICProductPicture) : "/Content/images/noavatar.gif")" alt="Alternate Text" />
+                                            <div class="ml-3">
+                                                <strong>@item.ICProductName</strong> <br />
+                                                @if (item.ICProductType == ProductType.Service.ToString())
+                                                {
+                                                    <span>Dịch vụ</span>
+                                                }
+                                                else if (item.ICProductType == ProductType.ServicePackage.ToString())
+                                                {
+                                                    <span>Gói dịch vụ</span>
+                                                }
+                                                else if (item.ICProductType == ProductType.MedicalExamination.ToString())
+                                                {
+                                                    <span>Khám bệnh</span>
+                                                }
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-4 bor-right d-flex align-items-center justify-content-end px-1">
+                                        @string.Format("{0:#,0} VNĐ", item.ICProductPrice) &nbsp;
+                                        <a href="javascript:;" data-id="@item.ICProductID" class="text-success btn-add-child-product" title="thêm vào sản phẩm con"><i class="feather icon-plus-circle"></i></a>
+                                    </div>
+                                </div>
+                                <hr />
                             </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="w-100 text-center">
+                            Không có sản phẩm
                         </div>
-                        <div class="col-3 bor-right d-flex align-items-center justify-content-end">
-                            @string.Format("{0:#,0} VNĐ", item.ICProductPrice)
-                        </div>
-                        <div class="col-1 d-flex align-items-center justify-content-end">
-                            <a href="javascript:;" data-id="@item.ICProductID" class="text-success" title="thêm vào sản phẩm con"><i class="feather icon-plus-circle"></i></a>
-                        </div>
-                    </div>
-                    <hr />
-                }
+                    }
+
+                </div>
             </div>
             <div class="pd-b20 d-flex justify-content-end mt-3" style="margin-top:10px">
                 <button class="btn btn-default px-4" data-dismiss="modal" aria-label="Close" style="margin-right: 15px" aria-hidden="true" type="button" id="btn-cancel-modal-products">Đóng</button>
@@ -381,7 +416,9 @@
     <script src="~/Content/ckeditor/adapters/jquery.js"></script>
     <script type="text/javascript" src="~/Content/ckfinder/ckfinder.js"></script>
     <script type="text/javascript" src="~/Content/assets/js/select2.full.min.js"></script>
-    <script type="text/javascript" src="~/Content/assets/js/select2-custom.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/select2-custom.js">
+    </script>
+    <script src="~/Admin/Products/GetProducts"></script>
     @if (isSuccess != null)
     {
         if (isSuccess)
@@ -415,7 +452,7 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-        var products = @products;
+        var childProducts = JSON.parse($('#ChildProductString').val());
     </script>
     <script src="~/Content/Adminty/assets/js/product.js"></script>
 }

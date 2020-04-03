@@ -26000,3 +26000,9 @@ body.dark {
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item .pcoded-hasmenu .pcoded-submenu li.active > a {
     color: #FE8A7D !important;
 }
+
+.avater-image{    
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+}
