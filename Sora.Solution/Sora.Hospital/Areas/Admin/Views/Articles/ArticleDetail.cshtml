@@ -149,6 +149,17 @@
                             <div class=" col-12">
                                 <div class="row">
                                     <div class="col-3">
+                                        <label style="display:block">Nổi bật</label>
+                                        @Html.CheckBoxFor(model => model.ICArticleIsFeatured, new { @class = "border-checkbox-label" })
+                                        <label for="@Html.IdFor(model => model.ICArticleIsFeatured)">Là bài viết nổi bật</label>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label>Thứ tự hiển thị bài viết nổi bật</label>
+                                            @Html.TextBoxFor(model => model.ICArticleFeaturedSortOrder, new { @class = "form-control ", @type = "number" })
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
                                         <label style="display:block">Hiển thị trên trang chủ</label>
                                         @Html.CheckBoxFor(model => model.ICArticleIsShowHome, new { @class = "border-checkbox-label" })
                                         <label for="@Html.IdFor(model => model.ICArticleIsShowHome)">Cho phép hiển thị</label>

@@ -10,7 +10,8 @@
     {
         isBlog = (bool)ViewBag.IsBlog;
     }
-
+    var isSuccess = ViewBag.Success;
+    var Message = ViewBag.Message;
 }
 <!-- Page-header start -->
 <div class="page-header horizontal-layout-icon">
@@ -54,35 +55,6 @@
 <!-- Page-body start -->
 <div class="page-body">
     <div class="row">
-
-        @if (ViewBag.SUCCESS != null)
-        {
-            switch (ViewBag.SUCCESS)
-            {
-                case true:
-                    <div class="col-sm-12">
-                        <div class="alert alert-primary icons-alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <i class="icofont icofont-close-line-circled"></i>
-                            </button>
-                            <p><strong>Thành công!</strong> @ViewBag.Message </p>
-                        </div>
-                    </div>
-                    break;
-                case false:
-                    <div class="col-sm-12">
-                        <div class="alert alert-danger icons-alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <i class="icofont icofont-close-line-circled"></i>
-                            </button>
-                            <p><strong>Lỗi!</strong> @ViewBag.Message</p>
-                        </div>
-                    </div>
-                    break;
-                default:
-                    break;
-            }
-        }
         <div class="col-sm-12">
             <!-- Zero config.table start -->
             <div class="card">
@@ -168,7 +140,14 @@
                                                             <td>@String.Format("{0:dd/MM/yyyy}", item.ICArticleDate)</td>
                                                             <td class="w-40" style="white-space:normal"><b>@item.ICArticleTitle</b> <br /> <i> /@item.ICArticleFriendlyUrl</i> </td>
                                                             <td><img src="~/Content/Upload/Article/@(!string.IsNullOrWhiteSpace(item.ICArticlePicture) ? item.ICArticlePicture : "no-img-article.png")" class="avater-image" width="100" /></td>
-                                                            <td>@(item.ICArticleIsShowHome == true ? "Công bố" : "Không công bố")</td>
+                                                            <td>
+                                                                @(item.ICArticleIsShowHome == true ? "Công bố" : "Không công bố") <br />
+                                                                @(item.ICArticleIsFeatured == true ? "Bài viết nổi bật" : "") <br />
+                                                                @if (item.ICArticleIsFeatured)
+                                                                {
+                                                                    <span>Thứ tự bài viết nổi bật: @item.ICArticleFeaturedSortOrder</span>
+                                                                }
+                                                            </td>
                                                             <td>@(item.ICArticleIsShowHome == true ? "Cho phép hiển thị" : "Không hiển thị")</td>
                                                             <td>
                                                                 <div class="btn-group  " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title=".btn-xlg">
@@ -278,6 +257,21 @@
 <!-- Page-body end -->
 
 @section scripts {
+    @if (isSuccess != null)
+    {
+        if (isSuccess)
+        {
+            <script>
+                toastr.success('@Message', 'Thành công');
+            </script>
+        }
+        else
+        {
+            <script>
+                toastr.error('@Message', 'Thất bại',{timeOut: 8000});
+            </script>
+        }
+    }
     <script type="text/javascript">
         function submitChange(value) {
             $('#changePageSize').submit();

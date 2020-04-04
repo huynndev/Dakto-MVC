@@ -65,6 +65,12 @@ namespace Sora.Hospital.Areas.Admin.Controllers
                 RedirectToAction("Error404", "PageNotFound");
             }
 
+
+            if (TempData["Success"] != null)
+                ViewBag.Success = TempData["Success"];
+            if (TempData["Message"] != null)
+                ViewBag.Message = TempData["Message"];
+
             ViewBag.CurrentPage = page.GetValueOrDefault() - 1;
             ViewBag.PageSize = pageSize.GetValueOrDefault();
             ViewBag.TotalRecords = totalRecords;
@@ -277,15 +283,19 @@ namespace Sora.Hospital.Areas.Admin.Controllers
                 if(article.ICArticleID > 0)
                 {
                     _articleService.Update(article);
+                    TempData["Message"] = "Cập nhật bài viết thành công.";
                 }
                 else
                 {
                     _articleService.CreateArticle(article);
+                    TempData["Message"] = "Cập nhật bài viết thành công.";
                 }
+                TempData["Success"] = true;
             }
             catch (Exception ex)
             {
-                log.ErrorFormat("Error message: {0}. Access by {1}", ex.Message, User.FullName);
+                TempData["Success"] = false;
+                TempData["Message"] = article.ICArticleID == 0 ? "Tạo mới bài viết thất bại, vui lòng thử lại." : "Cập nhật bài viết thất bại, vui lòng thử lại.";
             }
             ViewBag.IsBlog = isBlog;
             return RedirectToAction("ArticleListing");

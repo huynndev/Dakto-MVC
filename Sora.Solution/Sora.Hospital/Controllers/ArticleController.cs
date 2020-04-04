@@ -54,5 +54,16 @@ namespace Sora.Hospital.Controllers
             };
             return Request.CreateResponse(HttpStatusCode.OK, paginationSet);
         }
+
+        /// <summary>
+        /// Lấy danh sách bài viết nổi bật
+        /// </summary>
+        [HttpGet]
+        [Route("featured")]
+        public HttpResponseMessage GetArticlesFeatured()
+        {
+            var result = _articleService.GetArticlesFeatured();
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
     }
 }

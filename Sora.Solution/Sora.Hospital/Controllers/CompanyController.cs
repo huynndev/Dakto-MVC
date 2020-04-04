@@ -1,5 +1,6 @@
 ﻿using Sora.Hospital.Infrastructure.Core;
 using Sora.Services.Abstractions;
+using Sora.Services.Infrastructure.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace Sora.Hospital.Controllers
         [Route("get-info")]
         public HttpResponseMessage GetCompanyInfo()
         {
-            var comparnyInfo = _companyService.GetCompanyInfo();
+            var comparnyInfo = _companyService.GetCompanyInfo().FullUrlImageCompany();
             return Request.CreateResponse(HttpStatusCode.OK, comparnyInfo);
         }
     }

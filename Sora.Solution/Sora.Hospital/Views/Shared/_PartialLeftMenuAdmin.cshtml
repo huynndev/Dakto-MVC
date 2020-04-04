@@ -137,31 +137,31 @@
                 <span class="pcoded-micon"><i class="feather icon-users"></i></span>
                 <span class="pcoded-mtext">Người dùng</span>
             </a>
-        </li>
+        </li>*@
 
         <li class="pcoded-hasmenu">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="feather icon-sliders"></i></span>
-                <span class="pcoded-mtext">Administrator Setting</span>
+                <span class="pcoded-mtext">Cấu hình chung</span>
             </a>
             <ul class="pcoded-submenu">
-                <li class=" " id="translate">
+                @*<li class=" " id="translate">
                     <a href="@Url.Action("Index", "Translate" , new { lang="vn" } )">
                         <span class="pcoded-mtext">Ngôn ngữ</span>
                     </a>
-                </li>
-                <li class=" " id="config-common">
+                </li>*@
+                <li class="" id="config-company">
                     <a href="@Url.Action("Index", "CompanyConfig")">
-                        <span class="pcoded-mtext">Cài đặt chung</span>
+                        <span class="pcoded-mtext">Công ty</span>
                     </a>
                 </li>
-                <li class=" " id="error-log">
+                <li class="" id="error-log">
                     <a href="@Url.Action("Index", "SALog")">
                         <span class="pcoded-mtext">Error Logs</span>
                     </a>
                 </li>
             </ul>
-        </li>*@
+        </li>
     </ul>
 </div>
 

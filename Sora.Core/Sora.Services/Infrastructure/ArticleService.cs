@@ -64,7 +64,9 @@ namespace Sora.Services.Infrastructure
                 ICArticleMetaKeyword = article.ICArticleMetaKeyword,
                 ICArticleMetaDesc = article.ICArticleMetaDesc,
                 ICArticleTags = article.ICArticleTags,
-                ICArticleIsShowHome = article.ICArticleIsShowHome ?? false
+                ICArticleIsShowHome = article.ICArticleIsShowHome ?? false,
+                ICArticleIsFeatured = article.ICArticleIsFeatured,
+                ICArticleFeaturedSortOrder = article.ICArticleFeaturedSortOrder
             };
         }
 
@@ -83,7 +85,9 @@ namespace Sora.Services.Infrastructure
                 ICArticleMetaKeyword = article.ICArticleMetaKeyword,
                 ICArticleMetaDesc = article.ICArticleMetaDesc,
                 ICArticleTags = article.ICArticleTags,
-                ICArticleIsShowHome = article.ICArticleIsShowHome
+                ICArticleIsShowHome = article.ICArticleIsShowHome,
+                ICArticleIsFeatured = article.ICArticleIsFeatured,
+                ICArticleFeaturedSortOrder = article.ICArticleFeaturedSortOrder
             };
         }
 
@@ -114,6 +118,12 @@ namespace Sora.Services.Infrastructure
         public void Save()
         {
             _unitOfWork.Commit();
+        }
+
+        public List<ArticleViewModel> GetArticlesFeatured()
+        {
+            var articles = _articleRepository.GetAll().Where(x => x.ICArticleIsFeatured).OrderBy(x => x.ICArticleFeaturedSortOrder).ToList();
+            return articles.Select(x => ToArticleViewModel(x)).ToList();
         }
     }
 }

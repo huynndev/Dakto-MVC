@@ -40,6 +40,10 @@ namespace Sora.Entites.IC
 
         public bool? ICArticleIsShowHome { get; set; }
 
+        public bool ICArticleIsFeatured { get; set; }
+
+        public int ICArticleFeaturedSortOrder { get; set; }
+
         [ForeignKey("FK_ICArticleCategoryID")]
         public virtual ICArticleCategory ICArticleCategory { get; set; }
     }

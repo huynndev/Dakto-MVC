@@ -31,5 +31,9 @@ namespace Sora.Services.ViewModels
         public string ICArticleTags { get; set; }
 
         public bool ICArticleIsShowHome { get; set; }
+
+        public bool ICArticleIsFeatured { get; set; } = false;
+
+        public int ICArticleFeaturedSortOrder { get; set; }
     }
 }

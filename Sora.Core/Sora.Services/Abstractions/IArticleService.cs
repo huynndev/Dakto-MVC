@@ -19,5 +19,7 @@ namespace Sora.Services.Abstractions
 
         IEnumerable<ArticleViewModel> GetArticleByCategoryID(int categoryID, int page, int pageSize, string sortOption, out int totalRow, string search = null);
 
+        List<ArticleViewModel> GetArticlesFeatured();
+
     }
 }

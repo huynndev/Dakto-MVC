@@ -253,3 +253,25 @@
 2020-04-04 14:56:06,852 [9] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
 2020-04-04 15:00:17,457 [8] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
 2020-04-04 15:06:18,621 [9] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
+2020-04-04 16:09:36,900 [5] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
+2020-04-04 16:10:44,188 [5] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
+2020-04-04 16:23:55,902 [7] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
+2020-04-04 16:28:56,653 [11] ERROR Sora.Hospital.Areas.Admin.Controllers.BaseController [(null)] - Error message: Could not find a part of the path 'D:\Projects\NET\OutSources\Dakto-MVC\Sora.Solution\Sora.Hospital\Content\Upload\Company\9325667a-e52e-440e-9049-cfbece308ec4.jpg'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode)
+   at System.Web.HttpPostedFile.SaveAs(String filename)
+   at System.Web.HttpPostedFileWrapper.SaveAs(String filename)
+   at Sora.Hospital.Areas.Admin.Controllers.CompanyConfigController.Update(CompanyViewModel model, HttpPostedFileBase avatar) in D:\Projects\NET\OutSources\Dakto-MVC\Sora.Solution\Sora.Hospital\Areas\Admin\Controllers\CompanyConfigController.cs:line 62. Access by admin
+2020-04-04 16:35:41,156 [6] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
+2020-04-04 16:39:20,958 [9] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
+2020-04-04 17:05:38,145 [6] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
+2020-04-04 17:06:14,102 [11] ERROR Sora.Hospital.Areas.Admin.Controllers.BaseController [(null)] - Error message: The 'ICArticleFeaturedSortOrder' property on 'ICArticle' could not be set to a 'null' value. You must set this property to a non-null value of type 'System.Int32'. . Access by admin
+2020-04-04 17:13:57,341 [10] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
+2020-04-04 17:18:01,955 [6] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
+2020-04-04 17:33:23,552 [5] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
+2020-04-04 17:36:41,583 [10] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
+2020-04-04 17:36:41,585 [9] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
+2020-04-04 17:36:41,583 [11] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020
+2020-04-04 17:36:41,584 [12] INFO  Sora.Hospital.Areas.Admin.Controllers.AccountController [(null)] - admin logged in at 4/4/2020

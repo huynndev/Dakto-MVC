@@ -1,11 +1,16 @@
-﻿using Sora.Hospital.Infrastructure.VirtualObject;
+﻿using Sora.Common.Constants;
+using Sora.Hospital.Infrastructure.Security;
+using Sora.Hospital.Infrastructure.VirtualObject;
 using Sora.Services.Abstractions;
 using Sora.Services.ViewModels;
 using System;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Sora.Hospital.Areas.Admin.Controllers
 {
+    [AuthorizeApp]
     public class CompanyConfigController : BaseController
     {
         private ICompanyService _companyService;
@@ -19,44 +24,48 @@ namespace Sora.Hospital.Areas.Admin.Controllers
         public ActionResult Index()
         {
             // get group setting by Id
+            ViewBag.ActiveMenu = "config-company";
 
-            CompanyViewModel companyViewModel = new CompanyViewModel();
-            try
-            {
-                companyViewModel = _companyService.GetCompanyInfo();
-            }
-            catch (Exception ex)
-            {
-                log.ErrorFormat("Error message: {0}. Access by {1}", ex.Message + "\n" + ex.StackTrace, User.FullName);
-                JSonResponse result = new JSonResponse();
-                result.status = JSonResponse.Status.Error;
-                result.data = ex.Source;
-                result.message = ex.Message;
-                return Json(result, JsonRequestBehavior.AllowGet);
-            }
+            CompanyViewModel companyViewModel = _companyService.GetCompanyInfo();
+
+            if (TempData["Success"] != null)
+                ViewBag.Success = TempData["Success"];
+            if (TempData["Message"] != null)
+                ViewBag.Message = TempData["Message"];
 
             return View(companyViewModel);
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult Update(CompanyViewModel model)
+        public ActionResult Update(CompanyViewModel model, HttpPostedFileBase avatar)
         {
-            JSonResponse result = new JSonResponse();
+            //JSonResponse result = new JSonResponse();
 
             try
             {
+                if (avatar != null && avatar.ContentLength > 0)
+                {
+                    // Kiểm tra định dạng file
+                    string savePath = Server.MapPath(Constants.PATH_IMAGE_COMPANY);
+                    string fileExtension = Path.GetExtension(avatar.FileName);
+                    Guid fileName = Guid.NewGuid();
+                    if (Constants.ACCEPT_FILE_IMAGE.Exists(x => x.EndsWith(fileExtension.ToLower())))
+                    {
+                        var filePath = Path.Combine(savePath, fileName + fileExtension);
+                        avatar.SaveAs(filePath);
+                        model.CSCompanyAvatar = string.Format("{0}{1}", fileName, fileExtension);
+                    }
+                }
+
                 _companyService.Update(model);
 
-                result.status = JSonResponse.Status.Success;
-                result.data = model;
-                result.message = "Update " + model.CSCompanyName + " thành công";
+                TempData["Success"] = true;
+                TempData["Message"] = "Cập nhật thành công.";
             }
             catch (Exception ex)
             {
-                log.ErrorFormat("Error message: {0}. Access by {1}", ex.Message + "\n" + ex.StackTrace, User.FullName);
-                result.status = JSonResponse.Status.Error;
-                result.data = ex.Source;
-                result.message = ex.Message;
+                TempData["Success"] = false;
+                TempData["Message"] = "Cập nhật thất bại, Vui lòng thử lại!";
             }
 
             return RedirectToAction("Index"); ;
