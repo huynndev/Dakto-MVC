@@ -85,7 +85,7 @@
                 </li>*@
             </ul>
         </li>
-        <li class=" pcoded-hasmenu">
+        @*<li class=" pcoded-hasmenu">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="feather icon-image"></i></span>
                 <span class="pcoded-mtext">Nôi dung mở rộng</span>
@@ -102,13 +102,13 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li>*@
         @*}
         @if (currentUser != null && currentUser.Permissions.Exists(x => x == SimpleCMS.Data.Models.Constants.Role.CustomerInforManagement.ToString()
         || x == SimpleCMS.Data.Models.Constants.Role.ContactManagement.ToString()
         || x == SimpleCMS.Data.Models.Constants.Role.ConfigManagement.ToString()))
         {*@
-        <li class=" pcoded-hasmenu">
+        @*<li class=" pcoded-hasmenu">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="feather icon-feather"></i></span>
                 <span class="pcoded-mtext">Thông tin liên hệ</span>
@@ -125,14 +125,14 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li>*@
         @*<li class="pcoded-hasmenu mn-main" id="expert-index">
             <a href="/Admin/Expert/Index">
                 <span class="pcoded-micon"><i class="feather icon-users"></i></span>
                 <span class="pcoded-mtext">Danh sách chuyên gia</span>
             </a>
         </li>*@
-        <li class=" pcoded-hasmenu mn-main" id="user-list">
+        @*<li class=" pcoded-hasmenu mn-main" id="user-list">
             <a href="@Url.Action("index", "User")">
                 <span class="pcoded-micon"><i class="feather icon-users"></i></span>
                 <span class="pcoded-mtext">Người dùng</span>
@@ -161,7 +161,7 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li>*@
     </ul>
 </div>
 

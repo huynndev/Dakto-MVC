@@ -61,7 +61,13 @@ namespace Sora.Services.Infrastructure
         {
             try
             {
-                _productRepository.Delete(id);
+                var productDetails = _productDetailRepository.GetAll().Where(x => x.FK_ICProductParentID == id).ToList();
+                foreach (var item in productDetails)
+                {
+                    _productDetailRepository.DeleteSoft(item);
+                }
+                var product = _productRepository.GetSingleById(id);
+                _productRepository.DeleteSoft(product);
                 _unitOfWork.Commit();
             }
             catch (Exception ex)

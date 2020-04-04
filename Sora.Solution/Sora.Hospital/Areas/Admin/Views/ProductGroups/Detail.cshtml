@@ -92,6 +92,7 @@
                                                 <label>Thuộc nhóm sản phẩm</label>
                                                 @Html.DropDownListFor(model => model.ICProductGroupParentID,
                                                groups.Select(x => new SelectListItem { Text = x.ICProductGroupName, Value = x.ICProductGroupID.ToString() }),
+                                               "----Chọn----",
                                                new { @class = "form-control" })
                                             </div>
                                         </div>

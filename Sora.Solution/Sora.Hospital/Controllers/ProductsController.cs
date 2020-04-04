@@ -1,5 +1,6 @@
 ﻿using Sora.Hospital.Infrastructure.Core;
 using Sora.Services.Abstractions;
+using Sora.Services.Infrastructure.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +58,7 @@ namespace Sora.Hospital.Controllers
         public HttpResponseMessage Filter([FromUri] int page, [FromUri] int pageSize, int? groupId, string productType, string search)
         {
             var result = _productService.Filter(page, pageSize, groupId, true, productType, search);
+            result.Items = result.Items.Select(x => x.FullUrlImageProduct()).ToArray();
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
         #endregion

@@ -33,11 +33,11 @@ namespace Sora.Hospital.Controllers
         /// Lọc danh sách hồ sơ bác sĩ
         /// </summary>
         [HttpGet]
-        [Route("filter/{specialistId}/{page}/{pageSize}")]
-        public HttpResponseMessage GetAll(int specialistId, int page, int pageSize)
+        [Route("filter/{page}/{pageSize}")]
+        public HttpResponseMessage GetAll(int page, int pageSize, int[] specialistIds, string search)
         {
             var total = 0;
-            var doctors = _doctorService.Filter(page, pageSize, out total, new int[1] { specialistId });
+            var doctors = _doctorService.Filter(page, pageSize, out total, specialistIds, search);
             var result = new PagedResult<DoctorViewModel>
             {
                 Items = doctors.Select(x => x.FullUrlImageDoctor()).ToArray(),

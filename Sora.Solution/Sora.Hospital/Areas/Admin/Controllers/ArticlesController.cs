@@ -50,7 +50,7 @@ namespace Sora.Hospital.Areas.Admin.Controllers
             if (!pageSize.HasValue) pageSize = 10;
             try
             {
-                var list = _articleService.GetArticleByCategoryID(categoryId.GetValueOrDefault(), page.GetValueOrDefault(), pageSize.GetValueOrDefault(), "", out totalRecords, search);
+                var list = _articleService.GetArticleByCategoryID(categoryId.GetValueOrDefault(), page.GetValueOrDefault() -1 , pageSize.GetValueOrDefault(), "", out totalRecords, search);
 
                 articleListingModel.MainArticleList.List = list.ToList();
                 articleListingModel.MainArticleList.Lang = "vn";
@@ -65,7 +65,7 @@ namespace Sora.Hospital.Areas.Admin.Controllers
                 RedirectToAction("Error404", "PageNotFound");
             }
 
-            ViewBag.CurrentPage = page.GetValueOrDefault();
+            ViewBag.CurrentPage = page.GetValueOrDefault() - 1;
             ViewBag.PageSize = pageSize.GetValueOrDefault();
             ViewBag.TotalRecords = totalRecords;
             ViewBag.IsBlog = isBlog;

@@ -70,6 +70,8 @@ namespace Sora.Hospital.Areas.Admin.Controllers
             return View("Detail", product);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(ProductViewModel dto, HttpPostedFileBase avatar)
         {
             ViewBag.ActiveMenu = "product-index";
@@ -127,7 +129,7 @@ namespace Sora.Hospital.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Success"] = true;
+                TempData["Success"] = false;
                 TempData["Message"] = "Xóa sản phẩm thất bại. Vui lòng thử lại";
                 return RedirectToAction("Index");
             }

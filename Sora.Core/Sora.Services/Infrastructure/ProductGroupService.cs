@@ -17,6 +17,7 @@ namespace Sora.Services.Infrastructure
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogService _logService;
         private IRepository<ICProductGroup> _productGroupRepository => _unitOfWork.GetRepository<ICProductGroup>();
+        private IRepository<ICProduct> _productRepository => _unitOfWork.GetRepository<ICProduct>();
         #endregion
 
         #region Constructor
@@ -78,6 +79,14 @@ namespace Sora.Services.Infrastructure
         {
             try
             {
+                var products = _productRepository.GetAll().Where(x => x.FK_ICProductGroupID == id).ToList();
+
+                foreach (var item in products)
+                {
+                    item.FK_ICProductGroupID = null;
+                    _productRepository.Update(item);
+                }
+
                 _productGroupRepository.Delete(id);
                 _unitOfWork.Commit();
             }

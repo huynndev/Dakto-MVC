@@ -1,6 +1,7 @@
 ﻿using Sora.Common.Extensions;
 using Sora.EFCore.Infrastructure;
 using Sora.EFCore.Repositories;
+using Sora.Entites.IC;
 using Sora.Entites.ME;
 using Sora.Services.Abstractions;
 using Sora.Services.Infrastructure.Helpers;
@@ -19,6 +20,7 @@ namespace Sora.Services.Infrastructure
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogService _logService;
         private readonly IDoctorSpecialistRepository _doctorSpecialistRepository;
+        private IRepository<ICProduct> _productRepository => _unitOfWork.GetRepository<ICProduct>();
 
         public SpecialistService(ISpecialistRepository specialistRepository,
             IUnitOfWork unitOfWork,
@@ -120,6 +122,12 @@ namespace Sora.Services.Infrastructure
         {
             try
             {
+                var products = _productRepository.GetAll().Where(x => x.FK_MESpecialistID == id).ToList();
+                foreach (var item in products)
+                {
+                    item.FK_MESpecialistID = null;
+                    _productRepository.Update(item);
+                }
                 _doctorSpecialistRepository.DeleteMulti(x => x.FK_MESpecialistID == id);
                 _specialistRepository.Delete(id);
                 _unitOfWork.Commit();

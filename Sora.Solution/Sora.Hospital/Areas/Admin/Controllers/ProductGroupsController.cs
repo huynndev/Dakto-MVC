@@ -26,6 +26,10 @@ namespace Sora.Hospital.Areas.Admin.Controllers
         {
             ViewBag.ActiveMenu = "product-group-index";
             var result = _productGroupService.GetAll();
+            if (TempData["Success"] != null)
+                ViewBag.Success = TempData["Success"];
+            if (TempData["Message"] != null)
+                ViewBag.Message = TempData["Message"];
             return View(result);
         }
 
@@ -45,6 +49,8 @@ namespace Sora.Hospital.Areas.Admin.Controllers
             return View("Detail", productGroup);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(ProductGroupViewModel dto)
         {
             ViewBag.ActiveMenu = "product-group-index";
@@ -71,6 +77,25 @@ namespace Sora.Hospital.Areas.Admin.Controllers
                 ViewBag.Message = isCreate ? "Tạo mới nhóm sản phẩm thất bại, vui lòng thử lại." : "Cập nhật nhóm sản phẩm thất bại, vui lòng thử lại.";
                 ViewData["Groups"] = _productGroupService.GetAll();
                 return View("Detail", dto);
+            }
+        }
+
+
+        [HttpDelete]
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                _productGroupService.Delete(id);
+                TempData["Success"] = true;
+                TempData["Message"] = "Xóa nhóm sản phẩm thành công.";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["Success"] = false;
+                TempData["Message"] = "Xóa nhóm sản phẩm thất bại. Vui lòng thử lại";
+                return RedirectToAction("Index");
             }
         }
         #endregion

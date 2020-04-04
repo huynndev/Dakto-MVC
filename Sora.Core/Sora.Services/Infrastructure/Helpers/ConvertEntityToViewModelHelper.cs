@@ -178,5 +178,15 @@ namespace Sora.Services.Infrastructure.Helpers
                 : Constants.PATH_IMAGE_DOCTOR.GenerateFullUrl(dto.MEDoctorPicture);
             return dto;
         }
+
+        public static ProductViewModel FullUrlImageProduct(this ProductViewModel dto)
+        {
+            if (dto == null)
+                return null;
+            dto.ICProductPicture = dto.ICProductPicture.IsNullOrWhiteSpace()
+                ? Constants.PATH_IMAGE.GenerateFullUrl("noavatar.gif")
+                : Constants.PATH_IMAGE_PRODUCT.GenerateFullUrl(dto.ICProductPicture);
+            return dto;
+        }
     }
 }

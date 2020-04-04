@@ -40,7 +40,7 @@ namespace Sora.Hospital.Controllers
         /// </summary>
         [HttpGet]
         [Route("get-by-category/{categoryId}/{page}/{pageSize}")]
-        public HttpResponseMessage GetArticleByCategoryID(int categoryId, int page = 1, int pageSize = 20, string sortOption = "")
+        public HttpResponseMessage GetArticleByCategoryID(int categoryId, int page, int pageSize, string sortOption = "")
         {
             int totalRow = 0;
             var articles = _articleService.GetArticleByCategoryID(categoryId, page, pageSize, sortOption, out totalRow).Where(x=>x.ICArticleDate <= DateTime.Now);

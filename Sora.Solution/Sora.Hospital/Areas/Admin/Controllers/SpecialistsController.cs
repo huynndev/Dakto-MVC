@@ -104,7 +104,7 @@ namespace Sora.Hospital.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Success"] = true;
+                TempData["Success"] = false;
                 TempData["Message"] = "Xóa chuyên khoa thất bại. Vui lòng thử lại";
                 return RedirectToAction("Index");
             }
