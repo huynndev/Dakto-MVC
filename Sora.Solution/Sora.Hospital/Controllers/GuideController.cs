@@ -12,18 +12,18 @@ using System.Web.Http;
 namespace Sora.Hospital.Controllers
 {
     [RoutePrefix("api/article")]
-    public class ArticleController : ApiControllerBase
+    public class GuideController : ApiControllerBase
     {
         private IArticleService _articleService;
 
-        public ArticleController(IArticleService articleService)
+        public GuideController(IArticleService articleService)
             : base()
         {
             this._articleService = articleService;
         }
-
+        
         /// <summary>
-        /// Lấy chi tiết bài viết
+        /// Lấy chi tiết bài viết hướng dẫn bệnh nhân
         /// </summary>
         [HttpGet]
         [Route("get/{articleId}")]
@@ -37,14 +37,14 @@ namespace Sora.Hospital.Controllers
         }
 
         /// <summary>
-        /// Lấy những bài viết thuộc danh mục tin tức
+        /// Lấy danh sách bài viết
         /// </summary>
         [HttpGet]
-        [Route("get-by-category/{categoryId}/{page}/{pageSize}")]
-        public HttpResponseMessage GetArticleByCategoryID(int categoryId, int page, int pageSize, string sortOption = "")
+        [Route("filter/{page}/{pageSize}")]
+        public HttpResponseMessage GetArticleByCategoryID(int page, int pageSize, string sortOption = "")
         {
             int totalRow = 0;
-            var articles = _articleService.GetArticleByCategoryID(categoryId, page, pageSize, sortOption, out totalRow, ArticleType.Article).Where(x=>x.ICArticleDate <= DateTime.Now);
+            var articles = _articleService.GetArticleByCategoryID(0, page, pageSize, sortOption, out totalRow, ArticleType.Guide).Where(x => x.ICArticleDate <= DateTime.Now);
             var paginationSet = new PagedResult<ArticleViewModel>()
             {
                 Items = articles.ToArray(),
@@ -54,17 +54,6 @@ namespace Sora.Hospital.Controllers
                 TotalPages = articles.Count() % pageSize == 0 ? articles.Count() / pageSize : (articles.Count() / pageSize) + 1
             };
             return Request.CreateResponse(HttpStatusCode.OK, paginationSet);
-        }
-
-        /// <summary>
-        /// Lấy danh sách bài viết nổi bật
-        /// </summary>
-        [HttpGet]
-        [Route("featured")]
-        public HttpResponseMessage GetArticlesFeatured()
-        {
-            var result = _articleService.GetArticlesFeatured();
-            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
     }
 }

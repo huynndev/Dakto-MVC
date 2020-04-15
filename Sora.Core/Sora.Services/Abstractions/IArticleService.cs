@@ -1,4 +1,5 @@
-﻿using Sora.Services.ViewModels;
+﻿using Sora.Common.Enums;
+using Sora.Services.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Sora.Services.Abstractions
 
         ArticleViewModel GetArticleByID(int articleID);
 
-        IEnumerable<ArticleViewModel> GetArticleByCategoryID(int categoryID, int page, int pageSize, string sortOption, out int totalRow, string search = null);
+        IEnumerable<ArticleViewModel> GetArticleByCategoryID(int categoryID, int page, int pageSize, string sortOption, out int totalRow, ArticleType type, string search = null);
 
         List<ArticleViewModel> GetArticlesFeatured();
 

@@ -228,6 +228,7 @@
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CompanyConfigController.cs" />
     <Compile Include="Areas\Admin\Controllers\DoctorsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GuideController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductGroupsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SALogController.cs" />
@@ -239,6 +240,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ContactMessageController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Controllers\GuideController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ScriptController.cs" />
@@ -3712,6 +3714,8 @@
     <Content Include="Areas\Admin\Views\ProductGroups\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Guide\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Guide\Detail.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />

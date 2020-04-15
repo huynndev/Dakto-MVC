@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Sora.Common.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Sora.Services.ViewModels
 {
@@ -20,6 +22,7 @@ namespace Sora.Services.ViewModels
 
         public string ICArticleShortContent { get; set; }
 
+        [AllowHtml]
         public string ICArticleContent { get; set; }
 
         public string ICArticlePicture { get; set; }
@@ -35,5 +38,7 @@ namespace Sora.Services.ViewModels
         public bool ICArticleIsFeatured { get; set; } = false;
 
         public int ICArticleFeaturedSortOrder { get; set; }
+
+        public string ICArticleType { get; set; } = ArticleType.Article.ToString();
     }
 }

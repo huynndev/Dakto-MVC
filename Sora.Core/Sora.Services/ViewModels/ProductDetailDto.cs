@@ -10,6 +10,6 @@
 
         public decimal ICProductDetailTotalAmout { get; set; }
 
-        public ShortProductDto Product { get; set; }
+        public ProductViewModel Product { get; set; }
     }
 }

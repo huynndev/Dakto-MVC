@@ -1,4 +1,5 @@
-﻿using Sora.Entites.IC;
+﻿using Sora.Common.Enums;
+using Sora.Entites.IC;
 using Sora.Hospital.Infrastructure.CommonObjects;
 using Sora.Hospital.Infrastructure.Security;
 using Sora.Services.Abstractions;
@@ -50,7 +51,7 @@ namespace Sora.Hospital.Areas.Admin.Controllers
             if (!pageSize.HasValue) pageSize = 10;
             try
             {
-                var list = _articleService.GetArticleByCategoryID(categoryId.GetValueOrDefault(), page.GetValueOrDefault() -1 , pageSize.GetValueOrDefault(), "", out totalRecords, search);
+                var list = _articleService.GetArticleByCategoryID(categoryId.GetValueOrDefault(), page.GetValueOrDefault() -1 , pageSize.GetValueOrDefault(), "", out totalRecords, ArticleType.Article, search);
 
                 articleListingModel.MainArticleList.List = list.ToList();
                 articleListingModel.MainArticleList.Lang = "vn";

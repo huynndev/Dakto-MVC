@@ -93,7 +93,7 @@ namespace Sora.Services.Infrastructure
                 var childProducts = _productDetailRepository.GetAll().Include(x=>x.ICProduct).Where(x => x.FK_ICProductParentID == id).ToList();
                 if (!childProducts.IsNullOrEmpty())
                 {
-                    result.ProductDetails = childProducts.Select(x => x.ToProductDetailDto()).ToArray();
+                    result.ProductDetails = childProducts.Select(x => x.ToProductDetailDto(Get(x.FK_ICProductID.GetValueOrDefault()))).ToArray();
                     result.ChildProductString = JsonConvert.SerializeObject(childProducts.Select(x => new JsonChildProductDto { id = x.FK_ICProductID.GetValueOrDefault(), quantity = (int)x.ICProductDetailQty }));
                 }
                 return result;

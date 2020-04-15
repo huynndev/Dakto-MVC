@@ -1,4 +1,6 @@
-﻿namespace Sora.Services.ViewModels
+﻿using System.Web.Mvc;
+
+namespace Sora.Services.ViewModels
 {
     public class ProductViewModel
     {
@@ -14,6 +16,7 @@
 
         public string ICProductTitle { get; set; }
 
+        [AllowHtml]
         public string ICProductContent { get; set; }
 
         public bool ICProductIsShowWeb { get; set; }

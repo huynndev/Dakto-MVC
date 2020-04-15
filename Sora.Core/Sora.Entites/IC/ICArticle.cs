@@ -1,4 +1,5 @@
-﻿using Sora.Entites.Interfaces;
+﻿using Sora.Common.Enums;
+using Sora.Entites.Interfaces;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -43,6 +44,8 @@ namespace Sora.Entites.IC
         public bool ICArticleIsFeatured { get; set; }
 
         public int ICArticleFeaturedSortOrder { get; set; }
+
+        public string ICArticleType { get; set; } = ArticleType.Article.ToString();
 
         [ForeignKey("FK_ICArticleCategoryID")]
         public virtual ICArticleCategory ICArticleCategory { get; set; }

@@ -2,14 +2,6 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
-    List<SelectListItem> catlist = new List<SelectListItem>();
-    catlist = (List<SelectListItem>)ViewBag.Categories;
-    bool isBlog = false;
-    if (ViewBag.IsBlog != null)
-    {
-        isBlog = (bool)ViewBag.IsBlog;
-
-    }
 }
 @section css{
     <link href="~/Content/assets/css/select2.min.css" rel="stylesheet" />
@@ -27,7 +19,7 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Bài viết</h4>
+                    <h4>Bài viết hướng dẫn bệnh nhân</h4>
                     <span>Thêm mới / Sửa thông tin bài viết</span>
                 </div>
             </div>
@@ -41,14 +33,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        @if (isBlog)
-                        {
-                            <a href="@Url.Action("blogscategory","Articles")">Blogs</a>
-                        }
-                        else
-                        {
-                            <a href="@Url.Action("newscategory","Articles")">Tin tức</a>
-                        }
+                        <a href="@Url.Action("Index","Guide")">Hướng dẫn bệnh nhân</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="#!">Cập nhập</a>
@@ -64,7 +49,7 @@
         <div class="col-sm-12">
             <!-- Zero config.table start -->
 
-            @using (Html.BeginForm("ArticleDetail", "Articles", new { articleId = Model.ICArticleID, isBlog = isBlog }, FormMethod.Post, new { enctype = "multipart/form-data", @id = "formData", @class = "form-validate form-page" }))
+            @using (Html.BeginForm("Save", "Guide", new { articleId = Model.ICArticleID }, FormMethod.Post, new { enctype = "multipart/form-data", @id = "formData", @class = "form-validate form-page" }))
             {
                 <div class="card" style="padding:10px">
                     <div class="card-header">
@@ -86,12 +71,6 @@
                         <div class="row">
                             <div class=" col-12">
                                 <div class="form-group">
-                                    <label>Danh mục</label>
-                                    @Html.DropDownListFor(model => model.FK_ICArticleCategoryID, catlist, "---Chọn---",new { @class = "form-control", placeholder = "Tên danh mục" })
-                                </div>
-                            </div>
-                            <div class=" col-12">
-                                <div class="form-group">
                                     <label>Tiêu đề</label>
                                     @Html.TextBoxFor(model => model.ICArticleTitle, new { @class = "form-control", placeholder = "Tiêu đề", maxlength = 250, autocomplete = "off", onchange = "updateAlias(this);", required = "required" })
                                 </div>
@@ -99,9 +78,9 @@
                             <div class=" col-12">
                                 <div class="form-group">
                                     <label>URL</label><div onclick="selectText(this.id)" id="elementID">
-                                        @ViewBag.websiteURL/a/@Html.TextBoxFor(model => model.ICArticleFriendlyUrl, new { @class = "form-control friendlyUrl", placeholder = "đường dẫn", autocomplete = "off"})
+                                        @ViewBag.websiteURL/a/@Html.TextBoxFor(model => model.ICArticleFriendlyUrl, new { @class = "form-control friendlyUrl", placeholder = "đường dẫn", autocomplete = "off" })
                                         @*@if (Model.CreateDate != DateTime.MinValue && !ViewBag.IsCreate)
-                                        {<input type="button" class="btn-mini" value="Xem trên website" onclick="window.open('//@ViewBag.websiteURL/a/'+$('#FriendlyUrl').val()+'/@Model.ArticleId.ToString().ToLower()', '_blank');" />}*@
+                                            {<input type="button" class="btn-mini" value="Xem trên website" onclick="window.open('//@ViewBag.websiteURL/a/'+$('#FriendlyUrl').val()+'/@Model.ArticleId.ToString().ToLower()', '_blank');" />}*@
                                     </div>
                                 </div>
                             </div>
@@ -150,17 +129,6 @@
                             <div class=" col-12">
                                 <div class="row">
                                     <div class="col-3">
-                                        <label style="display:block">Nổi bật</label>
-                                        @Html.CheckBoxFor(model => model.ICArticleIsFeatured, new { @class = "border-checkbox-label" })
-                                        <label for="@Html.IdFor(model => model.ICArticleIsFeatured)">Là bài viết nổi bật</label>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-group">
-                                            <label>Thứ tự hiển thị bài viết nổi bật</label>
-                                            @Html.TextBoxFor(model => model.ICArticleFeaturedSortOrder, new { @class = "form-control ", @type = "number" })
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
                                         <label style="display:block">Hiển thị trên trang chủ</label>
                                         @Html.CheckBoxFor(model => model.ICArticleIsShowHome, new { @class = "border-checkbox-label" })
                                         <label for="@Html.IdFor(model => model.ICArticleIsShowHome)">Cho phép hiển thị</label>
@@ -184,7 +152,7 @@
                                 <div class="form-group" style="margin: auto;padding: 13px;">
                                     <span style="float:right">
                                         <button type="submit" class="btn btn-space btn-primary ">Lưu</button>
-                                        @Html.ActionLink("Trở lại", "ArticleListing", new { Controller = "articles", isBlog = isBlog }, new { @class = "btn btn-space btn-default" })
+                                        @Html.ActionLink("Trở lại", "Index", new { Controller = "Guide" }, new { @class = "btn btn-space btn-default" })
                                     </span>
                                 </div>
                             </div>

@@ -46,7 +46,7 @@ namespace Sora.Hospital.Controllers
         [Route("{id}")]
         public HttpResponseMessage Get([FromUri] int id)
         {
-            var result = _productService.Get(id);
+            var result = _productService.Get(id).FullUrlImageProduct();
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 

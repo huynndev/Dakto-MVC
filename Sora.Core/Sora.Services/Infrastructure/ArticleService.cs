@@ -1,4 +1,5 @@
-﻿using Sora.EFCore.Infrastructure;
+﻿using Sora.Common.Enums;
+using Sora.EFCore.Infrastructure;
 using Sora.EFCore.Repositories;
 using Sora.Entites.IC;
 using Sora.Services.Abstractions;
@@ -20,12 +21,12 @@ namespace Sora.Services.Infrastructure
             this._unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<ArticleViewModel> GetArticleByCategoryID(int categoryID, int page, int pageSize, string sortOption, out int totalRow, string search = null)
+        public IEnumerable<ArticleViewModel> GetArticleByCategoryID(int categoryID, int page, int pageSize, string sortOption, out int totalRow, ArticleType type, string search = null)
         {
-            var articles = _articleRepository.GetMulti(o => o.FK_ICArticleCategoryID == categoryID).Where(x => string.IsNullOrWhiteSpace(search) || x.ICArticleTitle.ToLower().Contains(search.ToLower())).Skip(page * pageSize).Take(pageSize);
+            var articles = _articleRepository.GetMulti(o => o.FK_ICArticleCategoryID == categoryID && o.ICArticleType.Equals(type.ToString())).Where(x => string.IsNullOrWhiteSpace(search) || x.ICArticleTitle.ToLower().Contains(search.ToLower())).Skip(page * pageSize).Take(pageSize);
             if(categoryID == 0)
             {
-                articles = _articleRepository.GetMulti(o => o.AAStatus == "Alive").Where(x => string.IsNullOrWhiteSpace(search) || x.ICArticleTitle.ToLower().Contains(search.ToLower())).Skip(page * pageSize).Take(pageSize);
+                articles = _articleRepository.GetMulti(o => o.AAStatus == "Alive" && o.ICArticleType.Equals(type.ToString())).Where(x => string.IsNullOrWhiteSpace(search) || x.ICArticleTitle.ToLower().Contains(search.ToLower())).Skip(page * pageSize).Take(pageSize);
             }
             switch (sortOption)
             {
@@ -66,7 +67,8 @@ namespace Sora.Services.Infrastructure
                 ICArticleTags = article.ICArticleTags,
                 ICArticleIsShowHome = article.ICArticleIsShowHome ?? false,
                 ICArticleIsFeatured = article.ICArticleIsFeatured,
-                ICArticleFeaturedSortOrder = article.ICArticleFeaturedSortOrder
+                ICArticleFeaturedSortOrder = article.ICArticleFeaturedSortOrder,
+                ICArticleType = article.ICArticleType
             };
         }
 
@@ -87,7 +89,8 @@ namespace Sora.Services.Infrastructure
                 ICArticleTags = article.ICArticleTags,
                 ICArticleIsShowHome = article.ICArticleIsShowHome,
                 ICArticleIsFeatured = article.ICArticleIsFeatured,
-                ICArticleFeaturedSortOrder = article.ICArticleFeaturedSortOrder
+                ICArticleFeaturedSortOrder = article.ICArticleFeaturedSortOrder,
+                ICArticleType = article.ICArticleType
             };
         }
 
@@ -122,7 +125,7 @@ namespace Sora.Services.Infrastructure
 
         public List<ArticleViewModel> GetArticlesFeatured()
         {
-            var articles = _articleRepository.GetAll().Where(x => x.ICArticleIsFeatured).OrderBy(x => x.ICArticleFeaturedSortOrder).ToList();
+            var articles = _articleRepository.GetAll().Where(x => x.ICArticleIsFeatured && x.ICArticleType.Equals(ArticleType.Article.ToString())).OrderBy(x => x.ICArticleFeaturedSortOrder).ToList();
             return articles.Select(x => ToArticleViewModel(x)).ToList();
         }
     }

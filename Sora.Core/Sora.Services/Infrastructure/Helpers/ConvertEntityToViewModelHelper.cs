@@ -156,7 +156,17 @@ namespace Sora.Services.Infrastructure.Helpers
                 return null;
             ProductDetailDto dto = new ProductDetailDto();
             dto.CopyPropertiesFrom(entity);
-            dto.Product = entity.ICProduct.ToShortProductDto();
+            dto.Product = entity.ICProduct.ToProductViewModel();
+            return dto;
+        }
+
+        public static ProductDetailDto ToProductDetailDto(this ICProductDetail entity, ProductViewModel product)
+        {
+            if (entity == null)
+                return null;
+            ProductDetailDto dto = new ProductDetailDto();
+            dto.CopyPropertiesFrom(entity);
+            dto.Product = product;
             return dto;
         }
 
