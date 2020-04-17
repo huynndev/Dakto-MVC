@@ -10,6 +10,10 @@ namespace Sora.Common.Constants
 
         public static string PATH_IMAGE_COMPANY = "/Content/Upload/Company/";
 
+        public static string PATH_IMAGE_COMMUNE = "/Content/Upload/Communes/";
+
+        public static string PATH_IMAGE_DOCUMENT = "/Content/Upload/Documents/";
+
         public static string PATH_IMAGE = "/Content/images/";
 
         public static List<string> ACCEPT_FILE_IMAGE = new List<string>() { ".png", ".jpg", ".gif", ".jpeg", ".pdf" };

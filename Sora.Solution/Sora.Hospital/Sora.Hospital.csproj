@@ -226,8 +226,11 @@
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\ArticlesController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommunesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CompanyConfigController.cs" />
     <Compile Include="Areas\Admin\Controllers\DoctorsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DocumentsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DocumentTypesController.cs" />
     <Compile Include="Areas\Admin\Controllers\GuideController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductGroupsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
@@ -237,9 +240,11 @@
     <Compile Include="Areas\Admin\Controllers\SpecialistTypesController.cs" />
     <Compile Include="Controllers\ArticleCategoryController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\CommuneController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ContactMessageController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\GuideController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -3362,6 +3367,7 @@
     <Content Include="Content\Upload\Article\Da nang_1_1_260919_042019.jpg" />
     <Content Include="Content\Upload\Article\no-img-article.png" />
     <Content Include="Content\Upload\Article\readme.txt" />
+    <Content Include="Content\Upload\Communes\no-img-article.png" />
     <Content Include="Content\Upload\Companies\0b67e944-9a32-4812-b49a-023c129d1638.png" />
     <Content Include="Content\Upload\Companies\1176c6e5-354a-4019-97a7-c5ad2f18ca0b.png" />
     <Content Include="Content\Upload\Companies\1ca45de7-9c18-425d-a0ce-8091d99bd0eb.png" />
@@ -3716,6 +3722,12 @@
     <Content Include="Areas\Admin\Views\Products\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Guide\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Guide\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Communes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Communes\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\DocumentTypes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DocumentTypes\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Documents\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Documents\Detail.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -3767,6 +3779,7 @@
     <Folder Include="Content\ckfinder\bin\Release\" />
     <Folder Include="Content\Upload\Company\" />
     <Folder Include="Content\Upload\Doctors\" />
+    <Folder Include="Content\Upload\Documents\" />
     <Folder Include="Content\Upload\Products\" />
     <Folder Include="Models\" />
     <Folder Include="Uploads\files\" />

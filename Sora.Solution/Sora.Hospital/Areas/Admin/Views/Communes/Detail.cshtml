@@ -1,0 +1,182 @@
+﻿@model Sora.Services.ViewModels.CommuneViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
+    var isSuccess = ViewBag.Success;
+    var Message = ViewBag.Message;
+}
+@section css{
+    <link href="~/Content/assets/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: #01a9ac !important;
+            border: 1px solid #01a9ac !important;
+            padding: 5px 15px !important;
+        }
+    </style>
+}
+<!-- Page-header start -->
+<div class="page-header horizontal-layout-icon">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <div class="d-inline">
+                    <h4>Tuyến xã</h4>
+                    <span>Thêm mới / Sửa thông tin</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item">
+                        <a href="~/Admin">
+                            <i class="icofont icofont-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index","Communes")">Tuyến xã</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#!">Cập nhập</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page-header end -->
+<div class="page-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Zero config.table start -->
+
+            @using (Html.BeginForm("Save", "Communes", new { articleId = Model.CommuneID }, FormMethod.Post, new { enctype = "multipart/form-data", @id = "formData", @class = "form-validate form-page" }))
+            {
+                <div class="card" style="padding:10px">
+                    <div class="card-header">
+                        <!-- Nav tabs -->
+                        <h5>Chỉnh sửa thông tin bài viết</h5>
+                        <div class="card-header-right">
+                            <ul class="list-unstyled card-option">
+                                <li><i class="feather icon-maximize full-card"></i></li>
+                                <li><i class="feather minimize-card icon-minus"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.CommuneID)
+
+                    <div class="card-block">
+                        <div class="row">
+                            <div class=" col-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-xs-12 pl-0">
+                                        <div class=" col-12">
+                                            <div class="form-group">
+                                                <label>Tên</label>
+                                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Tên", maxlength = 250, autocomplete = "off", onchange = "updateAlias(this);", required = "required" })
+                                            </div>
+                                        </div>
+                                        <div class=" col-12">
+                                            <div class="form-group">
+                                                <label>Địa chỉ</label>
+                                                @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = "Địa chỉ", maxlength = 250, autocomplete = "off", onchange = "updateAlias(this);", required = "required" })
+                                            </div>
+                                        </div>
+                                        <div class=" col-12">
+                                            <div class="form-group">
+                                                <label>Mô tả ngắn</label>
+                                                @Html.TextAreaFor(model => model.ShortContent, new { @class = "form-control ", placeholder = "Mô tả ngắn", autocomplete = "off", rows = 3, maxlength = 1000, required = "required" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-xs-12 d-flex align-items-center">
+                                        <div class="form-group aligncenter mb-0">
+                                            <input type="hidden" name="ICArticlePicture" value="@Model.Image" />
+                                            <img class="" style="height:150px;  max-height:150px;max-width:250px; border:1px solid #808080; padding: 2px;" src="~/Content/Upload/Communes/@(!string.IsNullOrWhiteSpace(Model.Image) ? Model.Image : "no-img-article.png")" alt="no image" name="picture" id="picture" />
+                                            <br />
+                                            <input type="file" name="avatar" onchange="SetImagePreview(this,'image')" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="form-group">
+                                    <label>Nội dung</label>
+                                    @Html.TextAreaFor(model => model.FullContent, new { @class = "form-control editor box-content", placeholder = "Mô tả ngắn", autocomplete = "off", rows = 15, required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="margin-bottom:50px;">
+                    <div class="card-block" style="padding-bottom:15px;">
+                        <div class="row">
+                            <div class="col-12 align-center">
+                                <div class="form-group" style="margin: auto;padding: 13px;">
+                                    <span style="float:right">
+                                        <button type="submit" class="btn btn-space btn-primary ">Lưu</button>
+                                        @Html.ActionLink("Trở lại", "Index", new { Controller = "Communes" }, new { @class = "btn btn-space btn-default" })
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- Zero config.table end -->
+        </div>
+    </div>
+</div>
+
+<!-- Confirm mail end-->
+@section scripts {
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/ckeditor/config.js"></script>
+    <script src="~/Content/ckeditor/adapters/jquery.js"></script>
+    <script type="text/javascript" src="~/Content/ckfinder/ckfinder.js"></script>
+    @if (isSuccess != null)
+    {
+        if (isSuccess)
+        {
+            <script>
+                toastr.success('@Message', 'Thành công');
+            </script>
+        }
+        else
+        {
+            <script>
+                toastr.error('@Message', 'Thất bại',{timeOut: 8000});
+            </script>
+        }
+    }
+    <script type="text/javascript">
+        $(function () {
+            var $form = $("#formData");
+            $(".editor")
+                .ckeditor();
+
+            //CKFinder.setupCKEditor(null, "/Uploads");
+        });
+        function SetImagePreview(input, picId) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#picture').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $('form#formData input[name="Name"]').on('change valid invalid keyup', function () {
+            this.setCustomValidity('');
+            if (this.value.trim() === '') {
+                this.setCustomValidity('Trường này là bắt buộc');
+            }
+        });
+    </script>
+    <script src="~/Content/Adminty/assets/js/send-mail-article.js"></script>
+}
+
+

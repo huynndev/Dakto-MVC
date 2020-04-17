@@ -79,10 +79,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\IDocumentService.cs" />
     <Compile Include="Abstractions\IAccountService.cs" />
     <Compile Include="Abstractions\IArticleCategoryService.cs" />
     <Compile Include="Abstractions\IArticleService.cs" />
     <Compile Include="Abstractions\ICommonService.cs" />
+    <Compile Include="Abstractions\ICommuneService.cs" />
     <Compile Include="Abstractions\ICompanyService.cs" />
     <Compile Include="Abstractions\IContactMessageService.cs" />
     <Compile Include="Abstractions\IDoctorService.cs" />
@@ -97,9 +99,11 @@
     <Compile Include="Infrastructure\ArticleCategoryService.cs" />
     <Compile Include="Infrastructure\ArticleService.cs" />
     <Compile Include="Infrastructure\CommonService.cs" />
+    <Compile Include="Infrastructure\CommuneService.cs" />
     <Compile Include="Infrastructure\CompanyService.cs" />
     <Compile Include="Infrastructure\ContactMessageService.cs" />
     <Compile Include="Infrastructure\DoctorService.cs" />
+    <Compile Include="Infrastructure\DocumentService.cs" />
     <Compile Include="Infrastructure\Helpers\ConvertEntityToViewModelHelper.cs" />
     <Compile Include="Infrastructure\Helpers\ConvertViewModelToEntityHelper.cs" />
     <Compile Include="Infrastructure\LoginService.cs" />
@@ -114,10 +118,13 @@
     <Compile Include="ViewModels\ArticleCategoryViewModel.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\CommonViewModel.cs" />
+    <Compile Include="ViewModels\CommuneViewModel.cs" />
     <Compile Include="ViewModels\CompanyViewModel.cs" />
     <Compile Include="ViewModels\ContactMessageViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\DoctorViewModel.cs" />
+    <Compile Include="ViewModels\DocumentTypeViewModel.cs" />
+    <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="ViewModels\FeedbackViewModel.cs" />
     <Compile Include="ViewModels\FooterViewModel.cs" />
     <Compile Include="ViewModels\JsonChildProductDto.cs" />

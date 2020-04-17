@@ -8,9 +8,11 @@
     Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
     var isSuccess = ViewBag.Success;
     var Message = ViewBag.Message;
-    var result = (PagedResult<ProductViewModel>)Model;
+    var result = (PagedResult<DocumentViewModel>)Model;
     int counter = 1;
     var search = (string)ViewBag.Search;
+    var types = (List<DocumentTypeViewModel>)ViewData["Types"];
+    var typeSearch = (int?)ViewBag.Type;
 }
 
 <!-- Page-header start -->
@@ -19,8 +21,8 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Quản lý sản phẩm</h4>
-                    <span>Danh sách sản phẩm. Bạn có thể sửa, thêm mới và xóa</span>
+                    <h4>Quản lý văn bản</h4>
+                    <span>Danh sách văn bản. Bạn có thể sửa, thêm mới và xóa</span>
                 </div>
             </div>
         </div>
@@ -33,7 +35,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="@Url.Action("Index","Doctors")">Sản phẩm</a>
+                        <a href="@Url.Action("Index","Documents")">Văn bản</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="#!">Danh sách</a>
@@ -53,8 +55,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header contact-header">
-                        <h5 class="mt-2">Danh sách sản phẩm</h5>
-                        <a href="@Url.Action("Create", "Products")" class="btn btn-mid btn-success">Thêm mới sản phẩm</a>
+                        <h5 class="mt-2">Danh sách văn bản</h5>
+                        <a href="@Url.Action("Create", "Documents")" class="btn btn-mid btn-success">Thêm mới văn bản</a>
                         <div class="card-header-right">
                             <ul class="list-unstyled card-option">
                                 <li>
@@ -65,14 +67,14 @@
                                 </li>
                             </ul>
                         </div>
-                        @using (Html.BeginForm("Index", "Products", FormMethod.Get, new
+                        @using (Html.BeginForm("Index", "Documents", FormMethod.Get, new
                         {
                             @class = "w-100"
                         }))
                         {
                             <div class="row mt-3">
                                 <div class="input-search d-flex align-items-center mx-3">
-                                    <label class="mb-0" style="width: 170px">Tên sản phẩm</label>
+                                    <label class="mb-0" style="width: 170px">Tìm kiếm</label>
                                     @Html.TextBox("search", search, new
                                     {
                                         @class = "form-control",
@@ -81,17 +83,18 @@
                                     })
                                 </div>
                                 <div class="select-specialist d-flex align-items-center ml-2">
-                                        <label class="mb-0" style="width: 170px">Loại sản phẩm</label>
-                                        <select class="form-control" name="productType" id="product-type">
-                                            <option>Chọn loại sản phẩm</option>
-                                            <option value="Service" @(ViewBag.ProductType == "Service" ? "selected" : "")>Dịch vụ</option>
-                                            <option value="ServicePackage" @(ViewBag.ProductType == "ServicePackage" ? "selected" : "")>Gói Dịch vụ</option>
-                                            <option value="MedicalExamination" @(ViewBag.ProductType == "MedicalExamination" ? "selected" : "")>Khám bệnh</option>
-                                        </select>
-                                    </div>
+                                    <label class="mb-0" style="width: 170px">Loại văn bản</label>
+                                    <select class="form-control" name="type" id="document-type">
+                                        <option value="">Chọn loại văn bản</option>
+                                        @foreach (var item in types)
+                                        {
+                                            <option value="@item.DocumentTypeID" @(typeSearch == item.DocumentTypeID ? "selected": "")>@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
                                 <div class="d-flex align-items-center">
                                     <button class="btn btn-primary mx-4" style="height: 38px; padding: 7px 20px;" type="submit">Lọc</button>
-                                    <a href="@Url.Action("Index", "Products")" class="btn btn-primary" style="height: 38px; padding: 7px 20px;">Xóa lọc</a>
+                                    <a href="@Url.Action("Index", "Documents")" class="btn btn-primary" style="height: 38px; padding: 7px 20px;">Xóa lọc</a>
                                 </div>
                             </div>
                         }
@@ -102,59 +105,51 @@
                         <table id="listData" class="table table-striped table-bordered nowrap">
                             <thead>
                                 <tr>
-                                    <th>Thứ tự</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Tiêu đề</th>
-                                    <th>Nhóm sản phẩm</th>
-                                    <th>Thông tin</th>
-                                    <th>Ảnh đại diện</th>
-                                    <th>Thao tác</th>
+                                    <th width="100">Thứ tự</th>
+                                    <th>Số/Ký hiệu</th>
+                                    <th>Ngày ban hành</th>
+                                    <th>Trích yếu</th>
+                                    <th>Nguồn cấp</th>
+                                    <th>Tài liệu</th>
+                                    <th width="150">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (ProductViewModel item in result.Items)
+                                @foreach (DocumentViewModel item in result.Items)
                                 {
                                     <tr>
                                         <td width="60" class="text-center">@(counter++) </td>
                                         <td>
-                                            <strong>@item.ICProductName</strong>
+                                            <strong>@item.DocumentNo</strong>
                                         </td>
                                         <td>
-                                            @item.ICProductTitle
+                                            @String.Format("{0:dd/MM/yyyy}", item.DocumentDate)
                                         </td>
                                         <td style="max-width: 350px; white-space: normal;">
-                                            @(item.ProductGroup == null ? "//" : item.ProductGroup.ICProductGroupName)
-                                        </td>
-                                        <td style="max-width: 350px; white-space: normal;">
-                                            @if (item.ICProductType == ProductType.Service.ToString())
-                                            {
-                                                <span>Dịch vụ</span>
-                                            }
-                                            else if (item.ICProductType == ProductType.ServicePackage.ToString())
-                                            {
-                                                <span>Gói dịch vụ</span>
-                                            }
-                                            else if (item.ICProductType == ProductType.MedicalExamination.ToString())
-                                            {
-                                                <span>Khám bệnh</span>
-                                            }
-                                            <br />Giá: @string.Format("{0:#,0} VNĐ", item.ICProductPrice) <br />
-                                            @(item.ICProductIsShowWeb == true ? "Cho phép hiển thị" : "Không hiển thị")
+                                            @item.Content
                                         </td>
                                         <td>
-                                            <img src="@(!item.ICProductPicture.IsNullOrWhiteSpace() ? string.Format("{0}{1}", Constants.PATH_IMAGE_PRODUCT, item.ICProductPicture) : "/Content/images/noavatar.gif")" class="avater-image" height="60" />
+                                            Loại văn bản: @item.Type.Name <br />
+                                            Người ký: @item.Signner <br />
+                                            Cơ quan ban hành: @item.IssueBy
+                                        </td>
+                                        <td>
+                                            @if (item.File != string.Empty && item.File != null)
+                                            {
+                                                <a href="/api/document/download-file?fileName=@item.File"><i class="feather icon-download"></i> @item.File</a>
+                                            }
                                         </td>
                                         <td align="center">
                                             <div class="btn-group  " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title=".btn-xlg">
 
-                                                @using (Html.BeginForm("Delete", "Products",
-                                                    new { id = item.ICProductID },
+                                                @using (Html.BeginForm("Delete", "Documents",
+                                                    new { id = item.DocumentID },
                                                     FormMethod.Post,
-                                                    new { id = item.ICProductID })
+                                                    new { id = item.DocumentID })
                                                 )
                                                 {
                                                     @Html.HttpMethodOverride(HttpVerbs.Delete){
-                                                        @Html.ActionLink("Sửa", "Detail", "Products", new { id = item.ICProductID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
+                                                        @Html.ActionLink("Sửa", "Detail", "Documents", new { id = item.DocumentID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
                                                         <input class="btn btn-primary btn-sm waves-effect waves-light" type="submit" value="Xóa" onclick="return confirm('Bạn chắc chắn có muốn xóa!');" />
                                                     }
                                                 }
@@ -183,7 +178,7 @@
                                         <td colspan="8">
                                             <div class="d-flex align-items-center">
                                                 <span class="pr-2">Số dòng/trang</span>
-                                                @using (Html.BeginForm("Index", "Products", FormMethod.Get, new { id = "changePageSize" }))
+                                                @using (Html.BeginForm("Index", "Documents", FormMethod.Get, new { id = "changePageSize" }))
                                                 {
                                                     @Html.DropDownList("pageSize",
                                                         new List<SelectListItem> {
@@ -201,12 +196,12 @@
                                             <div class="text-center">
                                                 <ul class="pagination mb-2">
                                                     <li class="footable-page-nav" data-page="first">
-                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Products", new { page = 1, pageSize=Request.Params["pageSize"] })'">
+                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Documents", new { page = 1, pageSize=Request.Params["pageSize"] })'">
                                                             «
                                                         </button>
                                                     </li>
                                                     <li class="footable-page-nav" data-page="first">
-                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Products", new { page = currentPage, pageSize=Request.Params["pageSize"] })'">
+                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Documents", new { page = currentPage, pageSize=Request.Params["pageSize"] })'">
                                                             ‹
                                                         </button>
                                                     </li>
@@ -217,7 +212,7 @@
                                                             if ((currentPage <= 2 && i < 5) || (currentPage > 2 && (i >= currentPage - 2 || i >= totalPage - 5) && i <= currentPage + 2))
                                                             {
                                                                 <li class="footable-page visible @(i == currentPage ? "active": "")">
-                                                                    @Html.ActionLink((i + 1).ToString(), "Index", "Products", new { page = i + 1, pageSize = Request.Params["pageSize"] }, new { @class = "btn btn-sm footable-page-link" })
+                                                                    @Html.ActionLink((i + 1).ToString(), "Index", "Documents", new { page = i + 1, pageSize = Request.Params["pageSize"] }, new { @class = "btn btn-sm footable-page-link" })
                                                                 </li>
                                                             }
 
@@ -225,12 +220,12 @@
 
                                                     }
                                                     <li class="footable-page-nav" data-page="first">
-                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Products", new { page = currentPage + 2, pageSize=Request.Params["pageSize"] })'">
+                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Documents", new { page = currentPage + 2, pageSize=Request.Params["pageSize"] })'">
                                                             ›
                                                         </button>
                                                     </li>
                                                     <li class="footable-page-nav" data-page="first">
-                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Products", new { page = totalPage, pageSize=Request.Params["pageSize"] })'">
+                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Documents", new { page = totalPage, pageSize=Request.Params["pageSize"] })'">
                                                             »
                                                         </button>
                                                     </li>

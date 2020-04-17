@@ -1,26 +1,66 @@
 ﻿@using Sora.Services.ViewModels
 @using Sora.Common.CommonObjects
 @using Sora.Common.Extensions
-@using Sora.Common.Enums
 @using Sora.Common.Constants
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
+    var result = (PagedResult<CommuneViewModel>)Model;
+    int counter = 1;
     var isSuccess = ViewBag.Success;
     var Message = ViewBag.Message;
-    var result = (PagedResult<ProductViewModel>)Model;
-    int counter = 1;
-    var search = (string)ViewBag.Search;
 }
+@section css{
+    <link href="~/Content/assets/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .box-img-avatar {
+            position: relative;
+            overflow: hidden;
+            width: 230px;
+            height: 270px;
+            max-width: 100%;
+            max-height: 100%;
+            margin-bottom: -15px;
+            border: 1px solid #bfbfbf;
+        }
 
+        .img-avatar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .lable-input {
+            position: absolute;
+            background: #0000004f;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            margin-bottom: 0;
+            height: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ffe1;
+            cursor: pointer;
+        }
+
+        .input-search {
+            width: 320px;
+        }
+    </style>
+}
 <!-- Page-header start -->
 <div class="page-header horizontal-layout-icon">
     <div class="row align-items-end">
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Quản lý sản phẩm</h4>
-                    <span>Danh sách sản phẩm. Bạn có thể sửa, thêm mới và xóa</span>
+                    <h4>Quản lý tuyến xã</h4>
+                    <span>Danh sách tuyến xã. Bạn có thể sửa, thêm mới và xóa</span>
                 </div>
             </div>
         </div>
@@ -33,7 +73,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="@Url.Action("Index","Doctors")">Sản phẩm</a>
+                        <a href="@Url.Action("Index","Commune")">Tuyến xã</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="#!">Danh sách</a>
@@ -43,7 +83,6 @@
         </div>
     </div>
 </div>
-
 <!-- Page-header end -->
 <!-- Page-header end -->
 <div class="page-body">
@@ -52,9 +91,26 @@
             <!-- Zero config.table start -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-header contact-header">
-                        <h5 class="mt-2">Danh sách sản phẩm</h5>
-                        <a href="@Url.Action("Create", "Products")" class="btn btn-mid btn-success">Thêm mới sản phẩm</a>
+                    <div class="card-header row contact-header">
+                        <h5 class="mt-2">Danh sách tuyến xã</h5>
+                        <a href="@Url.Action("Create", "Communes")" style="height: 37px" class="btn btn-mid btn-success">Thêm mới tuyến xã</a>
+                        @using (Html.BeginForm("Index", "Communes", FormMethod.Get, new
+                        {
+                            @class = "w-50"
+                        }))
+                        {
+                            <div class="input-group mb-3 w-50 ml-5">
+                                <button type="submit" class="input-group-text btn-search input-group-prepend px-2" id="basic-addon1">
+                                    <i class="feather icon-search"></i>
+                                </button>
+                                @Html.TextBox("search", null, new
+                                {
+                                    @class = "form-control",
+                                    placeholder = "Tìm kiếm",
+                                    id = "search"
+                                })
+                            </div>
+                        }
                         <div class="card-header-right">
                             <ul class="list-unstyled card-option">
                                 <li>
@@ -65,36 +121,6 @@
                                 </li>
                             </ul>
                         </div>
-                        @using (Html.BeginForm("Index", "Products", FormMethod.Get, new
-                        {
-                            @class = "w-100"
-                        }))
-                        {
-                            <div class="row mt-3">
-                                <div class="input-search d-flex align-items-center mx-3">
-                                    <label class="mb-0" style="width: 170px">Tên sản phẩm</label>
-                                    @Html.TextBox("search", search, new
-                                    {
-                                        @class = "form-control",
-                                        placeholder = "Tìm kiếm",
-                                        id = "search"
-                                    })
-                                </div>
-                                <div class="select-specialist d-flex align-items-center ml-2">
-                                        <label class="mb-0" style="width: 170px">Loại sản phẩm</label>
-                                        <select class="form-control" name="productType" id="product-type">
-                                            <option>Chọn loại sản phẩm</option>
-                                            <option value="Service" @(ViewBag.ProductType == "Service" ? "selected" : "")>Dịch vụ</option>
-                                            <option value="ServicePackage" @(ViewBag.ProductType == "ServicePackage" ? "selected" : "")>Gói Dịch vụ</option>
-                                            <option value="MedicalExamination" @(ViewBag.ProductType == "MedicalExamination" ? "selected" : "")>Khám bệnh</option>
-                                        </select>
-                                    </div>
-                                <div class="d-flex align-items-center">
-                                    <button class="btn btn-primary mx-4" style="height: 38px; padding: 7px 20px;" type="submit">Lọc</button>
-                                    <a href="@Url.Action("Index", "Products")" class="btn btn-primary" style="height: 38px; padding: 7px 20px;">Xóa lọc</a>
-                                </div>
-                            </div>
-                        }
                     </div>
                 </div>
                 <div class="card-block">
@@ -103,58 +129,38 @@
                             <thead>
                                 <tr>
                                     <th>Thứ tự</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Tiêu đề</th>
-                                    <th>Nhóm sản phẩm</th>
-                                    <th>Thông tin</th>
-                                    <th>Ảnh đại diện</th>
-                                    <th>Thao tác</th>
+                                    <th>Tên</th>
+                                    <th>Mô tả</th>
+                                    <th>Hình ảnh</th>
+                                    <th width="150">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (ProductViewModel item in result.Items)
+                                @foreach (CommuneViewModel item in result.Items)
                                 {
                                     <tr>
                                         <td width="60" class="text-center">@(counter++) </td>
                                         <td>
-                                            <strong>@item.ICProductName</strong>
+                                            <strong>@item.Name</strong> <br />
+                                            <i>@item.Address</i>
                                         </td>
                                         <td>
-                                            @item.ICProductTitle
-                                        </td>
-                                        <td style="max-width: 350px; white-space: normal;">
-                                            @(item.ProductGroup == null ? "//" : item.ProductGroup.ICProductGroupName)
-                                        </td>
-                                        <td style="max-width: 350px; white-space: normal;">
-                                            @if (item.ICProductType == ProductType.Service.ToString())
-                                            {
-                                                <span>Dịch vụ</span>
-                                            }
-                                            else if (item.ICProductType == ProductType.ServicePackage.ToString())
-                                            {
-                                                <span>Gói dịch vụ</span>
-                                            }
-                                            else if (item.ICProductType == ProductType.MedicalExamination.ToString())
-                                            {
-                                                <span>Khám bệnh</span>
-                                            }
-                                            <br />Giá: @string.Format("{0:#,0} VNĐ", item.ICProductPrice) <br />
-                                            @(item.ICProductIsShowWeb == true ? "Cho phép hiển thị" : "Không hiển thị")
+                                            @item.ShortContent
                                         </td>
                                         <td>
-                                            <img src="@(!item.ICProductPicture.IsNullOrWhiteSpace() ? string.Format("{0}{1}", Constants.PATH_IMAGE_PRODUCT, item.ICProductPicture) : "/Content/images/noavatar.gif")" class="avater-image" height="60" />
+                                            <img src="@(!item.Image.IsNullOrWhiteSpace() ? string.Format("{0}{1}", Constants.PATH_IMAGE_COMMUNE, item.Image) : "/Content/images/noavatar.gif")" class="avater-image" height="60" />
                                         </td>
                                         <td align="center">
                                             <div class="btn-group  " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title=".btn-xlg">
 
-                                                @using (Html.BeginForm("Delete", "Products",
-                                                    new { id = item.ICProductID },
+                                                @using (Html.BeginForm("Delete", "Communes",
+                                                    new { id = item.CommuneID },
                                                     FormMethod.Post,
-                                                    new { id = item.ICProductID })
+                                                    new { id = item.CommuneID })
                                                 )
                                                 {
                                                     @Html.HttpMethodOverride(HttpVerbs.Delete){
-                                                        @Html.ActionLink("Sửa", "Detail", "Products", new { id = item.ICProductID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
+                                                        @Html.ActionLink("Sửa", "Detail", "Communes", new { id = item.CommuneID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
                                                         <input class="btn btn-primary btn-sm waves-effect waves-light" type="submit" value="Xóa" onclick="return confirm('Bạn chắc chắn có muốn xóa!');" />
                                                     }
                                                 }
@@ -183,7 +189,7 @@
                                         <td colspan="8">
                                             <div class="d-flex align-items-center">
                                                 <span class="pr-2">Số dòng/trang</span>
-                                                @using (Html.BeginForm("Index", "Products", FormMethod.Get, new { id = "changePageSize" }))
+                                                @using (Html.BeginForm("Index", "Communes", FormMethod.Get, new { id = "changePageSize" }))
                                                 {
                                                     @Html.DropDownList("pageSize",
                                                         new List<SelectListItem> {
@@ -201,12 +207,12 @@
                                             <div class="text-center">
                                                 <ul class="pagination mb-2">
                                                     <li class="footable-page-nav" data-page="first">
-                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Products", new { page = 1, pageSize=Request.Params["pageSize"] })'">
+                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Communes", new { page = 1, pageSize=Request.Params["pageSize"] })'">
                                                             «
                                                         </button>
                                                     </li>
                                                     <li class="footable-page-nav" data-page="first">
-                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Products", new { page = currentPage, pageSize=Request.Params["pageSize"] })'">
+                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Communes", new { page = currentPage, pageSize=Request.Params["pageSize"] })'">
                                                             ‹
                                                         </button>
                                                     </li>
@@ -217,7 +223,7 @@
                                                             if ((currentPage <= 2 && i < 5) || (currentPage > 2 && (i >= currentPage - 2 || i >= totalPage - 5) && i <= currentPage + 2))
                                                             {
                                                                 <li class="footable-page visible @(i == currentPage ? "active": "")">
-                                                                    @Html.ActionLink((i + 1).ToString(), "Index", "Products", new { page = i + 1, pageSize = Request.Params["pageSize"] }, new { @class = "btn btn-sm footable-page-link" })
+                                                                    @Html.ActionLink((i + 1).ToString(), "Index", "Communes", new { page = i + 1, pageSize = Request.Params["pageSize"] }, new { @class = "btn btn-sm footable-page-link" })
                                                                 </li>
                                                             }
 
@@ -225,12 +231,12 @@
 
                                                     }
                                                     <li class="footable-page-nav" data-page="first">
-                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Products", new { page = currentPage + 2, pageSize=Request.Params["pageSize"] })'">
+                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Communes", new { page = currentPage + 2, pageSize=Request.Params["pageSize"] })'">
                                                             ›
                                                         </button>
                                                     </li>
                                                     <li class="footable-page-nav" data-page="first">
-                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Products", new { page = totalPage, pageSize=Request.Params["pageSize"] })'">
+                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Communes", new { page = totalPage, pageSize=Request.Params["pageSize"] })'">
                                                             »
                                                         </button>
                                                     </li>

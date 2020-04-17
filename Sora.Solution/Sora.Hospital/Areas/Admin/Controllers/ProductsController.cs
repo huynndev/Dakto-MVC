@@ -109,7 +109,7 @@ namespace Sora.Hospital.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 ViewBag.Success = false;
-                ViewBag.Message = isCreate ? "Tạo mới sản phẩm thất bại, vui lòng thử lại." : "Cập nhật sản phẩm thất bại, vui lòng thử lại."; ;
+                ViewBag.Message = isCreate ? "Tạo mới sản phẩm thất bại, vui lòng thử lại." : "Cập nhật sản phẩm thất bại, vui lòng thử lại.";
                 ViewData["Groups"] = _productGroupService.GetAll();
                 ViewData["Specialists"] = _specialistService.GetAll();
                 ViewData["Products"] = _productService.GetAll();

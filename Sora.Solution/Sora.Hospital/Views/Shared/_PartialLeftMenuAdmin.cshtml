@@ -27,16 +27,11 @@
                         <span class="pcoded-mtext">Danh sách bài viết</span>
                     </a>
                 </li>
-                @*<li class=" " id="tags-index">
-                    <a href="@Url.Action("index","Tags")">
-                        <span class="pcoded-mtext">Quản lý Tags</span>
-                    </a>
-                </li>*@
             </ul>
         </li>
         <li class=" pcoded-hasmenu">
             <a href="javascript:void(0)">
-                <span class="pcoded-micon"><i class="feather icon-file-text"></i></span>
+                <span class="pcoded-micon"><i class="feather icon-clipboard"></i></span>
                 <span class="pcoded-mtext">Hướng dẫn bệnh nhân</span>
             </a>
             <ul class="pcoded-submenu">
@@ -68,11 +63,6 @@
                         <span class="pcoded-mtext">Quản lý hồ sơ bác sĩ</span>
                     </a>
                 </li>
-                @*<li class=" " id="tags-index">
-                    <a href="@Url.Action("index","Tags")">
-                        <span class="pcoded-mtext">Quản lý Tags</span>
-                    </a>
-                </li>*@
             </ul>
         </li>
         <li class=" pcoded-hasmenu">
@@ -91,67 +81,39 @@
                         <span class="pcoded-mtext">Quản lý sản phẩm</span>
                     </a>
                 </li>
-                @*<li class=" " id="tags-index">
-                    <a href="@Url.Action("index","Tags")">
-                        <span class="pcoded-mtext">Quản lý Tags</span>
-                    </a>
-                </li>*@
             </ul>
         </li>
-        @*<li class=" pcoded-hasmenu">
+        <li class=" pcoded-hasmenu">
             <a href="javascript:void(0)">
-                <span class="pcoded-micon"><i class="feather icon-image"></i></span>
-                <span class="pcoded-mtext">Nôi dung mở rộng</span>
+                <span class="pcoded-micon"><i class="feather icon-layers"></i></span>
+                <span class="pcoded-mtext">Tuyến xã</span>
             </a>
             <ul class="pcoded-submenu">
-                <li class=" " id="media-img">
-                    <a href="@Url.Action("images","media")">
-                        <span class="pcoded-mtext">Hình ảnh</span>
-                    </a>
-                </li>
-                <li class=" " id="media-video">
-                    <a href="@Url.Action("videos","media")">
-                        <span class="pcoded-mtext">Videos</span>
+                <li class=" " id="commune-index">
+                    <a href="@Url.Action("Index","Communes")">
+                        <span class="pcoded-mtext">Quản lý tuyến xã</span>
                     </a>
                 </li>
             </ul>
-        </li>*@
-        @*}
-        @if (currentUser != null && currentUser.Permissions.Exists(x => x == SimpleCMS.Data.Models.Constants.Role.CustomerInforManagement.ToString()
-        || x == SimpleCMS.Data.Models.Constants.Role.ContactManagement.ToString()
-        || x == SimpleCMS.Data.Models.Constants.Role.ConfigManagement.ToString()))
-        {*@
-        @*<li class=" pcoded-hasmenu">
+        </li>
+        <li class=" pcoded-hasmenu">
             <a href="javascript:void(0)">
-                <span class="pcoded-micon"><i class="feather icon-feather"></i></span>
-                <span class="pcoded-mtext">Thông tin liên hệ</span>
+                <span class="pcoded-micon"><i class="feather icon-book"></i></span>
+                <span class="pcoded-mtext">Văn bản</span>
             </a>
             <ul class="pcoded-submenu">
-                <li class="" id="contact-index">
-                    <a href="@Url.Action("Index","Contact")">
-                        <span class="pcoded-mtext">Danh sách</span>
+                <li class=" " id="document-type-index">
+                    <a href="@Url.Action("Index","DocumentTypes")">
+                        <span class="pcoded-mtext">Quản lý loại văn bản</span>
                     </a>
                 </li>
-                <li class=" " id="contact-new">
-                    <a href="@Url.Action("NewContact","Contact")">
-                        <span class="pcoded-mtext">Chưa xử lý</span>
+                <li class=" " id="document-index">
+                    <a href="@Url.Action("Index","Documents")">
+                        <span class="pcoded-mtext">Quản lý văn bản</span>
                     </a>
                 </li>
             </ul>
-        </li>*@
-        @*<li class="pcoded-hasmenu mn-main" id="expert-index">
-            <a href="/Admin/Expert/Index">
-                <span class="pcoded-micon"><i class="feather icon-users"></i></span>
-                <span class="pcoded-mtext">Danh sách chuyên gia</span>
-            </a>
-        </li>*@
-        @*<li class=" pcoded-hasmenu mn-main" id="user-list">
-            <a href="@Url.Action("index", "User")">
-                <span class="pcoded-micon"><i class="feather icon-users"></i></span>
-                <span class="pcoded-mtext">Người dùng</span>
-            </a>
-        </li>*@
-
+        </li>
         <li class="pcoded-hasmenu">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="feather icon-sliders"></i></span>

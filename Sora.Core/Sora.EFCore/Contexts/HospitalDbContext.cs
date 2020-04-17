@@ -1,5 +1,6 @@
 ﻿using Sora.Entites.AD;
 using Sora.Entites.CS;
+using Sora.Entites.GE;
 using Sora.Entites.IC;
 using Sora.Entites.ME;
 using System.Data.Entity;
@@ -38,6 +39,11 @@ namespace Sora.EFCore.Contexts
         public DbSet<ICProduct> ICProducts { get; set; }
 
         public DbSet<ICProductDetail> ICProductDetails { get; set; }
+
+        public DbSet<Commune> Commmunes { get; set; }
+
+        public DbSet<DocumentType> DocumentTypes { get; set; }
+        public DbSet<Document> Documents { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

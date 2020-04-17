@@ -1,4 +1,5 @@
 ﻿using Sora.Common.Extensions;
+using Sora.Entites.GE;
 using Sora.Entites.IC;
 using Sora.Entites.ME;
 using Sora.Services.ViewModels;
@@ -38,6 +39,27 @@ namespace Sora.Services.Infrastructure.Helpers
         public static ICProduct ToICProduct(this ProductViewModel dto)
         {
             ICProduct entity = new ICProduct();
+            entity.CopyPropertiesFrom(dto);
+            return entity;
+        }
+
+        public static Commune ToCommune(this CommuneViewModel dto)
+        {
+            Commune entity = new Commune();
+            entity.CopyPropertiesFrom(dto);
+            return entity;
+        }
+
+        public static DocumentType ToDocumentType(this DocumentTypeViewModel dto)
+        {
+            DocumentType entity = new DocumentType();
+            entity.CopyPropertiesFrom(dto);
+            return entity;
+        }
+
+        public static Document ToDocument(this DocumentViewModel dto)
+        {
+            Document entity = new Document();
             entity.CopyPropertiesFrom(dto);
             return entity;
         }

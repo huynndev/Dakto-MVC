@@ -58,6 +58,7 @@
     <Compile Include="AD\Log.cs" />
     <Compile Include="BR\BRBranch.cs" />
     <Compile Include="CS\CSCompany.cs" />
+    <Compile Include="GE\Commune.cs" />
     <Compile Include="GE\Country.cs" />
     <Compile Include="GE\District.cs" />
     <Compile Include="GE\GECountry.cs" />
@@ -68,6 +69,8 @@
     <Compile Include="GE\Ward.cs" />
     <Compile Include="HR\HRDepartment.cs" />
     <Compile Include="HR\HREmployee.cs" />
+    <Compile Include="IC\Document.cs" />
+    <Compile Include="IC\DocumentType.cs" />
     <Compile Include="IC\ICArticle.cs" />
     <Compile Include="IC\ICArticleCategory.cs" />
     <Compile Include="IC\ICContactMessage.cs" />

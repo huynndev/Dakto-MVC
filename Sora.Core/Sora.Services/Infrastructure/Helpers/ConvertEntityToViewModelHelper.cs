@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Sora.Common.Constants;
 using Sora.Common.Extensions;
+using Sora.Entites.GE;
 using Sora.Entites.IC;
 using Sora.Entites.ME;
 using Sora.Services.ViewModels;
@@ -206,6 +207,37 @@ namespace Sora.Services.Infrastructure.Helpers
             dto.CSCompanyAvatar = dto.CSCompanyAvatar.IsNullOrWhiteSpace()
                 ? Constants.PATH_IMAGE.GenerateFullUrl("noavatar.gif")
                 : Constants.PATH_IMAGE_COMPANY.GenerateFullUrl(dto.CSCompanyAvatar);
+            return dto;
+        }
+
+        public static CommuneViewModel ToCommuneViewModel(this Commune entity)
+        {
+            if (entity == null)
+                return null;
+            CommuneViewModel dto = new CommuneViewModel();
+            dto.CopyPropertiesFrom(entity);
+            dto.CommuneID = entity.CommuneID;
+            return dto;
+        }
+
+        public static DocumentTypeViewModel ToDocumentTypeViewModel(this DocumentType entity)
+        {
+            if (entity == null)
+                return null;
+            DocumentTypeViewModel dto = new DocumentTypeViewModel();
+            dto.CopyPropertiesFrom(entity);
+            dto.DocumentTypeID = entity.DocumentTypeID;
+            return dto;
+        }
+
+        public static DocumentViewModel ToDocumentViewModel(this Document entity)
+        {
+            if (entity == null)
+                return null;
+            DocumentViewModel dto = new DocumentViewModel();
+            dto.CopyPropertiesFrom(entity);
+            dto.DocumentID = entity.DocumentID;
+            dto.Type = entity.DocumentType.ToDocumentTypeViewModel();
             return dto;
         }
     }
