@@ -43,7 +43,10 @@ namespace Sora.EFCore.Contexts
         public DbSet<Commune> Commmunes { get; set; }
 
         public DbSet<DocumentType> DocumentTypes { get; set; }
+
         public DbSet<Document> Documents { get; set; }
+
+        public DbSet<Appointment> Appointments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

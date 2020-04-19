@@ -1,5 +1,6 @@
 ﻿using Sora.Hospital.Infrastructure.Core;
 using Sora.Services.Abstractions;
+using Sora.Services.Infrastructure.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace Sora.Hospital.Controllers
         public HttpResponseMessage Filter(int page, int pageSize, string search)
         {
             var result = _communeService.Filter(page, pageSize, search);
+            result.Items = result.Items.Select(x => x.FullUrlImageCommune()).ToArray();
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
@@ -42,7 +44,7 @@ namespace Sora.Hospital.Controllers
         [Route("{id}")]
         public HttpResponseMessage Detail(int id)
         {
-            var result = _communeService.Get(id);
+            var result = _communeService.Get(id).FullUrlImageCommune();
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
         #endregion

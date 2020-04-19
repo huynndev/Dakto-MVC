@@ -63,5 +63,22 @@ namespace Sora.Services.Infrastructure.Helpers
             entity.CopyPropertiesFrom(dto);
             return entity;
         }
+
+        public static Appointment ToAppointment(this AppointmentViewModel dto)
+        {
+            Appointment entity = new Appointment();
+            entity.CopyPropertiesFrom(dto);
+            return entity;
+        }
+
+        public static Appointment ToAppointment(this CreateAppointmentDto dto)
+        {
+            Appointment entity = new Appointment();
+            entity.CopyPropertiesFrom(dto);
+            entity.DayOfBirth = dto.DayOfBirth.FromUnixTimeStamp();
+            entity.FirstDay = dto.FirstDay.FromUnixTimeStamp();
+            entity.SecondDay = dto.SecondDay.FromUnixTimeStamp();
+            return entity;
+        }
     }
 }

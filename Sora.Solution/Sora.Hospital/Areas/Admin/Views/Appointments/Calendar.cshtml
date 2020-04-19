@@ -1,0 +1,154 @@
+﻿@using System.Configuration
+@using Sora.Services.ViewModels
+@section css{
+    @Styles.Render("~/bundles/css/counselingSchedule")
+}
+
+@{
+    /**/
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
+    var result = (List<ShortAppointmentDto>)Model;
+    var a = 1;
+}
+<!-- Page-header start -->
+<div class="page-header horizontal-layout-icon">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <div class="d-inline">
+                    <h4>
+                        Lịch khám bệnh
+                    </h4>
+                    <span>Xem lịch các thông tin đặt lịch khám đã xử lý</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item">
+                        <a href="~/Admin/Manager">
+                            <i class="icofont icofont-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#!">Quản lý lịch khám</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page-header end -->
+<!-- Page-body start -->
+<div class="page-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Zero config.table start -->
+            <div class="card px-3">
+                <div class="card-block">
+                    <div class="dt-responsive table-responsive">
+                        <div class="pt-4">
+                            <div id='calendar'></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Zero config.table end -->
+        </div>
+    </div>
+</div>
+
+<!-- Page-body end -->
+@section scripts {
+    @Scripts.Render("~/bundles/javascript/counselingSchedule")
+    <script type="text/javascript">
+        function submitChange(value) {
+            $('#changePageSize').submit();
+        }
+        function convertDate(value) {
+            if (value) {
+                var re = /-?\d+/;
+                var m = re.exec(value);
+                var d = new Date(parseInt(m[0]));
+                d.setHours(d.getHours() - 7);
+                return d;
+            } else {
+                return null;
+            }
+        }
+    </script>
+    <script>
+        var listAppointments =  @Html.Raw(Json.Encode(result));
+        var dataFullCalendar1 = listAppointments.map(item => {
+            if (item.FirstDay != null) {
+                return {
+                    title: item.LastName + " " + item.FirstName,
+                    description:'<label>Tên khách hàng: ' + item.LastName + " " + item.FirstName + '</label><br/>'+
+                        '<label>Giới tính: ' + (item.Gender == 'Male' ? 'Nam' : 'Nữ') + '</label><br/>' +
+                        '<label>Số điện thoại: ' + item.Phone + '</label><br/>' +
+                        '<label>Email: ' + item.Email + '</label><br/>' +
+                        '<label>Thời gian hẹn: ' + (convertDate(item.FirstDay) ? convertDate(item.FirstDay).toLocaleString('en-GB') : 'Chưa có') + '</label><br/>',
+                    start: convertDate(item.FirstDay),
+                    end: convertDate(item.FirstDay),
+                    url: "/Admin/Appointments/Detail/" + item.Id,
+                    color: '#c9eced'
+                }
+            }
+        })
+        var dataFullCalendar2 = listAppointments.map(item => {
+            if (item.SecondDay != null) {
+                return {
+                    title: item.LastName + " " + item.FirstName,
+                    description: '<label>Tên khách hàng: ' + item.LastName + " " + item.FirstName + '</label><br/>' +
+                        '<label>Giới tính: ' + (item.Gender == 'Male' ? 'Nam' : 'Nữ') + '</label><br/>' +
+                        '<label>Số điện thoại: ' + item.Phone + '</label><br/>' +
+                        '<label>Email: ' + item.Email + '</label><br/>' +
+                        '<label>Thời gian hẹn: ' + (convertDate(item.FirstDay) ? convertDate(item.FirstDay).toLocaleString('en-GB') : 'Chưa có') + '</label><br/>',
+                    start: convertDate(item.SecondDay),
+                    end: convertDate(item.SecondDay),
+                    url: "/Admin/Appointments/Detail/" + item.Id,
+                    color: '#c9eced'
+                }
+            }
+        })
+        var calendarEl = document.getElementById('calendar');
+        document.addEventListener('DOMContentLoaded',
+            function () {
+                calendar = new FullCalendar.Calendar(calendarEl,
+                    {
+                        plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'],
+                        header: {
+                            left: 'prev today next',
+                            center: 'title',
+                            right: 'dayGridMonth timeGridWeek timeGridDay listWeek'
+                        },
+                        navLinks: true, // can click day/week names to navigate views
+                        businessHours: true, // display business hours
+                        weekNumberCalculation: 'ISO',
+                        displayEventEnd: true,
+                        editable: false,
+                        events: dataFullCalendar1.concat(dataFullCalendar2),
+                        eventRender: function (info) {
+                            var tooltip = new Tooltip(info.el, {
+                                title: info.event.extendedProps.description,
+                                placement: 'top',
+                                trigger: 'hover',
+                                container: 'body',
+                                html: true,
+                            });
+                        },
+                        eventLimit: true,
+                        agenda: 'h:mm tt{ - h:mm tt}',
+                        eventClick: function (info) {
+                            // change the border color just for fun
+                            info.el.style.borderColor = 'red';
+                            console.log(info);
+                        }
+                    });
+                calendar.render();
+            });
+    </script>
+}

@@ -48,9 +48,12 @@
     <Compile Include="CommonObjects\SelectionData.cs" />
     <Compile Include="Constants\AudiableStatus.cs" />
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Enums\AppointmentStatus.cs" />
     <Compile Include="Enums\ArticleType.cs" />
+    <Compile Include="Enums\Gender.cs" />
     <Compile Include="Enums\ProductType.cs" />
     <Compile Include="Enums\SpecialistsType.cs" />
+    <Compile Include="Extensions\DateTimeConvertHelper.cs" />
     <Compile Include="Extensions\EnumrableExtensions.cs" />
     <Compile Include="Extensions\ObjectExtension.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

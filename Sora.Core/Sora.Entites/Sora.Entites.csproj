@@ -69,6 +69,7 @@
     <Compile Include="GE\Ward.cs" />
     <Compile Include="HR\HRDepartment.cs" />
     <Compile Include="HR\HREmployee.cs" />
+    <Compile Include="IC\Appointment.cs" />
     <Compile Include="IC\Document.cs" />
     <Compile Include="IC\DocumentType.cs" />
     <Compile Include="IC\ICArticle.cs" />

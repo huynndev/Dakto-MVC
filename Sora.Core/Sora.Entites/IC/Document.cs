@@ -1,11 +1,14 @@
 ﻿using Sora.Entites.Interfaces;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sora.Entites.IC
 {
     public class Document : Auditable
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DocumentID { get; set; }
 
         public string DocumentNo { get; set; }

@@ -224,6 +224,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AppointmentsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ArticlesController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunesController.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="Areas\Admin\Controllers\ManagerController.cs" />
     <Compile Include="Areas\Admin\Controllers\SpecialistsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SpecialistTypesController.cs" />
+    <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\ArticleCategoryController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\CommuneController.cs" />
@@ -3320,6 +3322,64 @@
     <Content Include="Content\ckfinder\skins\v1\uipanel.css" />
     <Content Include="Content\ckfinder\translations.txt" />
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\background-events.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\daygrid-views.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\default.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\external-dragging-2cals.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\external-dragging-builtin.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\full-height.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\google-calendar.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\json.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\js\theme-chooser.js" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\list-views.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\locales.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\php\get-events.php" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\php\get-time-zones.php" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\php\utils.php" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\rrule.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\selectable.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\themes.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\time-zones.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\timegrid-views.html" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\week-numbers.html" />
+    <Content Include="Content\fullcalendar-4.2.0\LICENSE.txt" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\bootstrap\main.css" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\bootstrap\main.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\bootstrap\main.min.css" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\bootstrap\main.min.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\core\locales-all.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\core\locales-all.min.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\core\main.css" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\core\main.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\core\main.min.css" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\core\main.min.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\core\popper.min.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\core\tooltip.min.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\daygrid\main.css" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\daygrid\main.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\daygrid\main.min.css" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\daygrid\main.min.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\google-calendar\main.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\google-calendar\main.min.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\interaction\main.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\interaction\main.min.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\list\main.css" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\list\main.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\list\main.min.css" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\list\main.min.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\luxon\main.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\luxon\main.min.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\moment-timezone\main.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\moment-timezone\main.min.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\moment\main.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\moment\main.min.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\rrule\main.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\rrule\main.min.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\timegrid\main.css" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\timegrid\main.js" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\timegrid\main.min.css" />
+    <Content Include="Content\fullcalendar-4.2.0\packages\timegrid\main.min.js" />
+    <Content Include="Content\fullcalendar-4.2.0\vendor\rrule.js" />
     <Content Include="Content\images\forgotpass.jpg" />
     <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\logomiracle.png" />
@@ -3728,6 +3788,11 @@
     <Content Include="Areas\Admin\Views\DocumentTypes\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Documents\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Documents\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Appointments\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Appointments\Detail.cshtml" />
+    <Content Include="Content\fullcalendar-4.2.0\CHANGELOG.md" />
+    <Content Include="Content\fullcalendar-4.2.0\demos\json\events.json" />
+    <Content Include="Areas\Admin\Views\Appointments\Calendar.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -3836,7 +3901,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52787</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44305/</IISUrl>
+          <IISUrl>http://localhost:44305/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

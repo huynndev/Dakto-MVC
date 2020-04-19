@@ -8,11 +8,11 @@
     Layout = "~/Views/Shared/_LayoutSimpleAdmin.cshtml";
     var isSuccess = ViewBag.Success;
     var Message = ViewBag.Message;
-    var result = (PagedResult<DocumentViewModel>)Model;
+    var result = (PagedResult<AppointmentViewModel>)Model;
     int counter = 1;
     var search = (string)ViewBag.Search;
-    var types = (List<DocumentTypeViewModel>)ViewData["Types"];
-    var typeSearch = (int?)ViewBag.Type;
+    var specialistId = (int?)ViewBag.Specialist;
+    var specialists = (List<SpecialistViewModel>)ViewData["Specialists"];
 }
 
 <!-- Page-header start -->
@@ -21,8 +21,8 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Quản lý văn bản</h4>
-                    <span>Danh sách văn bản. Bạn có thể sửa, thêm mới và xóa</span>
+                    <h4>Quản lý đặt lịch khám bệnh</h4>
+                    <span>Danh sách đăng ký khám. Bạn có thể sửa, thêm mới và xóa</span>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="@Url.Action("Index","Documents")">Văn bản</a>
+                        <a href="@Url.Action("Index","Appointments")">Đặt lịch khám bệnh</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="#!">Danh sách</a>
@@ -55,8 +55,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header contact-header">
-                        <h5 class="mt-2">Danh sách văn bản</h5>
-                        <a href="@Url.Action("Create", "Documents")" class="btn btn-mid btn-success">Thêm mới văn bản</a>
+                        <h5 class="mt-2">Danh sách đặt lịch khám bệnh</h5>
+                        @*<a href="@Url.Action("Create", "Appointments")" class="btn btn-mid btn-success">Thêm mới</a>*@
                         <div class="card-header-right">
                             <ul class="list-unstyled card-option">
                                 <li>
@@ -67,14 +67,14 @@
                                 </li>
                             </ul>
                         </div>
-                        @using (Html.BeginForm("Index", "Documents", FormMethod.Get, new
+                        @using (Html.BeginForm("Index", "Appointments", FormMethod.Get, new
                         {
                             @class = "w-100"
                         }))
                         {
                             <div class="row mt-3">
                                 <div class="input-search d-flex align-items-center mx-3">
-                                    <label class="mb-0" style="width: 170px">Tìm kiếm</label>
+                                    <label class="mb-0" style="width: 100px">Tìm kiếm</label>
                                     @Html.TextBox("search", search, new
                                     {
                                         @class = "form-control",
@@ -83,18 +83,18 @@
                                     })
                                 </div>
                                 <div class="select-specialist d-flex align-items-center ml-2">
-                                    <label class="mb-0" style="width: 170px">Loại văn bản</label>
-                                    <select class="form-control" name="type" id="document-type">
-                                        <option value="">Chọn loại văn bản</option>
-                                        @foreach (var item in types)
+                                    <label class="mb-0" style="width: 150px">Chuyên khoa</label>
+                                    <select class="form-control" name="specialistId" id="document-type">
+                                        <option value="">Chọn chuyên khoa</option>
+                                        @foreach (var item in specialists)
                                         {
-                                            <option value="@item.DocumentTypeID" @(typeSearch == item.DocumentTypeID ? "selected": "")>@item.Name</option>
+                                            <option value="@item.MESpecialistID" @(specialistId == item.MESpecialistID ? "selected" : "")>@item.MESpecialistName</option>
                                         }
                                     </select>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <button class="btn btn-primary mx-4" style="height: 38px; padding: 7px 20px;" type="submit">Lọc</button>
-                                    <a href="@Url.Action("Index", "Documents")" class="btn btn-primary" style="height: 38px; padding: 7px 20px;">Xóa lọc</a>
+                                    <a href="@Url.Action("Index", "Appointments")" class="btn btn-primary" style="height: 38px; padding: 7px 20px;">Xóa lọc</a>
                                 </div>
                             </div>
                         }
@@ -106,50 +106,56 @@
                             <thead>
                                 <tr>
                                     <th width="100">Thứ tự</th>
-                                    <th>Số/Ký hiệu</th>
-                                    <th>Ngày ban hành</th>
-                                    <th>Trích yếu</th>
-                                    <th>Nguồn cấp</th>
-                                    <th>Tài liệu</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Thông tin</th>
+                                    <th>Ngày đăng ký</th>
+                                    <th>Chuyên khoa</th>
+                                    <th>Trạng thái</th>
                                     <th width="150">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (DocumentViewModel item in result.Items)
+                                @foreach (AppointmentViewModel item in result.Items)
                                 {
                                     <tr>
                                         <td width="60" class="text-center">@(counter++) </td>
                                         <td>
-                                            <strong>@item.DocumentNo</strong>
-                                        </td>
-                                        <td>
-                                            @string.Format("{0:dd/MM/yyyy}", item.DocumentDate)
-                                        </td>
-                                        <td style="max-width: 350px; white-space: normal;">
-                                            @item.Content
-                                        </td>
-                                        <td>
-                                            Loại văn bản: @item.Type.Name <br />
-                                            Người ký: @item.Signner <br />
-                                            Cơ quan ban hành: @item.IssueBy
-                                        </td>
-                                        <td>
-                                            @if (item.File != string.Empty && item.File != null)
+                                            <strong>@string.Format("{0} {1}", item.LastName, item.FirstName)</strong> <br />
+                                            @if (item.Gender == Gender.Male.ToString())
                                             {
-                                                <a href="/api/document/download-file?fileName=@item.File"><i class="feather icon-download"></i> @item.File</a>
+                                                <span>Nam - </span>
                                             }
+                                            else
+                                            {
+                                                <span>Nữ - </span>
+                                            }
+                                            <span>@string.Format("{0:dd/MM/yyyy}", item.DayOfBirth)</span> <br />
+                                        </td>
+                                        <td>
+                                            <span>@item.Email</span> <br />
+                                            <span>@item.Phone</span>
+                                        </td>
+                                        <td>
+                                            Ngày 1: @string.Format("{0:dd/MM/yyyy hh.tt}", item.FirstDay)<br />
+                                            Ngày 2: @string.Format("{0:dd/MM/yyyy hh.tt}", item.SecondDay)
+                                        </td>
+                                        <td>
+                                            @(item.Specialist?.MESpecialistName)
+                                        </td>
+                                        <td>
+                                            @(item.Status == AppointmentStatus.Processed.ToString() ? "Đã xử lý" : "Mới")
                                         </td>
                                         <td align="center">
                                             <div class="btn-group  " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title=".btn-xlg">
 
-                                                @using (Html.BeginForm("Delete", "Documents",
-                                                    new { id = item.DocumentID },
+                                                @using (Html.BeginForm("Delete", "Appointments",
+                                                    new { id = item.Id },
                                                     FormMethod.Post,
-                                                    new { id = item.DocumentID })
+                                                    new { id = item.Id })
                                                 )
                                                 {
                                                     @Html.HttpMethodOverride(HttpVerbs.Delete){
-                                                        @Html.ActionLink("Sửa", "Detail", "Documents", new { id = item.DocumentID }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
+                                                        @Html.ActionLink("Sửa", "Detail", "Appointments", new { id = item.Id }, new { @class = "btn btn-primary btn-sm waves-effect waves-light" })
                                                         <input class="btn btn-primary btn-sm waves-effect waves-light" type="submit" value="Xóa" onclick="return confirm('Bạn chắc chắn có muốn xóa!');" />
                                                     }
                                                 }
@@ -178,7 +184,7 @@
                                         <td colspan="8">
                                             <div class="d-flex align-items-center">
                                                 <span class="pr-2">Số dòng/trang</span>
-                                                @using (Html.BeginForm("Index", "Documents", FormMethod.Get, new { id = "changePageSize" }))
+                                                @using (Html.BeginForm("Index", "Appointments", FormMethod.Get, new { id = "changePageSize" }))
                                                 {
                                                     @Html.DropDownList("pageSize",
                                                         new List<SelectListItem> {
@@ -196,12 +202,12 @@
                                             <div class="text-center">
                                                 <ul class="pagination mb-2">
                                                     <li class="footable-page-nav" data-page="first">
-                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Documents", new { page = 1, pageSize=Request.Params["pageSize"] })'">
+                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Appointments", new { page = 1, pageSize=Request.Params["pageSize"] })'">
                                                             «
                                                         </button>
                                                     </li>
                                                     <li class="footable-page-nav" data-page="first">
-                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Documents", new { page = currentPage, pageSize=Request.Params["pageSize"] })'">
+                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Appointments", new { page = currentPage, pageSize=Request.Params["pageSize"] })'">
                                                             ‹
                                                         </button>
                                                     </li>
@@ -212,7 +218,7 @@
                                                             if ((currentPage <= 2 && i < 5) || (currentPage > 2 && (i >= currentPage - 2 || i >= totalPage - 5) && i <= currentPage + 2))
                                                             {
                                                                 <li class="footable-page visible @(i == currentPage ? "active": "")">
-                                                                    @Html.ActionLink((i + 1).ToString(), "Index", "Documents", new { page = i + 1, pageSize = Request.Params["pageSize"] }, new { @class = "btn btn-sm footable-page-link" })
+                                                                    @Html.ActionLink((i + 1).ToString(), "Index", "Appointments", new { page = i + 1, pageSize = Request.Params["pageSize"] }, new { @class = "btn btn-sm footable-page-link" })
                                                                 </li>
                                                             }
 
@@ -220,12 +226,12 @@
 
                                                     }
                                                     <li class="footable-page-nav" data-page="first">
-                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Documents", new { page = currentPage + 2, pageSize=Request.Params["pageSize"] })'">
+                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Appointments", new { page = currentPage + 2, pageSize=Request.Params["pageSize"] })'">
                                                             ›
                                                         </button>
                                                     </li>
                                                     <li class="footable-page-nav" data-page="first">
-                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Documents", new { page = totalPage, pageSize=Request.Params["pageSize"] })'">
+                                                        <button class="footable-page-link" disabled="@(!result.HasPreviousPage)" onclick="location.href = '@Url.Action("Index", "Appointments", new { page = totalPage, pageSize=Request.Params["pageSize"] })'">
                                                             »
                                                         </button>
                                                     </li>

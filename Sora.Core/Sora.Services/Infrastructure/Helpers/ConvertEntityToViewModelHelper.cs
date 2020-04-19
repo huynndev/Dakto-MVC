@@ -240,5 +240,34 @@ namespace Sora.Services.Infrastructure.Helpers
             dto.Type = entity.DocumentType.ToDocumentTypeViewModel();
             return dto;
         }
+        public static CommuneViewModel FullUrlImageCommune(this CommuneViewModel dto)
+        {
+            if (dto == null)
+                return null;
+            dto.Image = dto.Image.IsNullOrWhiteSpace()
+                ? Constants.PATH_IMAGE.GenerateFullUrl("noavatar.gif")
+                : Constants.PATH_IMAGE_COMMUNE.GenerateFullUrl(dto.Image);
+            return dto;
+        }
+
+        public static AppointmentViewModel ToAppointmentViewModel(this Appointment entity)
+        {
+            if (entity == null)
+                return null;
+            AppointmentViewModel dto = new AppointmentViewModel();
+            dto.CopyPropertiesFrom(entity);
+            dto.Id = entity.Id;
+            dto.Specialist = entity.MESpecialist.ToShortSpecialistDto();
+            return dto;
+        }
+
+        public static ShortAppointmentDto ToShortAppointmentDto(this Appointment entity)
+        {
+            if (entity == null)
+                return null;
+            ShortAppointmentDto dto = new ShortAppointmentDto();
+            dto.CopyPropertiesFrom(entity);
+            return dto;
+        }
     }
 }
